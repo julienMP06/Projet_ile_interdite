@@ -1,6 +1,7 @@
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 interface Observer {
@@ -30,6 +31,12 @@ public class IleInterdite {
         EventQueue.invokeLater(() -> {
             CModele modele = new CModele();
             CVue vue = new CVue(modele);
+            modele.getCas(1, 1).etat = 3;
+            for (int i = 0; i < 60; i++) {
+                for (int j = 0; j < 40; j++) {
+                    System.out.println(modele.getCas(i, j).etat);
+                }
+            }
         });
     }
 }
@@ -85,7 +92,6 @@ class Case {
 class CVue {
 
     private JFrame frame;
-
     private VueGrille grille;
     private VueCommandes commandes;
 
@@ -137,6 +143,9 @@ class VueGrille extends JPanel implements Observer {
         if (c.GetEtat() == 2) {
             g.setColor(Color.BLUE);
         }
+        if (c.GetEtat() == 3) {
+            g.setColor(Color.BLACK);
+        }
         g.fillRect(x, y, TAILLE, TAILLE);
     }
 
@@ -153,6 +162,76 @@ class VueCommandes extends JPanel {
         this.add(boutonAvance);
         Controleur ctrl = new Controleur(modele);
         boutonAvance.addActionListener(ctrl);
+
+        /*Test De Déplacement*/
+        JButton button = new JButton("Déplacement");
+        this.add(button);
+        button.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                Point p = button.getLocation();
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_RIGHT:
+                        int y = 0;
+                        int x = 0;
+                        for (int i = 1; i <= CModele.LARGEUR; i++) {
+                            for (int j = 1; j <= CModele.HAUTEUR; j++) {
+                                if (modele.getCas(i, j).etat == 3) {
+                                    x = i;
+                                    y = j;
+                                }
+                            }
+                        }
+                        modele.getCas(x, y).etat = 0;
+                        modele.getCas(x+1, y).etat = 3;
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        y = 0;
+                        x = 0;
+                        for (int i = 1; i <= CModele.LARGEUR; i++) {
+                            for (int j = 1; j <= CModele.HAUTEUR; j++) {
+                                if (modele.getCas(i, j).etat == 3) {
+                                    x = i;
+                                    y = j;
+                                }
+                            }
+                        }
+                        modele.getCas(x, y).etat = 0;
+                        modele.getCas(x-1, y).etat = 3;
+                        break;
+                    case KeyEvent.VK_UP:
+                        y = 0;
+                        x = 0;
+                        for (int i = 1; i <= CModele.LARGEUR; i++) {
+                            for (int j = 1; j <= CModele.HAUTEUR; j++) {
+                                if (modele.getCas(i, j).etat == 3) {
+                                    x = i;
+                                    y = j;
+                                }
+                            }
+                        }
+                        modele.getCas(x, y).etat = 0;
+                        modele.getCas(x, y-1).etat = 3;
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        y = 0;
+                        x = 0;
+                        for (int i = 1; i <= CModele.LARGEUR; i++) {
+                            for (int j = 1; j <= CModele.HAUTEUR; j++) {
+                                if (modele.getCas(i, j).etat == 3) {
+                                    x = i;
+                                    y = j;
+                                }
+                            }
+                        }
+                        modele.getCas(x, y).etat = 0;
+                        modele.getCas(x, y + 1).etat = 3;
+                        break;
+                }
+            }
+            public void keyReleased(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {}
+        });
     }
 }
 
@@ -175,4 +254,3 @@ class Controleur implements ActionListener {
         modele.MAJ();
     }
 }
-
