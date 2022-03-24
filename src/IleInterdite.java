@@ -161,8 +161,10 @@ class Controleur implements ActionListener {
     public Controleur(CModele modele) { this.modele = modele; }
     public void actionPerformed(ActionEvent e) {
         for(int i = 0; i < 3; i++) {
-            int x = (int) (Math.random() * ((VueGrille.GetTaille()-1) - 0));
-            int y = (int) (Math.random() * ((VueGrille.GetTaille())-1 - 0));
+            int x = (int) (Math.random() * (CModele.LARGEUR)+1);
+            int y = (int) (Math.random() * (CModele.HAUTEUR)+1);
+            System.out.println(x);
+            System.out.println(y);
             if (modele.getCas(x,y).etat == 0){
                 modele.getCas(x,y).etat = 1;
             }
