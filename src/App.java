@@ -1,6 +1,6 @@
 import java.awt.*;
 
-//IleInterdite15
+//IleInterdite
 public class App {
     public static void main(String[] args){
         EventQueue.invokeLater(() -> {
