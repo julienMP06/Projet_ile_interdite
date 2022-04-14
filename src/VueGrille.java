@@ -5,7 +5,7 @@ import javax.swing.*;
 
 class VueGrille extends JPanel implements Observer {
     private CModele modele;
-    private final static int TAILLE = 12;
+    private final static int TAILLE = 50;
 
     public VueGrille(CModele modele) {
         this.modele = modele;
@@ -41,12 +41,27 @@ class VueGrille extends JPanel implements Observer {
             g.setColor(Color.BLACK); // apres d'autres coulleurs pour chaque Jr
             
         } else {
-            g.setColor(Color.WHITE);
+            g.setColor(Color.GREEN);
             if (c.GetEtat() == 1) {
                 g.setColor(Color.CYAN);
             }
             if (c.GetEtat() == 2) {
                 g.setColor(Color.BLUE);
+            }
+            if (c.GetEtat() == 10) {
+                g.setColor(Color.DARK_GRAY);
+            }
+            if (c.GetEtat() == 21) {
+                g.setColor(Color.PINK);
+            }
+            if (c.GetEtat() == 22) {
+                g.setColor(Color.RED);
+            }
+            if (c.GetEtat() == 23) {
+                g.setColor(Color.ORANGE);
+            }
+            if (c.GetEtat() == 24) {
+                g.setColor(Color.WHITE);
             }
         }
         g.fillRect(x, y, TAILLE, TAILLE);

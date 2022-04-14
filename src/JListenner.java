@@ -11,6 +11,7 @@ public class JListenner extends KeyAdapter {
         this.modele = modele;
         this.button = btn;
         this.ctrl = ctrl;
+        //this.frame = (JFrame) frame;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class JListenner extends KeyAdapter {
 
                 case KeyEvent.VK_DOWN:
                     
-                     c=modele.getJ_actuel().getC();
+                    c=modele.getJ_actuel().getC();
                     x=c.getX();
                     y=c.getY();
                     modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
@@ -79,5 +80,6 @@ public class JListenner extends KeyAdapter {
     }
 
     public void keyTyped(KeyEvent e) {
+
     }
 }
