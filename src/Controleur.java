@@ -18,10 +18,10 @@ public class Controleur implements ActionListener {
             int x = (int) (Math.random() * (CModele.LARGEUR))+1;
             int y = (int) (Math.random() * (CModele.HAUTEUR))+1;
             if (modele.getCas(x,y).etat == 0 ){
-                modele.getCas(x,y).etat = 1;
+                modele.getCas(x,y).setEtat(1);
             }
             else if (modele.getCas(x,y).etat == 1){
-                modele.getCas(x,y).etat = 2;
+                modele.getCas(x,y).setEtat(2);
             }
         }
         modele.MAJ();
