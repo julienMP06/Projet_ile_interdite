@@ -52,10 +52,10 @@ public class CModele extends Observable {
 
 	public void set_joueurs() {
 		//creer des joueurs et les mettre sur les cases
-		Joueur j_1 = new Joueur(this, this.getCas(1, 1), "joueurs_1");
-		Joueur j_2 = new Joueur(this, this.getCas(6, 6), "joueurs_2");
-		Joueur j_3 = new Joueur(this, this.getCas(1, 6), "joueurs_3");
-		Joueur j_4 = new Joueur(this, this.getCas(6, 1), "joueurs_4");
+		Joueur j_1 = new Joueur(this, this.getCas(3, 1), "joueurs_1");
+		Joueur j_2 = new Joueur(this, this.getCas(6, 3), "joueurs_2");
+		Joueur j_3 = new Joueur(this, this.getCas(4, 6), "joueurs_3");
+		Joueur j_4 = new Joueur(this, this.getCas(1, 4), "joueurs_4");
 		joueurs.add(j_1);
 		joueurs.add(j_2);
 		joueurs.add(j_3);
@@ -104,55 +104,60 @@ public class CModele extends Observable {
 
 	public void ZoneSpéciale() {
 		/*On place aléatoirement l'héliport et les 4 artefacts*/
-		int x =(int) (Math.random()*(6-1)) + 1;
-		int y =(int) (Math.random()*(6-1)) + 1;
+		int x =(int) (Math.random()*(5-2)) + 2;
+		int y =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x, y).etat != 0) {
 			while (this.getCas(x, y).etat != 0) {
-				x = (int) (Math.random() * (6 - 1)) + 1;
-				y = (int) (Math.random() * (6 - 1)) + 1;
+				x = (int) (Math.random() * (5 - 2)) + 2;
+				y = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
+		System.out.println("x"+x+"y"+y+this.getCas(x,y).etat);
 		this.getCas(x,y).etat = 10;
 
-		int x1 =(int) (Math.random()*(6-1)) + 1;
-		int y1 =(int) (Math.random()*(6-1)) + 1;
+		int x1 =(int) (Math.random()*(5-2)) + 2;
+		int y1 =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x1, y1).etat != 0) {
 			while (this.getCas(x1, y1).etat != 0) {
-				x1 = (int) (Math.random() * (6 - 1)) + 1;
-				y1 = (int) (Math.random() * (6 - 1)) + 1;
+				x1 = (int) (Math.random() * (5 - 2)) + 2;
+				y1 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		this.getCas(x1,y).etat = 21;
+		this.getCas(x1,y1).etat = 21;
+		System.out.println("x"+x1+"y"+y1);
 
-		int x2 =(int) (Math.random()*(6-1)) + 1;
-		int y2 =(int) (Math.random()*(6-1)) + 1;
+		int x2 =(int) (Math.random()*(5-2)) + 2;
+		int y2 =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x2, y2).etat != 0) {
 			while (this.getCas(x2, y2).etat != 0) {
-				x2 = (int) (Math.random() * (6 - 1)) + 1;
-				y2 = (int) (Math.random() * (6 - 1)) + 1;
+				x2 = (int) (Math.random() * (5 - 2)) + 2;
+				y2 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
 		this.getCas(x2,y2).etat = 22;
+		System.out.println("x"+x2+"y"+y2);
 
-		int x3 =(int) (Math.random()*(6-1)) + 1;
-		int y3 =(int) (Math.random()*(6-1)) + 1;
+		int x3 =(int) (Math.random()*(5-2)) + 2;
+		int y3 =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x3, y3).etat != 0) {
 			while (this.getCas(x3, y3).etat != 0) {
-				x3 = (int) (Math.random() * (6 - 1)) + 1;
-				y3 = (int) (Math.random() * (6 - 1)) + 1;
+				x3 = (int) (Math.random() * (5 - 2)) + 2;
+				y3 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
 		this.getCas(x3,y3).etat = 23;
+		System.out.println("x"+x3+"y"+y3);
 
-		int x4 =(int) (Math.random()*(6-1)) + 1;
-		int y4 =(int) (Math.random()*(6-1)) + 1;
+		int x4 =(int) (Math.random()*(5-2)) + 2;
+		int y4 =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x4, y4).etat != 0) {
 			while (this.getCas(x4, y4).etat != 0) {
-				x4 = (int) (Math.random() * (6 - 1)) + 1;
-				y4 = (int) (Math.random() * (6 - 1)) + 1;
+				x4 = (int) (Math.random() * (5 - 2)) + 2;
+				y4 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
 		this.getCas(x4,y4).etat = 24;
+		System.out.println("x"+x4+"y"+y4);
 
 	}
 }
@@ -164,8 +169,6 @@ class Case {
  private final int x, y;
  private int joueur = 0; // 0 : pas de joueur  1: j1 2: j2  3: j3 4: j4   max J 4
  private ArrayList<Joueur> joueurs = new ArrayList(); //max 4
- 
-
  public Case(CModele modele, int x, int y) {
      this.modele = modele;
      this.etat = 0;
@@ -174,14 +177,12 @@ class Case {
  public int GetEtat(){
      return this.etat;
  }
-
  public int getX() {
 		return x;
  }
  public int getY() {
 	 return y;
  }
-
  public void setJoueur(int nbr){
 	 this.joueur = nbr;
  }
@@ -197,7 +198,6 @@ class Case {
  public boolean contient_joueur() {
  	return !(joueurs.isEmpty());
  }
- 
  public void setEtat(int etat) {
 	this.etat = etat;
 }
@@ -208,12 +208,16 @@ class Case {
  	j.setC(null);
  }
 
+	public boolean contient_Artefacts() {
+		return !(joueurs.isEmpty());
+	}
 }
-
 class Joueur {
 	private int nb_act;
 	private int cle;
 	private Case c;
+
+	private int Artefacts;
 	private String nom_joueur;
 	private boolean tour=false;
 	private CModele modele;
@@ -278,6 +282,7 @@ class Joueur {
 		this.c.ajouter_joueur(this);
 		this.nom_joueur = nom_joueur;
 		this.cle = 0;
+		this.Artefacts =0;
 		this.modele = modele;
 	}
 
@@ -323,12 +328,35 @@ class Joueur {
 	public void setTour(boolean tour) {
 		this.tour = tour;
 	}
-	
-	
 	public void maj_action() {
 		nb_act=3;
 	}
 	public void action_moins() {
      nb_act--;
+	}
+
+	public void set_Art(int x){this.Artefacts=x;}
+
+	public int getArtefacts(){return this.Artefacts;}
+}
+
+class Artefacts{
+
+	private Case c;
+
+	private String nom_artefact;
+
+	private CModele modele;
+
+	public Artefacts(CModele modele, Case c, String nom_artefact) {
+		this.c = c;
+		this.nom_artefact = nom_artefact;
+		this.modele = modele;
+	}
+
+	public String Get_Nom(){return nom_artefact;}
+
+	public Case getC() {
+		return c;
 	}
 }

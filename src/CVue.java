@@ -6,7 +6,6 @@ public class CVue {
     private JFrame frame;
     private VueGrille grille;
     private VueCommandes commandes;
-
     private VueJoueurs joueurs;
 
     GridLayout grid = new GridLayout(2, 2);

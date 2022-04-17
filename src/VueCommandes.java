@@ -18,6 +18,7 @@ class VueCommandes extends JPanel {
     public VueCommandes(CModele modele) {
 
         JPanel panel = new JPanel();
+        JLabel label = new JLabel();
         panel.setLayout(grid);
         grid.setHgap(10);
         grid.setVgap(15);
@@ -33,18 +34,42 @@ class VueCommandes extends JPanel {
         panel.add(button);
 
         JButton buttonAsseche = new JButton("Assécher");
+        buttonAsseche.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int x = modele.getJ_actuel().getC().getX();
+                        int y = modele.getJ_actuel().getC().getY();
+                        if(modele.getCas(x,y).etat != 1){
+                            label.setText("Assechement Impossible");
+                            panel.add(label);
+                        }else{
+                            modele.getCas(x,y).etat = 0;
+                            modele.getJ_actuel().action_moins();
+                        }
+                    }
+                }
+        );
         panel.add(buttonAsseche);
 
-        Controleur ctrl2 = new Controleur(modele);
-        buttonAsseche.addActionListener(ctrl2);
-
         JButton buttonRecup = new JButton("Récupérer");
+        buttonRecup.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int x = modele.getJ_actuel().getC().getX();
+                        int y = modele.getJ_actuel().getC().getY();
+                        if(modele.getCas(x,y).contient_Artefacts()){
+                            modele.getJ_actuel().setNb_act(modele.getJ_actuel().getNb_act()+1);
+
+                        }
+                    }
+                }
+        );
         panel.add(buttonRecup);
 
         this.add(panel);
-
         JListenner jtl = new JListenner(modele,button,ctrl);
         button.addKeyListener(jtl);
     }
 }
-
