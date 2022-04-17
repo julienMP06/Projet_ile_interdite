@@ -41,8 +41,10 @@ class VueGrille extends JPanel implements Observer {
     private void MajColor(Graphics g, Case c, int x, int y) {
 
         if (c.contient_joueur()) {
-            g.setColor(Color.DARK_GRAY); // apres d'autres coulleurs pour chaque Jr
+            g.setColor(Color.GREEN); // apres d'autres coulleurs pour chaque Jr
             g.fillRect(x, y, TAILLE, TAILLE);
+            g.setColor(Color.DARK_GRAY); // apres d'autres coulleurs pour chaque Jr
+            g.fillOval(x, y, TAILLE, TAILLE);
             g.setColor(Color.BLACK);
             g.setFont(g.getFont().deriveFont(25f));
             g.drawString("j",x+23,y+30);

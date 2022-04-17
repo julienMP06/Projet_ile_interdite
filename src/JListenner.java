@@ -11,7 +11,6 @@ public class JListenner extends KeyAdapter {
         this.modele = modele;
         this.button = btn;
         this.ctrl = ctrl;
-        //this.frame = (JFrame) frame;
     }
 
     @Override
