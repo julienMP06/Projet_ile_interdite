@@ -45,6 +45,7 @@ class VueGrille extends JPanel implements Observer {
             g.fillOval(x, y, TAILLE, TAILLE);
             g.setColor(Color.BLACK);
             g.setFont(g.getFont().deriveFont(25f));
+            System.out.println(c.getJoueur());
             g.drawString("j",x+23,y+30);
         } else {
             Fond(g,c,x,y);
