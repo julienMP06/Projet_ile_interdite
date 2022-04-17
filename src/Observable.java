@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 interface Observer {
     public void update();
+
 }
 
 public abstract class Observable {

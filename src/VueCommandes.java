@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 
 class VueCommandes extends JPanel {
     private CModele modele;
-    GridLayout grid = new GridLayout(2, 2);
+    GridLayout grid = new GridLayout(3, 0);
     public VueCommandes(CModele modele) {
 
         JPanel panel = new JPanel();
@@ -124,6 +124,23 @@ class VueCommandes extends JPanel {
                 }
         );
         panel.add(buttonRecup);
+
+        JButton EchangeCle = new JButton("Donner clé");
+        panel.add(EchangeCle);
+        EchangeCle.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int x = modele.getJ_actuel().getC().getX();
+                        int y = modele.getJ_actuel().getC().getY();
+                        if(modele.getCas(x,y).contient_joueur()){
+                            modele.getJ_actuel().suppr_Cle();
+                            modele.getJoueurs().get(modele.getCas(x,y).getJoueur()).ajoute_Cle();
+                            modele.getJ_actuel().action_moins();
+                        }
+                    }
+                }
+        );
 
         this.add(panel);
         JListenner jtl = new JListenner(modele,button,ctrl);

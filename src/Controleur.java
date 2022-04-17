@@ -3,17 +3,21 @@ import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 import java.util.ArrayList;
-public class Controleur implements ActionListener {
+import java.util.concurrent.ExecutorService;
+
+public class Controleur extends VueJoueurs implements ActionListener {
     CModele modele;
     public Controleur(CModele modele) {
+        super(modele);
         this.modele = modele;
     }
+
     public void actionPerformed(ActionEvent e) {
-        System.out.println("avant"+modele.getJ_actuel().getNom_joueur());
         // quand on clique sur fin de tour le joueur suivant devient le joueur actuel
         modele.getJ_actuel().ajoute_Cle();
         modele.j_suivant();
-        System.out.println("-----apres"+modele.getJ_actuel().getNom_joueur());
+        super.JoueurPanneau(super.Get_JT());
+
         for(int i = 0; i < 3; i++) {
             int x = (int) (Math.random() * (CModele.LARGEUR))+1;
             int y = (int) (Math.random() * (CModele.HAUTEUR))+1;
@@ -26,5 +30,4 @@ public class Controleur implements ActionListener {
         }
         modele.MAJ();
     }
-
 }

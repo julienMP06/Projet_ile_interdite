@@ -243,8 +243,12 @@ class Joueur {
 		if (x >= 0.5) {
 			this.cle += 1;
 		}
-		System.out.println(cle);
 	}
+
+	public void suppr_Cle(){
+		this.cle -= 1;
+	}
+
 	public void setNb_act(int nb_act) {
 		this.nb_act = nb_act;
 	}
