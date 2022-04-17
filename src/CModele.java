@@ -215,7 +215,11 @@ class Case {
 }
 class Joueur {
 	private int nb_act;
-	private int cle;
+	private int cleE;
+	private int cleA;
+	private int cleF;
+	private int cleT;
+
 	private Case c;
 	private int Artefacts;
 	private String nom_joueur;
@@ -225,7 +229,10 @@ class Joueur {
 		this.c = c;
 		this.c.ajouter_joueur(this);
 		this.nom_joueur = nom_joueur;
-		this.cle = 0;
+		this.cleE = 0;
+		this.cleA = 0;
+		this.cleF = 0;
+		this.cleT = 0;
 		this.Artefacts =0;
 		this.modele = modele;
 	}
@@ -234,25 +241,55 @@ class Joueur {
 		return nb_act;
 	}
 
-	public int getNb_cle() {
-		return cle;
+	public int getNb_cleE() {
+		return cleE;
 	}
 
+	public int getNb_cleA() {
+		return cleA;
+	}
+
+	public int getNb_cleF() {
+		return cleF;
+	}
+
+	public int getNb_cleT() {
+		return cleT;
+	}
 	public void ajoute_Cle() {
 		float x = (float) Math.random();
 		if (x >= 0.5) {
-			this.cle += 1;
+			float y = (float) Math.random();
+			if (y <= 0.25) {
+				this.cleE += 1;
+			} else if (y > 0.25 && y <= 0.50) {
+				this.cleA +=1;
+			} else if (y > 0.50 && y <= 0.75) {
+				this.cleF +=1;
+			} else if (y > 0.75 && y <= 1.00) {
+				this.cleT +=1;
+			}
 		}
 	}
 
-	public void suppr_Cle(){
-		this.cle -= 1;
+	public void suppr_CleE(){
+		this.cleE -= 1;
 	}
 
+	public void suppr_CleA(){
+		this.cleA -= 1;
+	}
+
+	public void suppr_CleF(){
+		this.cleF -= 1;
+	}
+
+	public void suppr_CleT(){
+		this.cleT -= 1;
+	}
 	public void setNb_act(int nb_act) {
 		this.nb_act = nb_act;
 	}
-
 	public Case getC() {
 		return c;
 	}

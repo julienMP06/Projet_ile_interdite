@@ -134,7 +134,7 @@ class VueCommandes extends JPanel {
                         int x = modele.getJ_actuel().getC().getX();
                         int y = modele.getJ_actuel().getC().getY();
                         if(modele.getCas(x,y).contient_joueur()){
-                            modele.getJ_actuel().suppr_Cle();
+                            modele.getJ_actuel().suppr_CleE();
                             modele.getJoueurs().get(modele.getCas(x,y).getJoueur()).ajoute_Cle();
                             modele.getJ_actuel().action_moins();
                         }
