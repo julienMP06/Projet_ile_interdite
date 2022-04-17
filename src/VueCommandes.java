@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 
 class VueCommandes extends JPanel {
     private CModele modele;
-
     GridLayout grid = new GridLayout(2, 2);
     public VueCommandes(CModele modele) {
 
@@ -34,22 +33,80 @@ class VueCommandes extends JPanel {
         panel.add(button);
 
         JButton buttonAsseche = new JButton("Assécher");
-        buttonAsseche.addActionListener(
-                new ActionListener() {
+
+        buttonAsseche.addKeyListener(
+                new KeyListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int x = modele.getJ_actuel().getC().getX();
-                        int y = modele.getJ_actuel().getC().getY();
-                        if(modele.getCas(x,y).etat != 1){
-                            label.setText("Assechement Impossible");
-                            panel.add(label);
-                        }else{
-                            modele.getCas(x,y).etat = 0;
-                            modele.getJ_actuel().action_moins();
+                    public void keyPressed(KeyEvent e) {
+                        switch (e.getKeyCode()) {
+
+                            case KeyEvent.VK_RIGHT:
+                                int y = 0;
+                                int x = 0;
+                                // avoir les coordonnees du joueur qui joue
+                                Case c = modele.getJ_actuel().getC();
+                                x = c.getX();
+                                y = c.getY();
+                                if (modele.getCas(x + 1, y).etat == 1) {
+                                    modele.getCas(x + 1, y).etat = 0;
+                                    modele.getJ_actuel().action_moins();
+                                }
+                                break;
+                            case KeyEvent.VK_LEFT:
+                                // avoir les coordonnees du joueur qui joue
+                                c = modele.getJ_actuel().getC();
+                                x = c.getX();
+                                y = c.getY();
+                                if (modele.getCas(x - 1, y).etat == 1) {
+                                    modele.getCas(x - 1, y).etat = 0;
+                                    modele.getJ_actuel().action_moins();
+                                }
+                                break;
+                            case KeyEvent.VK_UP:
+                                // avoir les coordonnees du joueur qui joue
+                                c = modele.getJ_actuel().getC();
+                                x = c.getX();
+                                y = c.getY();
+                                if (modele.getCas(x, y - 1).etat == 1) {
+                                    modele.getCas(x, y - 1).etat = 0;
+                                    modele.getJ_actuel().action_moins();
+                                }
+                                break;
+                            case KeyEvent.VK_DOWN:
+                                // avoir les coordonnees du joueur qui joue
+                                c = modele.getJ_actuel().getC();
+                                x = c.getX();
+                                y = c.getY();
+                                if (modele.getCas(x, y + 1).etat == 1) {
+                                    modele.getCas(x, y + 1).etat = 0;
+                                    modele.getJ_actuel().action_moins();
+                                }
+                                break;
+                            case KeyEvent.VK_BACK_SPACE:
+                                // avoir les coordonnees du joueur qui joue
+                                c = modele.getJ_actuel().getC();
+                                x = c.getX();
+                                y = c.getY();
+                                if (modele.getCas(x , y).etat == 1) {
+                                    modele.getCas(x , y).etat = 0;
+                                    modele.getJ_actuel().action_moins();
+                                }
+                                break;
                         }
+                    }
+
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
                     }
                 }
         );
+
         panel.add(buttonAsseche);
 
         JButton buttonRecup = new JButton("Récupérer");

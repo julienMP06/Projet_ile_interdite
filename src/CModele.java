@@ -221,62 +221,6 @@ class Joueur {
 	private String nom_joueur;
 	private boolean tour=false;
 	private CModele modele;
-	public void assecher(String direction) {
-		
-		switch(direction) {
-		case "current":
-			Case current = this.getC();
-			if(current.GetEtat()>0) {
-				current.setEtat(current.GetEtat()-1);
-			}
-			break;
-		case "left":
-			current = this.getC();
-			int x=current.getX();
-			int y=current.getY();
-			if (x-1>0) {
-			 Case left=modele.getCas(x-1, y);
-			if(left.GetEtat()>0) {
-				left.setEtat(left.GetEtat()-1);
-			}
-			}
-			break;
-		case "right":
-			current = this.getC();
-			 x=current.getX();
-			 y=current.getY();
-			if (x+1<modele.LARGEUR) {
-			 Case right=modele.getCas(x+1, y);
-			if(right.GetEtat()>0) {
-				right.setEtat(right.GetEtat()-1);
-			}
-			}
-			break;
-		case "up":
-			current = this.getC();
-			 x=current.getX();
-			 y=current.getY();
-			if (y-1>0) {
-			 Case up=modele.getCas(x, y-1);
-			if(up.GetEtat()>0) {
-				up.setEtat(up.GetEtat()-1);
-			}
-			}
-			break;
-		case "down":
-			current = this.getC();
-			 x=current.getX();
-			 y=current.getY();
-			if (y+1>modele.HAUTEUR) {
-			 Case down=modele.getCas(x, y+1);
-			if(down.GetEtat()>0) {
-				down.setEtat(down.GetEtat()-1);
-			}
-			}
-			break;
-			
-		}
-	}
 	public Joueur(CModele modele, Case c, String nom_joueur) {
 		this.c = c;
 		this.c.ajouter_joueur(this);
