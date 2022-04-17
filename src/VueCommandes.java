@@ -16,15 +16,15 @@ class VueCommandes extends JPanel {
     GridLayout grid = new GridLayout(3, 0);
     public VueCommandes(CModele modele) {
 
-        JPanel panel = new JPanel();
+        JPanel panelC = new JPanel();
         JLabel label = new JLabel();
-        panel.setLayout(grid);
+        panelC.setLayout(grid);
         grid.setHgap(10);
         grid.setVgap(15);
         this.modele=modele;
 
         JButton boutonAvance = new JButton("Fin De Tour");
-        panel.add(boutonAvance);
+        panelC.add(boutonAvance);
 
         Controleur ctrl = new Controleur(modele);
         boutonAvance.addActionListener(ctrl);
@@ -39,7 +39,7 @@ class VueCommandes extends JPanel {
         );
 
         JButton button = new JButton("Déplacement");
-        panel.add(button);
+        panelC.add(button);
 
         JButton buttonAsseche = new JButton("Assécher");
 
@@ -91,7 +91,7 @@ class VueCommandes extends JPanel {
                                     modele.getJ_actuel().action_moins();
                                 }
                                 break;
-                            case KeyEvent.VK_BACK_SPACE:
+                            case KeyEvent.VK_SPACE:
                                 // avoir les coordonnees du joueur qui joue
                                 c = modele.getJ_actuel().getC();
                                 x = c.getX();
@@ -116,7 +116,7 @@ class VueCommandes extends JPanel {
                 }
         );
 
-        panel.add(buttonAsseche);
+        panelC.add(buttonAsseche);
 
         JButton buttonRecup = new JButton("Récupérer");
         buttonRecup.addActionListener(
@@ -132,10 +132,10 @@ class VueCommandes extends JPanel {
                     }
                 }
         );
-        panel.add(buttonRecup);
+        panelC.add(buttonRecup);
 
         JButton EchangeCle = new JButton("Donner clé");
-        panel.add(EchangeCle);
+        panelC.add(EchangeCle);
         EchangeCle.addActionListener(
                 new ActionListener() {
                     @Override
@@ -151,7 +151,7 @@ class VueCommandes extends JPanel {
                 }
         );
 
-        this.add(panel);
+        this.add(panelC);
         JListenner jtl = new JListenner(modele,button,ctrl);
         button.addKeyListener(jtl);
     }
