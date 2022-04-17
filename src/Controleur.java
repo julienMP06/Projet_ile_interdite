@@ -16,8 +16,7 @@ public class Controleur extends VueJoueurs implements ActionListener {
         // quand on clique sur fin de tour le joueur suivant devient le joueur actuel
         modele.getJ_actuel().ajoute_Cle();
         modele.j_suivant();
-        super.JoueurPanneau(super.Get_JT());
-
+        MajJpanel();
         for(int i = 0; i < 3; i++) {
             int x = (int) (Math.random() * (CModele.LARGEUR))+1;
             int y = (int) (Math.random() * (CModele.HAUTEUR))+1;

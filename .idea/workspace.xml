@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5df4ef75-cade-4f57-ba62-5156e6e16382" name="Changes" comment="" />
+    <list default="true" id="4638d291-2d72-4ddb-840e-85ca14569def" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="27uzmIyXwd9G9YJnerkcBmT70WT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/julien/IdeaProjects/iles",
-    "run.code.analysis.last.selected.profile": "pProject Default"
-  }
-}]]></component>
   <component name="RunManager">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="iles" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -44,11 +31,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5df4ef75-cade-4f57-ba62-5156e6e16382" name="Changes" comment="" />
-      <created>1650184920376</created>
+      <changelist id="4638d291-2d72-4ddb-840e-85ca14569def" name="Changes" comment="" />
+      <created>1650211102402</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1650184920376</updated>
+      <updated>1650211102402</updated>
     </task>
     <servers />
   </component>

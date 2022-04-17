@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
@@ -216,7 +217,6 @@ class Joueur {
 	private int nb_act;
 	private int cle;
 	private Case c;
-
 	private int Artefacts;
 	private String nom_joueur;
 	private boolean tour=false;
@@ -284,8 +284,11 @@ class Joueur {
 	}
 
 	public void set_Art(int x){this.Artefacts=x;}
-
 	public int getArtefacts(){return this.Artefacts;}
+
+	public void affichage(){
+
+	}
 }
 
 class Artefacts{
