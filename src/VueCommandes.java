@@ -29,6 +29,15 @@ class VueCommandes extends JPanel {
         Controleur ctrl = new Controleur(modele);
         boutonAvance.addActionListener(ctrl);
 
+        boutonAvance.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ctrl.MajJpanel();
+                    }
+                }
+        );
+
         JButton button = new JButton("Déplacement");
         panel.add(button);
 
