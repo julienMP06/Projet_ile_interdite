@@ -21,7 +21,6 @@ public class Controleur extends VueJoueurs implements ActionListener {
         // quand on clique sur fin de tour le joueur suivant devient le joueur actuel
         modele.getJ_actuel().ajoute_Cle();
         modele.j_suivant();
-        MajJpanel();
         //Quand on a passer 24 tours (le nombre de tuiles) on innonde les dernières
         if (N > 24){
             for(int i = 0; i < 3; i++) {

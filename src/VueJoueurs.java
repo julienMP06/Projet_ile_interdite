@@ -1,42 +1,48 @@
 import javax.swing.*;
 import java.awt.*;
-public class VueJoueurs extends JPanel{
-    private static CModele modele;
+public class VueJoueurs extends JPanel implements Observer{
+    private CModele modele;
+
+    GridLayout grid = new GridLayout(4, 0);
+
+    private JLabel labelJ1 = new JLabel();
+    private JLabel labelJ2 = new JLabel();
+    private JLabel labelJ3 = new JLabel();
+    private JLabel labelJ4 = new JLabel();
+
     private JPanel panelJ = new JPanel();
 
-    private int x = 0;
-    GridLayout grid = new GridLayout(5, 0);
-
-    private JLabel label = new JLabel();
-    private JLabel label1 = new JLabel();
-    private JLabel label2 = new JLabel();
-    private JLabel label3 = new JLabel();
-    private JLabel label4 = new JLabel();
-
     public VueJoueurs (CModele modele){
-        this.modele=modele;
-        setLayout(new BorderLayout());
         panelJ.setLayout(grid);
-        JoueurPanneau(panelJ);
+        this.modele=modele;
+        grid.setVgap(50);
+        modele.addObserver(this);
+
+        panelJ.add(labelJ1);
+        panelJ.add(labelJ2);
+        panelJ.add(labelJ3);
+        panelJ.add(labelJ4);
+        this.add(panelJ);
+        this.update();
     }
-    public void JoueurPanneau(JPanel p){
-        x = x +1;
-        label.setText("%s   clé : %s   Artefacts : %d   Action : %d".formatted(modele.getJoueurs().get(0).getNom_joueur(), modele.getJoueurs().get(0).getNb_cleE(), modele.getJoueurs().get(0).getArtefacts(), modele.getJoueurs().get(0).getNb_act()));
-        label1.setText(modele.getJoueurs().get(1).getNom_joueur()+"   clé : "+modele.getJoueurs().get(1).getNb_cleE()+"   Artefacts : "+modele.getJoueurs().get(1).getArtefacts()+"   Action : "+modele.getJoueurs().get(1).getNb_act());
-        label2.setText(modele.getJoueurs().get(2).getNom_joueur()+"   clé : "+modele.getJoueurs().get(2).getNb_cleE()+"   Artefacts : "+modele.getJoueurs().get(2).getArtefacts()+"   Action : "+modele.getJoueurs().get(2).getNb_act());
-        label3.setText(modele.getJoueurs().get(3).getNom_joueur()+"   clé : "+modele.getJoueurs().get(3).getNb_cleE()+"   Artefacts : "+modele.getJoueurs().get(3).getArtefacts()+"   Action : "+modele.getJoueurs().get(3).getNb_act());
-        label4.setText(String.valueOf(x));
-        p.add(label4);
-        p.add(label);
-        p.add(label1);
-        p.add(label2);
-        p.add(label3);
-        p.add(label4);
-        this.add(p);
-        System.out.println(x);
+
+    public void update() {
+        repaint();
     }
-    public void MajJpanel(){
-        JoueurPanneau(panelJ);
+
+    public void paintComponent(Graphics g) {
+        super.repaint();
+        paint(g,modele.getJoueurs().get(0),labelJ1);
+        paint(g,modele.getJoueurs().get(1),labelJ2);
+        paint(g,modele.getJoueurs().get(2),labelJ3);
+        paint(g,modele.getJoueurs().get(3),labelJ4);
+    }
+
+    private void paint(Graphics g, Joueur j, JLabel label) {
+        labelJ1.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
+        labelJ2.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
+        labelJ3.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
+        labelJ4.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
     }
 }
 

@@ -13,6 +13,7 @@ public class CVue {
         frame = new JFrame();
         frame.setResizable(false);
         frame.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE");
+        grid.setVgap(30);
         frame.setLayout(grid);
 
         grille = new VueGrille(modele);
