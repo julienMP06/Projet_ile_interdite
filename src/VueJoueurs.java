@@ -39,10 +39,7 @@ public class VueJoueurs extends JPanel implements Observer{
     }
 
     private void paint(Graphics g, Joueur j, JLabel label) {
-        labelJ1.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
-        labelJ2.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
-        labelJ3.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
-        labelJ4.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
+        label.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
     }
 }
 
