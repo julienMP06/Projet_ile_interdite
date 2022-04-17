@@ -48,7 +48,7 @@ class VueCommandes extends JPanel {
                                 x = c.getX();
                                 y = c.getY();
                                 if (modele.getCas(x + 1, y).etat == 1) {
-                                    modele.getCas(x + 1, y).etat = 0;
+                                    modele.getCas(x + 1, y).setEtat(0);
                                     modele.getJ_actuel().action_moins();
                                 }
                                 break;
@@ -58,7 +58,7 @@ class VueCommandes extends JPanel {
                                 x = c.getX();
                                 y = c.getY();
                                 if (modele.getCas(x - 1, y).etat == 1) {
-                                    modele.getCas(x - 1, y).etat = 0;
+                                    modele.getCas(x - 1, y).setEtat(0);
                                     modele.getJ_actuel().action_moins();
                                 }
                                 break;
@@ -68,7 +68,7 @@ class VueCommandes extends JPanel {
                                 x = c.getX();
                                 y = c.getY();
                                 if (modele.getCas(x, y - 1).etat == 1) {
-                                    modele.getCas(x, y - 1).etat = 0;
+                                    modele.getCas(x, y - 1).setEtat(0);
                                     modele.getJ_actuel().action_moins();
                                 }
                                 break;
@@ -78,7 +78,7 @@ class VueCommandes extends JPanel {
                                 x = c.getX();
                                 y = c.getY();
                                 if (modele.getCas(x, y + 1).etat == 1) {
-                                    modele.getCas(x, y + 1).etat = 0;
+                                    modele.getCas(x, y + 1).setEtat(0);
                                     modele.getJ_actuel().action_moins();
                                 }
                                 break;
@@ -88,7 +88,7 @@ class VueCommandes extends JPanel {
                                 x = c.getX();
                                 y = c.getY();
                                 if (modele.getCas(x , y).etat == 1) {
-                                    modele.getCas(x , y).etat = 0;
+                                    modele.getCas(x , y).setEtat(0);
                                     modele.getJ_actuel().action_moins();
                                 }
                                 break;
