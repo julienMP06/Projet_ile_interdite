@@ -7,6 +7,7 @@ public class App {
             CModele modele = new CModele();
             //mettre les joueurs sur place
             modele.set_joueurs();
+            modele.set_artefacts();
             CVue vue = new CVue(modele);
             
         });

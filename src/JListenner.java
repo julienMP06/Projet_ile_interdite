@@ -7,10 +7,12 @@ public class JListenner extends KeyAdapter {
     protected JButton button;
     Controleur ctrl;
 
-    public JListenner(CModele modele, JButton btn, Controleur ctrl) {
+    JLabel label;
+    public JListenner(CModele modele, JButton btn, Controleur ctrl,JLabel label) {
         this.modele = modele;
         this.button = btn;
         this.ctrl = ctrl;
+        this.label = label;
     }
 
     @Override
@@ -28,15 +30,17 @@ public class JListenner extends KeyAdapter {
                     y=c.getY();
                        
                     // pour eviter les effet de bord
-                    if (x + 1 < CModele.LARGEUR) {
+                    if (x + 1 < CModele.LARGEUR+1) {
                         if (modele.getCas(x + 1, y).etat != 2) {
                             // on supp le joueur actuel de la case courante
                             modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                             // on ajoute le joueur actuel a la case de droite
                             modele.getCas(x + 1, y).ajouter_joueur(modele.getJ_actuel());
                             modele.getJ_actuel().action_moins();
-                        }
+                            label.setText("Droite");
+                        }else{label.setText("Case Inondée !");}
                     }
+                    else{label.setText("Impossible !");}
                     break;
 
                 case KeyEvent.VK_LEFT:
@@ -48,8 +52,10 @@ public class JListenner extends KeyAdapter {
                             modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                             modele.getCas(x - 1, y).ajouter_joueur(modele.getJ_actuel());
                             modele.getJ_actuel().action_moins();
-                        }
+                            label.setText("Gauche");
+                        }else{label.setText("Case Inondée !");}
                     }
+                    else{label.setText("Impossible !");}
                     break;
 
                 case KeyEvent.VK_UP:
@@ -61,8 +67,10 @@ public class JListenner extends KeyAdapter {
                              modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                              modele.getCas(x, y - 1).ajouter_joueur(modele.getJ_actuel());
                              modele.getJ_actuel().action_moins();
-                         }
+                             label.setText("Haut");
+                         }else{label.setText("Case Inondée !");}
                      }
+                     else{label.setText("Impossible !");}
                      break;
                         
 
@@ -75,8 +83,10 @@ public class JListenner extends KeyAdapter {
                             modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                             modele.getCas(x, y + 1).ajouter_joueur(modele.getJ_actuel());
                             modele.getJ_actuel().action_moins();
-                        }
+                            label.setText("Bas");
+                        }else{label.setText("Case Inondée !");}
                     }
+                    else{label.setText("Impossible !");}
             }
             //le nombre d action du joueur se decremente apres avoir deplacer
             modele.MAJ();

@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
 
 public class CModele extends Observable {
@@ -7,9 +5,12 @@ public class CModele extends Observable {
 	public static final int HAUTEUR = 6, LARGEUR = 6;
 	private Case[][] plateau;
 	int joueur = 1;
-	private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4);// il y a exactement 4 joueurs
+	private ArrayList<Joueur> joueurs = new ArrayList();// il y a exactement 4 joueurs
+
+	private ArrayList<Artefacts> artefacts = new ArrayList();
 	private Joueur j_actuel;
 
+	private int PartiePerdue = 0;
 	public CModele() {
 		plateau = new Case[LARGEUR + 2][HAUTEUR + 2];
 		for (int i = 0; i < LARGEUR + 2; i++) {
@@ -30,6 +31,18 @@ public class CModele extends Observable {
 		TourIles();
 	}
 
+	public void SetPartiePerdue(){
+		this.PartiePerdue = 1;
+	}
+
+	/*Si la partie est perdue ou non */
+
+	public boolean isPartiePerdue(){
+		if(this.PartiePerdue == 1){
+			return true;
+		}
+		return false;
+	}
 	public Case getCas(int x, int y) {
 		return plateau[x][y];
 	}
@@ -81,7 +94,6 @@ public class CModele extends Observable {
 		j_actuel.maj_action();
 
 	}
-
 	public void TourIles() {
 		/*On innonde les bords de la grille pour avoir la bonne forme de l'ile*/
 		this.getCas(1, 1).etat = 2;
@@ -101,18 +113,8 @@ public class CModele extends Observable {
 		this.getCas(6, 5).etat = 2;
 	}
 
-	public void ZoneSpéciale() {
-		/*On place aléatoirement l'héliport et les 4 artefacts*/
-		int x =(int) (Math.random()*(5-2)) + 2;
-		int y =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x, y).etat != 0) {
-			while (this.getCas(x, y).etat != 0) {
-				x = (int) (Math.random() * (5 - 2)) + 2;
-				y = (int) (Math.random() * (5 - 2)) + 2;
-			}
-		}
-		this.getCas(x,y).etat = 10;
-
+	public void set_artefacts() {
+		//creer des artefacts et les mettre sur les cases
 		int x1 =(int) (Math.random()*(5-2)) + 2;
 		int y1 =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x1, y1).etat != 0) {
@@ -122,7 +124,6 @@ public class CModele extends Observable {
 			}
 		}
 		this.getCas(x1,y1).etat = 21;
-
 		int x2 =(int) (Math.random()*(5-2)) + 2;
 		int y2 =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x2, y2).etat != 0) {
@@ -152,7 +153,26 @@ public class CModele extends Observable {
 			}
 		}
 		this.getCas(x4,y4).etat = 24;
-
+		Artefacts Feu = new Artefacts(this, this.getCas(x1, y1), "Feu");
+		Artefacts Eau = new Artefacts(this, this.getCas(x2, y2), "Eau");
+		Artefacts Air = new Artefacts(this, this.getCas(x3, y3), "Air");
+		Artefacts Terre = new Artefacts(this, this.getCas(x4, y4), "Terre");
+		artefacts.add(Feu);
+		artefacts.add(Eau);
+		artefacts.add(Air);
+		artefacts.add(Terre);
+	}
+	public void ZoneSpéciale() {
+		/*On place aléatoirement l'héliport*/
+		int x =(int) (Math.random()*(5-2)) + 2;
+		int y =(int) (Math.random()*(5-2)) + 2;
+		if (this.getCas(x, y).etat != 0) {
+			while (this.getCas(x, y).etat != 0) {
+				x = (int) (Math.random() * (5 - 2)) + 2;
+				y = (int) (Math.random() * (5 - 2)) + 2;
+			}
+		}
+		this.getCas(x,y).etat = 10;
 	}
 }
 
@@ -176,6 +196,22 @@ class Case {
  }
  public int getY() {
 	 return y;
+ }
+
+ /*Pour avoir les coordonnees de toutes les cases adjacentes*/
+ public Case getCaseD(int x , int y){return modele.getCas(x+1,y);}
+
+ public Case getCaseG(int x , int y){return modele.getCas(x-1,y);}
+
+ public Case getCaseH(int x , int y){return modele.getCas(x,y-1);}
+
+ public Case getCaseB(int x , int y){return modele.getCas(x-1,y+1);}
+
+ public boolean CaseAdjacenteLibre(int x, int y){
+	 if (getCaseB(x,y).etat == 2 && getCaseH(x,y).etat == 2 && getCaseD(x,y).etat == 2 && getCaseG(x,y).etat == 2 ){
+		 return false;
+	 }
+	 return true;
  }
  public void setJoueur(int nbr){
 	 this.joueur = nbr;
@@ -334,22 +370,32 @@ class Joueur {
 }
 
 class Artefacts{
-
 	private Case c;
-
 	private String nom_artefact;
-
 	private CModele modele;
 
+	private int EstPlace;
+
+	private ArrayList<Artefacts> artefacts = new ArrayList();
 	public Artefacts(CModele modele, Case c, String nom_artefact) {
 		this.c = c;
 		this.nom_artefact = nom_artefact;
+		this.EstPlace = 1;
 		this.modele = modele;
 	}
-
 	public String Get_Nom(){return nom_artefact;}
-
 	public Case getC() {
 		return c;
+	}
+
+	public void setC(Case c) {
+		this.c = c;
+	}
+
+	public boolean EstRecupere(){
+		if (this.EstPlace != 1){
+			return false;
+		}
+		return true;
 	}
 }

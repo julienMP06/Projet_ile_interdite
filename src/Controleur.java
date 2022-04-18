@@ -43,6 +43,9 @@ public class Controleur extends VueJoueurs implements ActionListener {
                     else if (modele.getCas(x,y).GetEtat() == 1){
                         modele.getCas(x,y).setEtat(2);
                     }
+                    if (modele.getCas(x,y).etat == 2 && modele.getCas(x,y).CaseAdjacenteLibre(x,y) == false){
+                        modele.SetPartiePerdue();
+                    }
                 }
             }
         }
@@ -55,6 +58,9 @@ public class Controleur extends VueJoueurs implements ActionListener {
                 }
                 else if (modele.getCas(x,y).etat == 1){
                     modele.getCas(x,y).setEtat(2);
+                }
+                if (modele.getCas(x,y).etat == 2 && modele.getCas(x,y).CaseAdjacenteLibre(x,y) == false){
+                    modele.SetPartiePerdue();
                 }
             }
         }

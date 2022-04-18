@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 
 class VueCommandes extends JPanel {
     private CModele modele;
-    GridLayout grid = new GridLayout(3, 0);
+    GridLayout grid = new GridLayout(4, 0);
     public VueCommandes(CModele modele) {
 
         JPanel panelC = new JPanel();
@@ -51,7 +51,9 @@ class VueCommandes extends JPanel {
                                 if (modele.getCas(x + 1, y).etat == 1) {
                                     modele.getCas(x + 1, y).setEtat(0);
                                     modele.getJ_actuel().action_moins();
+                                    label.setText("Asseche Droite");
                                 }
+                                else{label.setText("Impossible !");}
                                 break;
                             case KeyEvent.VK_LEFT:
                                 // avoir les coordonnees du joueur qui joue
@@ -61,7 +63,9 @@ class VueCommandes extends JPanel {
                                 if (modele.getCas(x - 1, y).etat == 1) {
                                     modele.getCas(x - 1, y).setEtat(0);
                                     modele.getJ_actuel().action_moins();
+                                    label.setText("Asseche Gauche");
                                 }
+                                else{label.setText("Impossible !");}
                                 break;
                             case KeyEvent.VK_UP:
                                 // avoir les coordonnees du joueur qui joue
@@ -71,7 +75,9 @@ class VueCommandes extends JPanel {
                                 if (modele.getCas(x, y - 1).etat == 1) {
                                     modele.getCas(x, y - 1).setEtat(0);
                                     modele.getJ_actuel().action_moins();
+                                    label.setText("Asseche Haut");
                                 }
+                                else{label.setText("Impossible !");}
                                 break;
                             case KeyEvent.VK_DOWN:
                                 // avoir les coordonnees du joueur qui joue
@@ -81,7 +87,9 @@ class VueCommandes extends JPanel {
                                 if (modele.getCas(x, y + 1).etat == 1) {
                                     modele.getCas(x, y + 1).setEtat(0);
                                     modele.getJ_actuel().action_moins();
+                                    label.setText("Asseche Bas");
                                 }
+                                else{label.setText("Impossible !");}
                                 break;
                             case KeyEvent.VK_SPACE:
                                 // avoir les coordonnees du joueur qui joue
@@ -91,7 +99,9 @@ class VueCommandes extends JPanel {
                                 if (modele.getCas(x , y).etat == 1) {
                                     modele.getCas(x , y).setEtat(0);
                                     modele.getJ_actuel().action_moins();
+                                    label.setText("Asseché Actuelle");
                                 }
+                                else{label.setText("Impossible !");}
                                 break;
                         }
                     }
@@ -144,7 +154,8 @@ class VueCommandes extends JPanel {
         );
 
         this.add(panelC);
-        JListenner jtl = new JListenner(modele,button,ctrl);
+        this.add(label);
+        JListenner jtl = new JListenner(modele,button,ctrl,label);
         button.addKeyListener(jtl);
     }
 }
