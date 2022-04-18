@@ -9,7 +9,6 @@ import java.io.*;
 class VueGrille extends JPanel implements Observer {
     private CModele modele;
     private final static int TAILLE = 50;
-
     public VueGrille(CModele modele) {
         this.modele = modele;
         modele.addObserver(this);
@@ -30,23 +29,46 @@ class VueGrille extends JPanel implements Observer {
             }
         }
     }
-
     private void paint(Graphics g, Case c, int x, int y) {
         MajColor(g, c, x, y);
     }
-
     public static int GetTaille() {
         return TAILLE;
     }
     private void MajColor(Graphics g, Case c, int x, int y) {
         Fond(g,c,x,y);
         if (c.contient_joueur()) {
-            g.setColor(Color.DARK_GRAY); // apres d'autres coulleurs pour chaque Jr
-            g.fillOval(x, y, TAILLE, TAILLE);
-            g.setColor(Color.BLACK);
-            g.setFont(g.getFont().deriveFont(25f));
-            g.drawString("j",x+23,y+30);
+            System.out.println("Y"+c.getY());
+            System.out.println("X"+c.getX());
+            int p = c.getJoueur();
+            System.out.println(p);
+            //if(c.contient_joueur1()) {
+                g.setColor(Color.DARK_GRAY);
+                g.fillOval(x, y, TAILLE / 2, TAILLE / 2);
+                g.setColor(Color.BLACK);
+                g.setFont(g.getFont().deriveFont(15f));
+                g.drawString("j1", x + 10, y + 15);
+            /*}else if(c.contient_joueur2()) {
+                g.setColor(Color.DARK_GRAY);
+                g.fillOval(x, y+25, TAILLE / 2, TAILLE / 2);
+                g.setColor(Color.BLACK);
+                g.setFont(g.getFont().deriveFont(15f));
+                g.drawString("j2", x + 10, y + 15);
+            }else if(c.contient_joueur3()) {
+                g.setColor(Color.DARK_GRAY);
+                g.fillOval(x+25, y, TAILLE / 2, TAILLE / 2);
+                g.setColor(Color.BLACK);
+                g.setFont(g.getFont().deriveFont(15f));
+                g.drawString("j2", x + 10, y + 15);
+            }else if(c.contient_joueur4()) {
+                g.setColor(Color.DARK_GRAY);
+                g.fillOval(x+25, y+25, TAILLE / 2, TAILLE / 2);
+                g.setColor(Color.BLACK);
+                g.setFont(g.getFont().deriveFont(15f));
+                g.drawString("j2", x + 10, y + 15);
+            }*/
         } else {
+            g.setFont(g.getFont().deriveFont(25f));
             Fond(g,c,x,y);
         }
 

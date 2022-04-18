@@ -58,16 +58,16 @@ public class VueJoueurs extends JPanel implements Observer{
                 //" F = "+j.getNb_cleF());
 
         s = modele.getJ_actuel().getNom_joueur();
-        if (s == "joueurs_1") {
+        if (s == "J1") {
             labelJ4.setForeground(Color.BLACK);
             labelJ1.setForeground(Color.GREEN);
-        }else if (s == "joueurs_2") {
+        }else if (s == "J2") {
             labelJ1.setForeground(Color.BLACK);
             labelJ2.setForeground(Color.GREEN);
-        }else if (s == "joueurs_3") {
+        }else if (s == "J3") {
             labelJ2.setForeground(Color.BLACK);
             labelJ3.setForeground(Color.GREEN);
-        }else if (s == "joueurs_4") {
+        }else if (s == "J4") {
             labelJ3.setForeground(Color.BLACK);
             labelJ4.setForeground(Color.GREEN);
         }

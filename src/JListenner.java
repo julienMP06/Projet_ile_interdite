@@ -29,11 +29,13 @@ public class JListenner extends KeyAdapter {
                        
                     // pour eviter les effet de bord
                     if (x + 1 < CModele.LARGEUR) {
-                    	// on supp le joueur actuel de la case courante
-                        modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
-                    	// on ajoute le joueur actuel a la case de droite
-                        modele.getCas(x + 1, y).ajouter_joueur(modele.getJ_actuel());
-                        
+                        if (modele.getCas(x + 1, y).etat != 2) {
+                            // on supp le joueur actuel de la case courante
+                            modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
+                            // on ajoute le joueur actuel a la case de droite
+                            modele.getCas(x + 1, y).ajouter_joueur(modele.getJ_actuel());
+                            modele.getJ_actuel().action_moins();
+                        }
                     }
                     break;
 
@@ -42,9 +44,11 @@ public class JListenner extends KeyAdapter {
                      x=c.getX();
                      y=c.getY();
                     if (x - 1 > 0) {
-                    	modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
-                        modele.getCas(x - 1, y).ajouter_joueur(modele.getJ_actuel());
-                        
+                        if (modele.getCas(x - 1, y).etat != 2) {
+                            modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
+                            modele.getCas(x - 1, y).ajouter_joueur(modele.getJ_actuel());
+                            modele.getJ_actuel().action_moins();
+                        }
                     }
                     break;
 
@@ -52,25 +56,29 @@ public class JListenner extends KeyAdapter {
                 	 c=modele.getJ_actuel().getC();
                      x=c.getX();
                      y=c.getY();
-                                if (y - 1 > 0) {
-                                	modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
-                                    modele.getCas(x, y - 1).ajouter_joueur(modele.getJ_actuel());
-                                    
-                                }
-                                break;
+                     if (y - 1 > 0) {
+                         if (modele.getCas(x, y - 1).etat != 2) {
+                             modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
+                             modele.getCas(x, y - 1).ajouter_joueur(modele.getJ_actuel());
+                             modele.getJ_actuel().action_moins();
+                         }
+                     }
+                     break;
                         
 
                 case KeyEvent.VK_DOWN:
-                    
                     c=modele.getJ_actuel().getC();
                     x=c.getX();
                     y=c.getY();
-                    modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
-                    modele.getCas(x, y + 1).ajouter_joueur(modele.getJ_actuel());
-                    
+                    if (y + 1 <= 6) {
+                        if (modele.getCas(x, y + 1).etat != 2) {
+                            modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
+                            modele.getCas(x, y + 1).ajouter_joueur(modele.getJ_actuel());
+                            modele.getJ_actuel().action_moins();
+                        }
+                    }
             }
             //le nombre d action du joueur se decremente apres avoir deplacer
-            modele.getJ_actuel().action_moins();  
             modele.MAJ();
         }
     }

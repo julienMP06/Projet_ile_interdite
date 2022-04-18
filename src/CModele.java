@@ -53,10 +53,10 @@ public class CModele extends Observable {
 
 	public void set_joueurs() {
 		//creer des joueurs et les mettre sur les cases
-		Joueur j_1 = new Joueur(this, this.getCas(3, 1), "joueurs_1");
-		Joueur j_2 = new Joueur(this, this.getCas(6, 3), "joueurs_2");
-		Joueur j_3 = new Joueur(this, this.getCas(4, 6), "joueurs_3");
-		Joueur j_4 = new Joueur(this, this.getCas(1, 4), "joueurs_4");
+		Joueur j_1 = new Joueur(this, this.getCas(3, 1), "J1");
+		Joueur j_2 = new Joueur(this, this.getCas(6, 3), "J2");
+		Joueur j_3 = new Joueur(this, this.getCas(4, 6), "J3");
+		Joueur j_4 = new Joueur(this, this.getCas(1, 4), "J4");
 		joueurs.add(j_1);
 		joueurs.add(j_2);
 		joueurs.add(j_3);
@@ -64,8 +64,6 @@ public class CModele extends Observable {
 		j_actuel = j_1; // par defaut le joueur 1 commence
 		//le joeur commence avec 3 actions par defaut
 		j_actuel.maj_action();
-
-
 	}
 	public ArrayList<Joueur> getJoueurs() {
 		return joueurs;
@@ -184,7 +182,7 @@ class Case {
  }
  public int getJoueur(){
      return this.joueur;
-     }
+}
  //ajouter joueur a la case
  public void ajouter_joueur(Joueur j) {
      joueurs.add(j);
@@ -194,6 +192,34 @@ class Case {
  public boolean contient_joueur() {
  	return !(joueurs.isEmpty());
  }
+
+ public boolean contient_joueur1() {
+	 if (this.getJoueur() == 1){
+		 return true;
+	 }
+	 return false;
+ }
+
+ public boolean contient_joueur2() {
+	if (this.getJoueur() == 2){
+		return true;
+	}
+	return false;
+}
+
+public boolean contient_joueur3() {
+	if (this.getJoueur() == 3){
+		return true;
+	}
+	return false;
+}
+
+public boolean contient_joueur4() {
+	if (this.getJoueur() == 4){
+		return true;
+	}
+	return false;
+}
  public void setEtat(int etat) {
 	this.etat = etat;
 }
@@ -214,7 +240,6 @@ class Joueur {
 	private int cleA;
 	private int cleF;
 	private int cleT;
-
 	private Case c;
 	private int Artefacts;
 	private String nom_joueur;
@@ -231,7 +256,6 @@ class Joueur {
 		this.Artefacts =0;
 		this.modele = modele;
 	}
-
 	public int getNb_act() {
 		return nb_act;
 	}
@@ -266,19 +290,15 @@ class Joueur {
 			}
 		}
 	}
-
 	public void suppr_CleE(){
 		this.cleE -= 1;
 	}
-
 	public void suppr_CleA(){
 		this.cleA -= 1;
 	}
-
 	public void suppr_CleF(){
 		this.cleF -= 1;
 	}
-
 	public void suppr_CleT(){
 		this.cleT -= 1;
 	}
@@ -288,23 +308,18 @@ class Joueur {
 	public Case getC() {
 		return c;
 	}
-
 	public void setC(Case c) {
 		this.c = c;
 	}
-
 	public String getNom_joueur() {
 		return nom_joueur;
 	}
-
 	public void setNom_joueur(String nom_joueur) {
 		this.nom_joueur = nom_joueur;
 	}
-
 	public boolean isTour() {
 		return tour;
 	}
-
 	public void setTour(boolean tour) {
 		this.tour = tour;
 	}
@@ -314,13 +329,8 @@ class Joueur {
 	public void action_moins() {
      nb_act--;
 	}
-
 	public void set_Art(int x){this.Artefacts=x;}
 	public int getArtefacts(){return this.Artefacts;}
-
-	public void affichage(){
-
-	}
 }
 
 class Artefacts{
