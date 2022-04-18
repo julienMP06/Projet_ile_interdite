@@ -182,7 +182,7 @@ class Case {
  protected int etat; // 0: Normale  1: Innondée  2: Submergée 
  private final int x, y;
  private int joueur = 0; // 0 : pas de joueur  1: j1 2: j2  3: j3 4: j4   max J 4
- private ArrayList<Joueur> joueurs = new ArrayList(); //max 4
+ private ArrayList<Joueur> joueurs = new ArrayList(4); //max 4
  public Case(CModele modele, int x, int y) {
      this.modele = modele;
      this.etat = 0;
