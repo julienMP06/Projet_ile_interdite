@@ -113,7 +113,6 @@ public class CModele extends Observable {
 				y = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		System.out.println("x"+x+"y"+y+this.getCas(x,y).etat);
 		this.getCas(x,y).etat = 10;
 
 		int x1 =(int) (Math.random()*(5-2)) + 2;
@@ -125,7 +124,6 @@ public class CModele extends Observable {
 			}
 		}
 		this.getCas(x1,y1).etat = 21;
-		System.out.println("x"+x1+"y"+y1);
 
 		int x2 =(int) (Math.random()*(5-2)) + 2;
 		int y2 =(int) (Math.random()*(5-2)) + 2;
@@ -136,7 +134,6 @@ public class CModele extends Observable {
 			}
 		}
 		this.getCas(x2,y2).etat = 22;
-		System.out.println("x"+x2+"y"+y2);
 
 		int x3 =(int) (Math.random()*(5-2)) + 2;
 		int y3 =(int) (Math.random()*(5-2)) + 2;
@@ -147,7 +144,6 @@ public class CModele extends Observable {
 			}
 		}
 		this.getCas(x3,y3).etat = 23;
-		System.out.println("x"+x3+"y"+y3);
 
 		int x4 =(int) (Math.random()*(5-2)) + 2;
 		int y4 =(int) (Math.random()*(5-2)) + 2;
@@ -158,7 +154,6 @@ public class CModele extends Observable {
 			}
 		}
 		this.getCas(x4,y4).etat = 24;
-		System.out.println("x"+x4+"y"+y4);
 
 	}
 }

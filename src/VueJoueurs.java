@@ -4,21 +4,20 @@ public class VueJoueurs extends JPanel implements Observer{
     private CModele modele;
 
     GridLayout grid = new GridLayout(4, 0);
-    GridLayout grid2 = new GridLayout(1, 4);
+    GridLayout grid2 = new GridLayout(4, 0);
 
     private JLabel labelJ1 = new JLabel();
     private JLabel labelJ2 = new JLabel();
     private JLabel labelJ3 = new JLabel();
     private JLabel labelJ4 = new JLabel();
-
     private JLabel labelCJ1 = new JLabel();
     private JLabel labelCJ2 = new JLabel();
     private JLabel labelCJ3 = new JLabel();
     private JLabel labelCJ4 = new JLabel();
-
     private JPanel panelJ = new JPanel();
     private JPanel panelC = new JPanel();
 
+    private String s;
     public VueJoueurs (CModele modele){
         panelJ.setLayout(grid);
         panelC.setLayout(grid2);
@@ -34,7 +33,7 @@ public class VueJoueurs extends JPanel implements Observer{
         panelC.add(labelCJ3);
         panelJ.add(labelJ4);
         panelC.add(labelCJ4);
-        this.add(panelC);
+        //panelJ.add(panelC);
         this.add(panelJ);
         this.update();
     }
@@ -52,8 +51,26 @@ public class VueJoueurs extends JPanel implements Observer{
     }
 
     private void paint(Graphics g, Joueur j, JLabel label, JLabel labelC) {
-        label.setText("%s  Action :  %d  Clé :  %d   Artefacts : %d".formatted(j.getNom_joueur(),j.getNb_act(),j.getNb_cleE(),j.getArtefacts()));
-        labelC.setText("%d Cle  %d Cle  %d Cle  %d Cle".formatted(j.getNb_cleE(),j.getNb_cleA(),j.getNb_cleF(),j.getNb_cleT()));
+
+        label.setText(j.getNom_joueur()+ "    Action : "+j.getNb_act()+ "    Artefacts : "+ j.getArtefacts() +"    Cle : "+j.getNb_cleA());
+                //" E = "+j.getNb_cleE()+
+                //" T = "+j.getNb_cleT()+
+                //" F = "+j.getNb_cleF());
+
+        s = modele.getJ_actuel().getNom_joueur();
+        if (s == "joueurs_1") {
+            labelJ4.setForeground(Color.BLACK);
+            labelJ1.setForeground(Color.GREEN);
+        }else if (s == "joueurs_2") {
+            labelJ1.setForeground(Color.BLACK);
+            labelJ2.setForeground(Color.GREEN);
+        }else if (s == "joueurs_3") {
+            labelJ2.setForeground(Color.BLACK);
+            labelJ3.setForeground(Color.GREEN);
+        }else if (s == "joueurs_4") {
+            labelJ3.setForeground(Color.BLACK);
+            labelJ4.setForeground(Color.GREEN);
+        }
     }
 }
 

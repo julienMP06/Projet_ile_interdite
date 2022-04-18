@@ -44,7 +44,6 @@ public class JListenner extends KeyAdapter {
                     if (x - 1 > 0) {
                     	modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                         modele.getCas(x - 1, y).ajouter_joueur(modele.getJ_actuel());
-                        System.out.println("action"+modele.getJ_actuel().getNb_act());
                         
                     }
                     break;
