@@ -81,7 +81,7 @@ class VueGrille extends JPanel implements Observer {
             g.setColor(Color.BLUE);
             g.fillRect(x, y, TAILLE, TAILLE);
         }
-        if (c.GetEtat() == 10) {
+        if (c.contient_heleco()) {
             g.setColor(Color.GREEN);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.RED);
@@ -94,26 +94,26 @@ class VueGrille extends JPanel implements Observer {
             g.setColor(Color.WHITE);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.PINK);
-            g.drawString("气",x+11,y+35);
+            g.drawString("æ°”",x+11,y+35);
         }
         if (c.GetEtat() == 22) {
             g.setColor(Color.RED);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.ORANGE);
-            g.drawString("火",x+11,y+35);
+            g.drawString("ç�«",x+11,y+35);
         }
         if (c.GetEtat() == 23) {
             g.setColor(Color.ORANGE);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.yellow);
-            g.drawString("地",x+11,y+35);
+            g.drawString("åœ°",x+11,y+35);
 
         }
         if (c.GetEtat() == 24) {
             g.setColor(Color.CYAN);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.WHITE);
-            g.drawString("水",x+11,y+35);
+            g.drawString("æ°´",x+11,y+35);
         }
     }
 }

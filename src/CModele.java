@@ -1,13 +1,12 @@
 import java.util.*;
 
+
 public class CModele extends Observable {
 
 	public static final int HAUTEUR = 6, LARGEUR = 6;
 	private Case[][] plateau;
 	int joueur = 1;
-	private ArrayList<Joueur> joueurs = new ArrayList();// il y a exactement 4 joueurs
-
-	private ArrayList<Artefacts> artefacts = new ArrayList();
+	private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4);// il y a exactement 4 joueurs
 	private Joueur j_actuel;
 
 	private int PartiePerdue = 0;
@@ -27,8 +26,10 @@ public class CModele extends Observable {
 				plateau[i][j].etat = 0;
 			}
 		}
-		ZoneSpéciale();
+		ZoneSpeciale();
 		TourIles();
+		set_joueurs();
+		set_artefacts();
 	}
 
 	public void SetPartiePerdue(){
@@ -78,6 +79,7 @@ public class CModele extends Observable {
 		//le joeur commence avec 3 actions par defaut
 		j_actuel.maj_action();
 	}
+	
 	public ArrayList<Joueur> getJoueurs() {
 		return joueurs;
 	}
@@ -94,6 +96,7 @@ public class CModele extends Observable {
 		j_actuel.maj_action();
 
 	}
+	
 	public void TourIles() {
 		/*On innonde les bords de la grille pour avoir la bonne forme de l'ile*/
 		this.getCas(1, 1).etat = 2;
@@ -157,12 +160,9 @@ public class CModele extends Observable {
 		Artefacts Eau = new Artefacts(this, this.getCas(x2, y2), "Eau");
 		Artefacts Air = new Artefacts(this, this.getCas(x3, y3), "Air");
 		Artefacts Terre = new Artefacts(this, this.getCas(x4, y4), "Terre");
-		artefacts.add(Feu);
-		artefacts.add(Eau);
-		artefacts.add(Air);
-		artefacts.add(Terre);
+		
 	}
-	public void ZoneSpéciale() {
+	public void ZoneSpeciale() {
 		/*On place aléatoirement l'héliport*/
 		int x =(int) (Math.random()*(5-2)) + 2;
 		int y =(int) (Math.random()*(5-2)) + 2;
@@ -172,105 +172,121 @@ public class CModele extends Observable {
 				y = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		this.getCas(x,y).etat = 10;
+		Heleco H= new Heleco();
+		this.getCas(x,y).ajoute_heleco(H);
 	}
 }
 
 //tuile
 class Case {
- private CModele modele;
- protected int etat; // 0: Normale  1: Innondée  2: Submergée 
- private final int x, y;
- private int joueur = 0; // 0 : pas de joueur  1: j1 2: j2  3: j3 4: j4   max J 4
- private ArrayList<Joueur> joueurs = new ArrayList(4); //max 4
- public Case(CModele modele, int x, int y) {
-     this.modele = modele;
-     this.etat = 0;
-     this.x = x; this.y = y;
- }
- public int GetEtat(){
-     return this.etat;
- }
- public int getX() {
-		return x;
- }
- public int getY() {
-	 return y;
- }
-
- /*Pour avoir les coordonnees de toutes les cases adjacentes*/
- public Case getCaseD(int x , int y){return modele.getCas(x+1,y);}
-
- public Case getCaseG(int x , int y){return modele.getCas(x-1,y);}
-
- public Case getCaseH(int x , int y){return modele.getCas(x,y-1);}
-
- public Case getCaseB(int x , int y){return modele.getCas(x-1,y+1);}
-
- public boolean CaseAdjacenteLibre(int x, int y){
-	 if (getCaseB(x,y).etat == 2 && getCaseH(x,y).etat == 2 && getCaseD(x,y).etat == 2 && getCaseG(x,y).etat == 2 ){
-		 return false;
+	
+	
+	 private CModele modele;
+	 protected int etat; // 0: Normale  1: Innondée  2: Submergée 
+	 private final int x, y;
+	 private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4); //max 4
+	 private ArrayList<Artefact> artefact = new ArrayList<Artefact>(1);
+	 private ArrayList<Heleco> heleco = new ArrayList<Heleco>(1);
+	 
+	
+	public Case(CModele modele, int x, int y) {
+	     this.modele = modele;
+	     this.etat = 0;
+	     this.x = x; this.y = y;
 	 }
-	 return true;
- }
- public void setJoueur(int nbr){
-	 this.joueur = nbr;
- }
- public int getJoueur(){
-     return this.joueur;
-}
- //ajouter joueur a la case
- public void ajouter_joueur(Joueur j) {
-     joueurs.add(j);
-     j.setC(this);
- }
- //dire si la case a un joueur
- public boolean contient_joueur() {
- 	return !(joueurs.isEmpty());
- }
-
- public boolean contient_joueur1() {
-	 if (this.getJoueur() == 1){
+	 
+	 public int GetEtat(){
+	     return this.etat;
+	 }
+	 
+	 public int getX() {
+			return x;
+	 }
+	 
+	 public int getY() {
+		 return y;
+	 }
+	
+	 /*Pour avoir les coordonnees de toutes les cases adjacentes*/
+	 public Case getCaseD(int x , int y){return modele.getCas(x+1,y);}
+	
+	 public Case getCaseG(int x , int y){return modele.getCas(x-1,y);}
+	
+	 public Case getCaseH(int x , int y){return modele.getCas(x,y-1);}
+	
+	 public Case getCaseB(int x , int y){return modele.getCas(x-1,y+1);}
+	
+	 public boolean CaseAdjacenteLibre(int x, int y){
+		 if (getCaseB(x,y).etat == 2 && getCaseH(x,y).etat == 2 && getCaseD(x,y).etat == 2 && getCaseG(x,y).etat == 2 ){
+			 return false;
+		 }
 		 return true;
 	 }
-	 return false;
- }
-
- public boolean contient_joueur2() {
-	if (this.getJoueur() == 2){
-		return true;
+	
+	
+	 //ajouter joueur a la case
+	 public void ajouter_joueur(Joueur j) {
+	     joueurs.add(j);
+	     j.setC(this);
+	 }
+	 
+	 //dire si la case a un joueur
+	 public boolean contient_joueur() {
+	 	return !(joueurs.isEmpty());
+	 }
+	
+	
+	
+	 public void setEtat(int etat) {
+		this.etat = etat;
 	}
-	return false;
-}
-
-public boolean contient_joueur3() {
-	if (this.getJoueur() == 3){
-		return true;
-	}
-	return false;
-}
-
-public boolean contient_joueur4() {
-	if (this.getJoueur() == 4){
-		return true;
-	}
-	return false;
-}
- public void setEtat(int etat) {
-	this.etat = etat;
-}
-
-//supprime le joueur j de la case
- public void supprimer_joueur(Joueur j) {
- 	joueurs.remove(j);
- 	j.setC(null);
- }
+	
+	//supprime le joueur j de la case
+	 public void supprimer_joueur(Joueur j) {
+	 	joueurs.remove(j);
+	 	j.setC(null);
+	 }
 
 	public boolean contient_Artefacts() {
-		return !(joueurs.isEmpty());
+		return !(artefact==null);
 	}
+	
+
+	public void ajoute_artefact(Artefact a) {
+		this.artefact.add(a);
+	}
+	
+	public void supprime_artefact() {
+		this.artefact.remove(0);
+	}
+
+
+	public void ajoute_heleco(Heleco h) {
+		this.heleco.add(h);
+	}
+	
+	public void supprime_heleco() {
+		this.heleco.remove(0);
+	}
+	
+	public String get_artefact_nom() {
+		return artefact.get(0).getNom();
+	}
+	
+	public boolean contient_artefact() {
+		return !(artefact.isEmpty());
+	}
+	
+	public boolean contient_heleco() {
+		return !(heleco.isEmpty());
+	}
+	
+
 }
+
+
 class Joueur {
+	
 	private int nb_act;
 	private int cleE;
 	private int cleA;
@@ -376,7 +392,6 @@ class Artefacts{
 
 	private int EstPlace;
 
-	private ArrayList<Artefacts> artefacts = new ArrayList();
 	public Artefacts(CModele modele, Case c, String nom_artefact) {
 		this.c = c;
 		this.nom_artefact = nom_artefact;
@@ -398,4 +413,66 @@ class Artefacts{
 		}
 		return true;
 	}
+}
+
+abstract class items {
+	private CModele modele;
+	private String nom;
+	
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public items(CModele modele, String nom) {
+		super();
+		this.modele = modele;
+		this.nom = nom;
+	}
+	
+}
+
+class Artefact extends items {
+
+	public Artefact(CModele modele, String nom) {
+		super(modele, nom);
+	}
+	
+}
+
+class Cle extends items {
+
+	public Cle(CModele modele, String nom) {
+		super(modele, nom);
+	}
+	
+}
+
+abstract class Zone_speciale {
+	private String nom;
+
+	public Zone_speciale(String nom) {
+		this.nom = nom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+	
+}
+
+class Heleco extends Zone_speciale {
+
+	public Heleco() {
+		super("helecoptere");
+	}
+	
 }
