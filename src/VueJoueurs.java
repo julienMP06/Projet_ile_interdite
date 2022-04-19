@@ -3,8 +3,10 @@ import java.awt.*;
 public class VueJoueurs extends JPanel implements Observer{
     private CModele modele;
 
-    GridLayout grid = new GridLayout(4, 0);
+    GridLayout grid = new GridLayout(5, 0);
     GridLayout grid2 = new GridLayout(4, 0);
+
+    private JLabel Affichage = new JLabel();
 
     private JLabel labelJ1 = new JLabel();
     private JLabel labelJ2 = new JLabel();
@@ -19,12 +21,15 @@ public class VueJoueurs extends JPanel implements Observer{
 
     private String s;
     public VueJoueurs (CModele modele){
+
         panelJ.setLayout(grid);
         panelC.setLayout(grid2);
         this.modele=modele;
-        grid.setVgap(50);
+        grid.setVgap(40);
         modele.addObserver(this);
 
+        Affichage.setText("Joueur    Actions    Atefacts   Cle (F,A,T,E)");
+        panelJ.add(Affichage);
         panelJ.add(labelJ1);
         panelC.add(labelCJ1);
         panelJ.add(labelJ2);
@@ -33,7 +38,6 @@ public class VueJoueurs extends JPanel implements Observer{
         panelC.add(labelCJ3);
         panelJ.add(labelJ4);
         panelC.add(labelCJ4);
-        //panelJ.add(panelC);
         this.add(panelJ);
         this.update();
     }
@@ -51,11 +55,8 @@ public class VueJoueurs extends JPanel implements Observer{
     }
 
     private void paint(Graphics g, Joueur j, JLabel label, JLabel labelC) {
-
-        label.setText(j.getNom_joueur()+ "    Action : "+j.getNb_act()+ "    Artefacts : "+ j.noms_artefacts_possession() +"    Cle : "+j.noms_cles_possession());
-                //" E = "+j.getNb_cleE()+
-                //" T = "+j.getNb_cleT()+
-                //" F = "+j.getNb_cleF());
+        label.setText(j.getNom_joueur()+"               "+j.getNb_act()+"               "+ j.noms_artefacts_possession()+"                "+
+                j.getCleFeu()+"   "+j.getCleAir()+"   "+j.getCleTerre()+"   "+j.getCleEau());
 
         s = modele.getJ_actuel().getNom_joueur();
         if (s == "J1") {

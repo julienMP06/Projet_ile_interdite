@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Component;
 import java.awt.Container;
@@ -127,10 +128,40 @@ class VueCommandes extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         int x = modele.getJ_actuel().getC().getX();
                         int y = modele.getJ_actuel().getC().getY();
-                        if(modele.getCas(x,y).contient_Artefacts()){
-                            modele.getJ_actuel().setNb_act(modele.getJ_actuel().getNb_act()+1);
+                        if(modele.getCas(x,y).contient_artefact()){
+                            ArrayList<Artefact> l = modele.getCas(x, y).get_Artefacts();
+                            switch (l.get(0).getNom()){
+                                case "Feu":
+                                    if(modele.getJ_actuel().getCleFeu() >= 1){
+                                        modele.getJ_actuel().ajouter_artefact(l.get(0));
+                                        modele.getJ_actuel().action_moins();
+                                        modele.getCas(x,y).supprime_artefact();
+                                    }else{label.setText("Tu n'as pas assez de cle");}
+                                    break;
+                                case "Eau":
+                                    if(modele.getJ_actuel().getCleEau() >= 1){
+                                        modele.getJ_actuel().ajouter_artefact(l.get(0));
+                                        modele.getJ_actuel().action_moins();
+                                        modele.getCas(x,y).supprime_artefact();
+                                    }else{label.setText("Tu n'as pas assez de cle");}
+                                    break;
+                                case "Air":
+                                    if(modele.getJ_actuel().getCleAir() >= 1){
+                                        modele.getJ_actuel().ajouter_artefact(l.get(0));
+                                        modele.getJ_actuel().action_moins();
+                                        modele.getCas(x,y).supprime_artefact();
+                                    }else{label.setText("Tu n'as pas assez de cle");}
+                                    break;
+                                case "Terre":
+                                    if(modele.getJ_actuel().getCleTerre() >= 1){
+                                        modele.getJ_actuel().ajouter_artefact(l.get(0));
+                                        modele.getJ_actuel().action_moins();
+                                        modele.getCas(x,y).supprime_artefact();
+                                    }else{label.setText("Tu n'as pas assez de cle");}
+                                    break;
+                            }
 
-                        }
+                        }else{label.setText("Il n'y a pas d'artefact ici");}
                     }
                 }
         );

@@ -6,7 +6,6 @@ public class JListenner extends KeyAdapter {
     protected CModele modele;
     protected JButton button;
     Controleur ctrl;
-
     JLabel label;
     public JListenner(CModele modele, JButton btn, Controleur ctrl,JLabel label) {
         this.modele = modele;

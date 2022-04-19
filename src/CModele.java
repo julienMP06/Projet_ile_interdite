@@ -117,73 +117,68 @@ public class CModele extends Observable {
 	}
 
 	public void set_artefacts() {
+
+		Artefact Feu ;
+		Artefact Eau;
+		Artefact Air;
+		Artefact Terre;
+
 		//creer des artefacts et les mettre sur les cases
 		int x1 =(int) (Math.random()*(5-2)) + 2;
 		int y1 =(int) (Math.random()*(5-2)) + 2;
-			while (this.getCas(x1, y1).etat != 0 || this.getCas(x1, y1).contient_artefact()) {
+		if (this.getCas(x1, y1).etat != 0 || this.getCas(x1,y1).contient_artefact() || this.getCas(x1,y1).contient_heleco()) {
+			while (this.getCas(x1, y1).etat != 0 || this.getCas(x1, y1).contient_artefact() || this.getCas(x1,y1).contient_heleco()) {
 				x1 = (int) (Math.random() * (5 - 2)) + 2;
 				y1 = (int) (Math.random() * (5 - 2)) + 2;
-		
+			}
 		}
+		Terre = new Artefact(this, "Terre",getCas(x1,y1));
+		this.getCas(x1, y1).ajoute_artefact(Terre);
 		int x2 =(int) (Math.random()*(5-2)) + 2;
 		int y2 =(int) (Math.random()*(5-2)) + 2;
-		while (this.getCas(x2, y2).etat != 0 || this.getCas(x2, y2).contient_artefact() ) {
-			x2 = (int) (Math.random() * (5 - 2)) + 2;
-			y2 = (int) (Math.random() * (5 - 2)) + 2;
+		if (this.getCas(x2, y2).etat != 0 || this.getCas(x2,y2).contient_artefact() || this.getCas(x2,y2).contient_heleco()) {
+			while (this.getCas(x2, y2).etat != 0 || this.getCas(x2, y2).contient_artefact() || this.getCas(x2,y2).contient_heleco()) {
+				x2 = (int) (Math.random() * (5 - 2)) + 2;
+				y2 = (int) (Math.random() * (5 - 2)) + 2;
+			}
 		}
-
+		Air = new Artefact(this, "Air",this.getCas(x2,y2));
+		this.getCas(x2, y2).ajoute_artefact(Air);
 		int x3 =(int) (Math.random()*(5-2)) + 2;
 		int y3 =(int) (Math.random()*(5-2)) + 2;
-		
-		while (this.getCas(x3, y3).etat != 0 || this.getCas(x3, y3).contient_artefact()) {
-			x3 = (int) (Math.random() * (5 - 2)) + 2;
-			y3 = (int) (Math.random() * (5 - 2)) + 2;
+		if (this.getCas(x3, y3).etat != 0 || this.getCas(x3,y3).contient_artefact() || this.getCas(x3,y3).contient_heleco()) {
+			while (this.getCas(x3, y3).etat != 0 || this.getCas(x3, y3).contient_artefact() || this.getCas(x3,y3).contient_heleco()) {
+				x3 = (int) (Math.random() * (5 - 2)) + 2;
+				y3 = (int) (Math.random() * (5 - 2)) + 2;
+			}
 		}
-	
+		Eau = new Artefact(this, "Eau",this.getCas(x3,y3));
+		this.getCas(x3, y3).ajoute_artefact(Eau);
 
 		int x4 =(int) (Math.random()*(5-2)) + 2;
 		int y4 =(int) (Math.random()*(5-2)) + 2;
-		while (this.getCas(x4, y4).etat != 0 || this.getCas(x4, y4).contient_artefact()) {
-			x4 = (int) (Math.random() * (5 - 2)) + 2;
-			y4 = (int) (Math.random() * (5 - 2)) + 2;
+		if (this.getCas(x4, y4).etat != 0 || this.getCas(x4,y4).contient_artefact() || this.getCas(x4,y4).contient_heleco()) {
+			while (this.getCas(x4, y4).etat != 0 || this.getCas(x4, y4).contient_artefact() || this.getCas(x4,y4).contient_heleco()) {
+				x4 = (int) (Math.random() * (5 - 2)) + 2;
+				y4 = (int) (Math.random() * (5 - 2)) + 2;
+			}
 		}
-		
-		Artefact Feu = new Artefact(this, "Feu");
-		Artefact Eau = new Artefact(this, "Eau");
-		Artefact Air = new Artefact(this, "Air");
-		Artefact Terre = new Artefact(this, "Terre");
-		
-		this.getCas(x4, y4).ajoute_artefact(Terre);
-		this.getCas(x3, y3).ajoute_artefact(Air);
-		this.getCas(x2, y2).ajoute_artefact(Eau);
-		this.getCas(x1, y1).ajoute_artefact(Feu);
-		
-		System.out.print(x1);
-		System.out.println(y1);
-		System.out.print(x2);
-		System.out.println(y2);
-		System.out.print(x3);
-		System.out.println(y3);
-		System.out.print(x4);
-		System.out.println(y4);
-		
-		
+		Feu = new Artefact(this, "Feu",this.getCas(x4,y4));
+		this.getCas(x4, y4).ajoute_artefact(Feu);
 	}
 	
 	public void ZoneSpeciale() {
-		/*On place alÃ©atoirement l'hÃ©liport*/
+		/*On place aléatoirement l'héliport*/
 		int x =(int) (Math.random()*(5-2)) + 2;
 		int y =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x, y).etat != 0) {
-			while (this.getCas(x, y).etat != 0) {
+		if (this.getCas(x, y).etat != 0 || this.getCas(x,y).contient_artefact()) {
+			while (this.getCas(x, y).etat != 0 || this.getCas(x,y).contient_artefact()) {
 				x = (int) (Math.random() * (5 - 2)) + 2;
 				y = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
 		Heleco H= new Heleco();
 		this.getCas(x,y).ajoute_heleco(H);
-		System.out.print(x);
-		System.out.println(y);
 	}
 }
 
@@ -192,7 +187,7 @@ class Case {
 	
 	
 	 private CModele modele;
-	 protected int etat; // 0: Normale  1: InnondÃ©e  2: SubmergÃ©e 
+	 protected int etat; // 0: Normale  1: Innondée  2: Submergée 
 	 private final int x, y;
 	 private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4); //max 4
 	 private ArrayList<Artefact> artefact = new ArrayList<Artefact>(1);
@@ -232,8 +227,7 @@ class Case {
 		 }
 		 return true;
 	 }
-	
-	
+
 	 //ajouter joueur a la case
 	 public void ajouter_joueur(Joueur j) {
 	     joueurs.add(j);
@@ -244,9 +238,7 @@ class Case {
 	 public boolean contient_joueur() {
 	 	return !(joueurs.isEmpty());
 	 }
-	
-	
-	
+
 	 public void setEtat(int etat) {
 		this.etat = etat;
 	}
@@ -260,7 +252,14 @@ class Case {
 	public boolean contient_Artefacts() {
 		return !(artefact==null);
 	}
-	
+
+	public ArrayList<Artefact> get_Artefacts() {
+		return artefact;
+	}
+
+	public ArrayList<Joueur> get_joueurs() {
+		return joueurs;
+	}
 
 	public void ajoute_artefact(Artefact a) {
 		this.artefact.add(a);
@@ -294,11 +293,6 @@ class Case {
 
 }
 
-
-/**
- * @author gkemi
- *
- */
 class Joueur {
 	
 	private int nb_act;
@@ -318,7 +312,7 @@ class Joueur {
 		this.modele = modele;
 	}
 	
-    //à utiliser pour fin de tour pour qu'il y est 50% de chance que le joueur reçoit la cle d'un artefact
+    //? utiliser pour fin de tour pour qu'il y est 50% de chance que le joueur re?oit la cle d'un artefact
 	
 	public void ajoute_Cle() {
 		float x = (float) Math.random();
@@ -389,7 +383,47 @@ class Joueur {
 		}
 		return s;
 	}
-	
+
+	public int getCleFeu(){
+		int x = 0;
+		for (Cle i : cles) {
+			if(i.getNom() == "Feu") {
+				x += 1;
+			}
+		}
+		return x;
+	}
+
+	public int getCleAir(){
+		int x = 0;
+		for (Cle i : cles) {
+			if(i.getNom() == "Air") {
+				x += 1;
+			}
+		}
+		return x;
+	}
+
+	public int getCleTerre(){
+		int x = 0;
+		for (Cle i : cles) {
+			if(i.getNom() == "Terre") {
+				x += 1;
+			}
+		}
+		return x;
+	}
+
+	public int getCleEau(){
+		int x = 0;
+		for (Cle i : cles) {
+			if(i.getNom() == "Eau") {
+				x += 1;
+			}
+		}
+		return x;
+	}
+
 	public Case getC() {
 		return c;
 	}
@@ -405,8 +439,6 @@ class Joueur {
 	public void setNb_act(int nb_act) {
 		this.nb_act = nb_act;
 	}
-	
-	
 }
 
 
@@ -433,10 +465,17 @@ abstract class items {
 
 class Artefact extends items {
 
-	public Artefact(CModele modele, String nom) {
+	private Case c;
+
+	public Artefact(CModele modele, String nom, Case c) {
 		super(modele, nom);
+		this.c = c;
 	}
-	
+
+	public Case EstDans(){
+		return this.c;
+	}
+
 }
 
 class Cle extends items {
@@ -444,7 +483,6 @@ class Cle extends items {
 	public Cle(CModele modele, String nom) {
 		super(modele, nom);
 	}
-	
 }
 
 abstract class Zone_speciale {
