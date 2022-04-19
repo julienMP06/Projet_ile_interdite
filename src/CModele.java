@@ -120,38 +120,34 @@ public class CModele extends Observable {
 		//creer des artefacts et les mettre sur les cases
 		int x1 =(int) (Math.random()*(5-2)) + 2;
 		int y1 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x1, y1).etat != 0) {
-			while (this.getCas(x1, y1).etat != 0) {
+			while (this.getCas(x1, y1).etat != 0 || this.getCas(x1, y1).contient_artefact()) {
 				x1 = (int) (Math.random() * (5 - 2)) + 2;
 				y1 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		
 		}
 		int x2 =(int) (Math.random()*(5-2)) + 2;
 		int y2 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x2, y2).etat != 0) {
-			while (this.getCas(x2, y2).etat != 0) {
-				x2 = (int) (Math.random() * (5 - 2)) + 2;
-				y2 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		while (this.getCas(x2, y2).etat != 0 || this.getCas(x2, y2).contient_artefact() ) {
+			x2 = (int) (Math.random() * (5 - 2)) + 2;
+			y2 = (int) (Math.random() * (5 - 2)) + 2;
 		}
 
 		int x3 =(int) (Math.random()*(5-2)) + 2;
 		int y3 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x3, y3).etat != 0) {
-			while (this.getCas(x3, y3).etat != 0) {
-				x3 = (int) (Math.random() * (5 - 2)) + 2;
-				y3 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		
+		while (this.getCas(x3, y3).etat != 0 || this.getCas(x3, y3).contient_artefact()) {
+			x3 = (int) (Math.random() * (5 - 2)) + 2;
+			y3 = (int) (Math.random() * (5 - 2)) + 2;
 		}
+	
 
 		int x4 =(int) (Math.random()*(5-2)) + 2;
 		int y4 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x4, y4).etat != 0) {
-			while (this.getCas(x4, y4).etat != 0) {
-				x4 = (int) (Math.random() * (5 - 2)) + 2;
-				y4 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		while (this.getCas(x4, y4).etat != 0 || this.getCas(x4, y4).contient_artefact()) {
+			x4 = (int) (Math.random() * (5 - 2)) + 2;
+			y4 = (int) (Math.random() * (5 - 2)) + 2;
 		}
+		
 		Artefact Feu = new Artefact(this, "Feu");
 		Artefact Eau = new Artefact(this, "Eau");
 		Artefact Air = new Artefact(this, "Air");
@@ -161,6 +157,15 @@ public class CModele extends Observable {
 		this.getCas(x3, y3).ajoute_artefact(Air);
 		this.getCas(x2, y2).ajoute_artefact(Eau);
 		this.getCas(x1, y1).ajoute_artefact(Feu);
+		
+		System.out.print(x1);
+		System.out.println(y1);
+		System.out.print(x2);
+		System.out.println(y2);
+		System.out.print(x3);
+		System.out.println(y3);
+		System.out.print(x4);
+		System.out.println(y4);
 		
 		
 	}
@@ -177,6 +182,8 @@ public class CModele extends Observable {
 		}
 		Heleco H= new Heleco();
 		this.getCas(x,y).ajoute_heleco(H);
+		System.out.print(x);
+		System.out.println(y);
 	}
 }
 
@@ -288,120 +295,101 @@ class Case {
 }
 
 
+/**
+ * @author gkemi
+ *
+ */
 class Joueur {
 	
 	private int nb_act;
-	private int cleE;
-	private int cleA;
-	private int cleF;
-	private int cleT;
 	private Case c;
-	private int Artefacts;
 	private String nom_joueur;
 	private boolean tour=false;
 	private CModele modele;
+	private ArrayList<Artefact> artefacts = new ArrayList<Artefact>();
+	private ArrayList<Cle> cles = new ArrayList<Cle>();
+	
+	
+	
 	public Joueur(CModele modele, Case c, String nom_joueur) {
 		this.c = c;
 		this.c.ajouter_joueur(this);
 		this.nom_joueur = nom_joueur;
-		this.cleE = 0;
-		this.cleA = 0;
-		this.cleF = 0;
-		this.cleT = 0;
-		this.Artefacts =0;
 		this.modele = modele;
 	}
-	public int getNb_act() {
-		return nb_act;
-	}
-
-	public int getNb_cleE() {
-		return cleE;
-	}
-
-	public int getNb_cleA() {
-		return cleA;
-	}
-
-	public int getNb_cleF() {
-		return cleF;
-	}
-
-	public int getNb_cleT() {
-		return cleT;
-	}
+	
+    //à utiliser pour fin de tour pour qu'il y est 50% de chance que le joueur reçoit la cle d'un artefact
+	
 	public void ajoute_Cle() {
 		float x = (float) Math.random();
 		if (x >= 0.5) {
+			String nom_cle="";
 			float y = (float) Math.random();
 			if (y <= 0.25) {
-				this.cleE += 1;
+				nom_cle="Eau";
 			} else if (y > 0.25 && y <= 0.50) {
-				this.cleA +=1;
+				nom_cle="Air";
 			} else if (y > 0.50 && y <= 0.75) {
-				this.cleF +=1;
+				nom_cle="Feu";
 			} else if (y > 0.75 && y <= 1.00) {
-				this.cleT +=1;
+				nom_cle="Terre";
 			}
+			Cle c =new Cle(modele, nom_cle);
+			cles.add(c);
 		}
 	}
-	public void suppr_CleE(){
-		this.cleE -= 1;
+	
+	public void supprimer_cle(Cle c) {
+		cles.remove(c);
 	}
-	public void suppr_CleA(){
-		this.cleA -= 1;
-	}
-	public void suppr_CleF(){
-		this.cleF -= 1;
-	}
-	public void suppr_CleT(){
-		this.cleT -= 1;
-	}
-	public void setNb_act(int nb_act) {
-		this.nb_act = nb_act;
-	}
-	public Case getC() {
-		return c;
-	}
-	public void setC(Case c) {
-		this.c = c;
-	}
+	
 	public String getNom_joueur() {
 		return nom_joueur;
 	}
+	
 	public void setNom_joueur(String nom_joueur) {
 		this.nom_joueur = nom_joueur;
 	}
+	
 	public boolean isTour() {
 		return tour;
 	}
 	public void setTour(boolean tour) {
 		this.tour = tour;
 	}
+	
 	public void maj_action() {
 		nb_act=3;
 	}
+	
 	public void action_moins() {
      nb_act--;
 	}
-	public void set_Art(int x){this.Artefacts=x;}
-	public int getArtefacts(){return this.Artefacts;}
-}
-
-class Artefacts{
-	private Case c;
-	private String nom_artefact;
-	private CModele modele;
-
-	private int EstPlace;
-
-	public Artefacts(CModele modele, Case c, String nom_artefact) {
-		this.c = c;
-		this.nom_artefact = nom_artefact;
-		this.EstPlace = 1;
-		this.modele = modele;
+	
+	public void ajouter_artefact(Artefact a) {
+		artefacts.add(a);
 	}
-	public String Get_Nom(){return nom_artefact;}
+	
+	public void supprimer_artefact(Artefact a) {
+		artefacts.remove(a);
+	}
+	
+	public String noms_artefacts_possession() {
+		String s="";
+		for (Artefact i : artefacts) {
+			s=s+i.getNom();
+		}
+		return s;
+	}
+	
+	public String noms_cles_possession() {
+		String s="";
+		for (Cle i : cles) {
+			s=s+i.getNom();
+		}
+		return s;
+	}
+	
 	public Case getC() {
 		return c;
 	}
@@ -410,13 +398,18 @@ class Artefacts{
 		this.c = c;
 	}
 
-	public boolean EstRecupere(){
-		if (this.EstPlace != 1){
-			return false;
-		}
-		return true;
+	public int getNb_act() {
+		return nb_act;
 	}
+
+	public void setNb_act(int nb_act) {
+		this.nb_act = nb_act;
+	}
+	
+	
 }
+
+
 
 abstract class items {
 	private CModele modele;
