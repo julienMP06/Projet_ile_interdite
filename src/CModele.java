@@ -132,7 +132,7 @@ public class CModele extends Observable {
 				y1 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		Terre = new Artefact(this, "Terre",getCas(x1,y1));
+		Terre = new Artefact(this, "T",getCas(x1,y1));
 		this.getCas(x1, y1).ajoute_artefact(Terre);
 		int x2 =(int) (Math.random()*(5-2)) + 2;
 		int y2 =(int) (Math.random()*(5-2)) + 2;
@@ -142,7 +142,7 @@ public class CModele extends Observable {
 				y2 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		Air = new Artefact(this, "Air",this.getCas(x2,y2));
+		Air = new Artefact(this, "A",this.getCas(x2,y2));
 		this.getCas(x2, y2).ajoute_artefact(Air);
 		int x3 =(int) (Math.random()*(5-2)) + 2;
 		int y3 =(int) (Math.random()*(5-2)) + 2;
@@ -152,7 +152,7 @@ public class CModele extends Observable {
 				y3 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		Eau = new Artefact(this, "Eau",this.getCas(x3,y3));
+		Eau = new Artefact(this, "E",this.getCas(x3,y3));
 		this.getCas(x3, y3).ajoute_artefact(Eau);
 
 		int x4 =(int) (Math.random()*(5-2)) + 2;
@@ -163,7 +163,7 @@ public class CModele extends Observable {
 				y4 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		Feu = new Artefact(this, "Feu",this.getCas(x4,y4));
+		Feu = new Artefact(this, "F",this.getCas(x4,y4));
 		this.getCas(x4, y4).ajoute_artefact(Feu);
 	}
 	
@@ -177,7 +177,7 @@ public class CModele extends Observable {
 				y = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		Heleco H= new Heleco();
+		Heleco H = new Heleco(this.getCas(x,y));
 		this.getCas(x,y).ajoute_heleco(H);
 	}
 }
@@ -505,8 +505,15 @@ abstract class Zone_speciale {
 
 class Heleco extends Zone_speciale {
 
-	public Heleco() {
-		super("helecoptere");
+	private Case c;
+
+	public Heleco(Case c) {
+		super("helicoptere");
+		this.c = c;
+	}
+
+	public Case getCaseHelico(){
+		return this.c;
 	}
 	
 }
