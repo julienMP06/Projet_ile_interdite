@@ -90,26 +90,26 @@ class VueGrille extends JPanel implements Observer {
             g.setFont(g.getFont().deriveFont(25f));
             g.drawString("H",x+16,y+35);
         }
-        if (c.GetEtat() == 21) {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Feu") {
             g.setColor(Color.WHITE);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.PINK);
             g.drawString("æ°”",x+11,y+35);
         }
-        if (c.GetEtat() == 22) {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Eau") {
             g.setColor(Color.RED);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.ORANGE);
             g.drawString("ç�«",x+11,y+35);
         }
-        if (c.GetEtat() == 23) {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Air") {
             g.setColor(Color.ORANGE);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.yellow);
             g.drawString("åœ°",x+11,y+35);
 
         }
-        if (c.GetEtat() == 24) {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Terre") {
             g.setColor(Color.CYAN);
             g.fillRect(x, y, TAILLE, TAILLE);
             g.setColor(Color.WHITE);

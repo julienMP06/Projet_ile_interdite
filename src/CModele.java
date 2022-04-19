@@ -126,7 +126,6 @@ public class CModele extends Observable {
 				y1 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		this.getCas(x1,y1).etat = 21;
 		int x2 =(int) (Math.random()*(5-2)) + 2;
 		int y2 =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x2, y2).etat != 0) {
@@ -135,7 +134,6 @@ public class CModele extends Observable {
 				y2 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		this.getCas(x2,y2).etat = 22;
 
 		int x3 =(int) (Math.random()*(5-2)) + 2;
 		int y3 =(int) (Math.random()*(5-2)) + 2;
@@ -145,7 +143,6 @@ public class CModele extends Observable {
 				y3 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		this.getCas(x3,y3).etat = 23;
 
 		int x4 =(int) (Math.random()*(5-2)) + 2;
 		int y4 =(int) (Math.random()*(5-2)) + 2;
@@ -155,13 +152,19 @@ public class CModele extends Observable {
 				y4 = (int) (Math.random() * (5 - 2)) + 2;
 			}
 		}
-		this.getCas(x4,y4).etat = 24;
-		Artefacts Feu = new Artefacts(this, this.getCas(x1, y1), "Feu");
-		Artefacts Eau = new Artefacts(this, this.getCas(x2, y2), "Eau");
-		Artefacts Air = new Artefacts(this, this.getCas(x3, y3), "Air");
-		Artefacts Terre = new Artefacts(this, this.getCas(x4, y4), "Terre");
+		Artefact Feu = new Artefact(this, "Feu");
+		Artefact Eau = new Artefact(this, "Eau");
+		Artefact Air = new Artefact(this, "Air");
+		Artefact Terre = new Artefact(this, "Terre");
+		
+		this.getCas(x4, y4).ajoute_artefact(Terre);
+		this.getCas(x3, y3).ajoute_artefact(Air);
+		this.getCas(x2, y2).ajoute_artefact(Eau);
+		this.getCas(x1, y1).ajoute_artefact(Feu);
+		
 		
 	}
+	
 	public void ZoneSpeciale() {
 		/*On place aléatoirement l'héliport*/
 		int x =(int) (Math.random()*(5-2)) + 2;
