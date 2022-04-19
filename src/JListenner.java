@@ -94,7 +94,7 @@ public class JListenner extends KeyAdapter {
                                 modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                                 modele.getCas(x, y + 1).ajouter_joueur(modele.getJ_actuel());
                                 modele.getJ_actuel().action_moins();
-                                label.setText("Bas");
+                                label.setText(" Bas");
                             } else {
                                 label.setText("Case Inondée !");
                             }

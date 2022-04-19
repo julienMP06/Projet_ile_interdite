@@ -321,20 +321,47 @@ class Joueur {
 			float y = (float) Math.random();
 			if (y <= 0.25) {
 				nom_cle="Eau";
-			} else if (y > 0.25 && y <= 0.50) {
+			}// else if (y > 0.25 && y <= 0.50) {
 				nom_cle="Air";
-			} else if (y > 0.50 && y <= 0.75) {
-				nom_cle="Feu";
-			} else if (y > 0.75 && y <= 1.00) {
-				nom_cle="Terre";
-			}
+			//}// else if (y > 0.50 && y <= 0.75) {
+			//	nom_cle="Feu";
+			//} else if (y > 0.75 && y <= 1.00) {
+			//	nom_cle="Terre";
+			//}
 			Cle c =new Cle(modele, nom_cle);
 			cles.add(c);
 		}
 	}
+
+	public void ajoute_cle_terre(){
+		Cle c = new Cle(modele,"Terre");
+		cles.add(c);
+	}
+
+	public void ajoute_cle_feu(){
+		Cle c = new Cle(modele,"Feu");
+		cles.add(c);
+	}
+	public void ajoute_cle_eau(){
+		Cle c = new Cle(modele,"Eau");
+		cles.add(c);
+	}
+	public void ajoute_cle_air(){
+		Cle c = new Cle(modele,"Air");
+		cles.add(c);
+	}
+
+	public void supprime_cle_air(){
+		Cle c = new Cle(modele,"Air");
+		cles.remove(c);
+	}
+
 	
 	public void supprimer_cle(Cle c) {
+		System.out.println("cle avant"+this.cles);
+		System.out.println(c);
 		cles.remove(c);
+		System.out.println("cle apres"+this.cles);
 	}
 	
 	public String getNom_joueur() {
