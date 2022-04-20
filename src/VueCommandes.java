@@ -41,7 +41,7 @@ class VueCommandes extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyPressed(KeyEvent e) {
-                        if (modele.isPartiePerdue()) {
+                        if (modele.partie_perdue()) {
                             label.setText("Tu ne peux plus jouer Recommence");
                         } else {
                             switch (e.getKeyCode()) {
@@ -136,7 +136,7 @@ class VueCommandes extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (modele.isPartiePerdue()) {
+                        if (modele.partie_perdue()) {
                             label.setText("Tu ne peux plus jouer Recommence");
                         } else {
                             int x = modele.getJ_actuel().getC().getX();

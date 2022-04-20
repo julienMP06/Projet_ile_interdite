@@ -5,11 +5,9 @@ public class CModele extends Observable {
 
 	public static final int HAUTEUR = 6, LARGEUR = 6;
 	private Case[][] plateau;
-	int joueur = 1;
 	private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4);// il y a exactement 4 joueurs
 	private Joueur j_actuel;
 
-	private int PartiePerdue = 0;
 	public CModele() {
 		plateau = new Case[LARGEUR + 2][HAUTEUR + 2];
 		for (int i = 0; i < LARGEUR + 2; i++) {
@@ -31,19 +29,42 @@ public class CModele extends Observable {
 		set_joueurs();
 		set_artefacts();
 	}
-
-	public void SetPartiePerdue(){
-		this.PartiePerdue = 1;
+	
+	public boolean partie_gagnee() {
+		//le nombre d'artefacts en possession des joueurs 
+		int nb_artefact=joueurs.get(0).getArtefacts().size()+joueurs.get(1).getArtefacts().size()+joueurs.get(2).getArtefacts().size()+joueurs.get(3).getArtefacts().size();
+		//tous les joueurs sont dans l'heleco
+		boolean tous_helo= joueurs.get(0).getC().contient_heleco()&&joueurs.get(1).getC().contient_heleco()&&joueurs.get(2).getC().contient_heleco()&&joueurs.get(3).getC().contient_heleco();
+		
+		return nb_artefact==4 && tous_helo;
+		
 	}
+	
+	public boolean partie_perdue() {
+		// un des joueurs noye
+		System.out.print(joueurs.get(0).noye());
+		boolean joueur_noye= joueurs.get(0).noye()|| joueurs.get(1).noye()|| joueurs.get(2).noye()|| joueurs.get(3).noye();
+		return (joueur_noye || this.artefact_heleco_noye());
+		
+	}
+	public boolean artefact_heleco_noye() {
+		// dire si l helco ou l un des artefacts est noyé
+		for (int i = 1; i <= LARGEUR; i++) {
+            for (int j = 1; j <= HAUTEUR; j++) {
+            	Case c= getCas(i,j);
+                if ((c.contient_artefact() || c.contient_heleco())&&(c.GetEtat()>1)){
+                	return true;
+                }
+            }
+        }
+		return false;
+	}
+	
+
 
 	/*Si la partie est perdue ou non */
 
-	public boolean isPartiePerdue(){
-		if(this.PartiePerdue == 1){
-			return true;
-		}
-		return false;
-	}
+
 	public Case getCas(int x, int y) {
 		return plateau[x][y];
 	}
@@ -180,6 +201,32 @@ public class CModele extends Observable {
 		Heleco H = new Heleco(this.getCas(x,y));
 		this.getCas(x,y).ajoute_heleco(H);
 	}
+	
+	public void noyer_trois_tuiles (){
+		for (int i = 0; i < 3; i++) {
+            int x = (int) (Math.random() * (CModele.LARGEUR)) + 1;
+            int y = (int) (Math.random() * (CModele.HAUTEUR)) + 1;
+            while (getCas(x, y).GetEtat() == 2 && this.nb_tuiles_non_noyee()>=3) {
+                x = (int) (Math.random() * (CModele.LARGEUR)) + 1;
+                y = (int) (Math.random() * (CModele.HAUTEUR)) + 1;
+            }
+            getCas(x, y).setEtat(getCas(x, y).GetEtat()+1);
+		}
+		
+	}
+	
+	public int nb_tuiles_non_noyee() {
+		int nb=0;
+		for (int i = 1; i <= LARGEUR; i++) {
+            for (int j = 1; j <= HAUTEUR; j++) {
+            	if (this.getCas(i, j).GetEtat() <=1)  nb++;           
+            }
+        }
+	
+		return nb;
+	}
+	
+	
 }
 
 //tuile
@@ -213,16 +260,16 @@ class Case {
 	 }
 	
 	 /*Pour avoir les coordonnees de toutes les cases adjacentes*/
-	 public Case getCaseD(int x , int y){return modele.getCas(x+1,y);}
+	 public Case getCaseD(){return modele.getCas(x+1,y);}
 	
-	 public Case getCaseG(int x , int y){return modele.getCas(x-1,y);}
+	 public Case getCaseG(){return modele.getCas(x-1,y);}
 	
-	 public Case getCaseH(int x , int y){return modele.getCas(x,y-1);}
+	 public Case getCaseH(){return modele.getCas(x,y-1);}
 	
-	 public Case getCaseB(int x , int y){return modele.getCas(x-1,y+1);}
+	 public Case getCaseB(){return modele.getCas(x-1,y+1);}
 	
 	 public boolean CaseAdjacenteLibre(int x, int y){
-		 if (getCaseB(x,y).etat == 2 && getCaseH(x,y).etat == 2 && getCaseD(x,y).etat == 2 && getCaseG(x,y).etat == 2 ){
+		 if (getCaseB().etat == 2 && getCaseH().etat == 2 && getCaseD().etat == 2 && getCaseG().etat == 2 ){
 			 return false;
 		 }
 		 return true;
@@ -250,7 +297,7 @@ class Case {
 	 }
 
 	public boolean contient_Artefacts() {
-		return !(artefact==null);
+		return !(artefact.isEmpty());
 	}
 
 	public ArrayList<Artefact> get_Artefacts() {
@@ -263,9 +310,11 @@ class Case {
 
 	public void ajoute_artefact(Artefact a) {
 		this.artefact.add(a);
+		a.setC(this);
 	}
 	
 	public void supprime_artefact() {
+		artefact.get(0).setC(null);
 		this.artefact.remove(0);
 	}
 
@@ -300,7 +349,7 @@ class Joueur {
 	private String nom_joueur;
 	private boolean tour=false;
 	private CModele modele;
-	private ArrayList<Artefact> artefacts = new ArrayList<Artefact>();
+	private ArrayList<Artefact> artefacts = new ArrayList<Artefact>(4);
 	private ArrayList<Cle> cles = new ArrayList<Cle>();
 	
 	
@@ -321,13 +370,13 @@ class Joueur {
 			float y = (float) Math.random();
 			if (y <= 0.25) {
 				nom_cle="Eau";
-			}// else if (y > 0.25 && y <= 0.50) {
+			}else if (y > 0.25 && y <= 0.50) {
 				nom_cle="Air";
-			//}// else if (y > 0.50 && y <= 0.75) {
-			//	nom_cle="Feu";
-			//} else if (y > 0.75 && y <= 1.00) {
-			//	nom_cle="Terre";
-			//}
+			}else if (y > 0.50 && y <= 0.75) {
+				nom_cle="Feu";
+			} else if (y > 0.75 && y <= 1.00) {
+				nom_cle="Terre";
+			}
 			Cle c =new Cle(modele, nom_cle);
 			cles.add(c);
 		}
@@ -466,6 +515,15 @@ class Joueur {
 	public void setNb_act(int nb_act) {
 		this.nb_act = nb_act;
 	}
+
+	public ArrayList<Artefact> getArtefacts() {
+		return artefacts;
+	}
+	
+	public boolean noye() {
+		return (this.getC().GetEtat() >1) &&(this.getC().getCaseD().GetEtat()>1)&&(this.getC().getCaseG().GetEtat()>1)&&(this.getC().getCaseH().GetEtat()>1)&&(this.getC().getCaseB().GetEtat()>1);
+	}
+	
 }
 
 
@@ -502,6 +560,11 @@ class Artefact extends items {
 	public Case EstDans(){
 		return this.c;
 	}
+
+	public void setC(Case c) {
+		this.c = c;
+	}
+	
 
 }
 
