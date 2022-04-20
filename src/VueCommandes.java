@@ -208,7 +208,7 @@ class VueCommandes extends JPanel {
                                     break;
                                 case 2 :
                                     label.setText("Appuyez sur A E F T pour donner");
-                                    EchangeCle.addKeyListener(
+                                    /*EchangeCle.addKeyListener(
                                             new KeyListener() {
                                                 @Override
                                                 public void keyReleased(KeyEvent e) {
@@ -289,7 +289,7 @@ class VueCommandes extends JPanel {
 
                                                 }
                                             }
-                                    );
+                                    );*/
                                     break;
                                 case 3 :
                                     label.setText("Vous ne devez etre que deux sur la meme case");
