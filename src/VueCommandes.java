@@ -44,76 +44,79 @@ class VueCommandes extends JPanel {
                         if (modele.partie_perdue()) {
                             label.setText("Tu ne peux plus jouer Recommence");
                         } else {
-                            switch (e.getKeyCode()) {
-
-                                case KeyEvent.VK_RIGHT:
-                                    int y = 0;
-                                    int x = 0;
-                                    // avoir les coordonnees du joueur qui joue
-                                    Case c = modele.getJ_actuel().getC();
-                                    x = c.getX();
-                                    y = c.getY();
-                                    if (modele.getCas(x + 1, y).etat == 1) {
-                                        modele.getCas(x + 1, y).setEtat(0);
-                                        modele.getJ_actuel().action_moins();
-                                        label.setText("Asseche Droite");
-                                    } else {
-                                        label.setText("Impossible !");
-                                    }
-                                    break;
-                                case KeyEvent.VK_LEFT:
-                                    // avoir les coordonnees du joueur qui joue
-                                    c = modele.getJ_actuel().getC();
-                                    x = c.getX();
-                                    y = c.getY();
-                                    if (modele.getCas(x - 1, y).etat == 1) {
-                                        modele.getCas(x - 1, y).setEtat(0);
-                                        modele.getJ_actuel().action_moins();
-                                        label.setText("Asseche Gauche");
-                                    } else {
-                                        label.setText("Impossible !");
-                                    }
-                                    break;
-                                case KeyEvent.VK_UP:
-                                    // avoir les coordonnees du joueur qui joue
-                                    c = modele.getJ_actuel().getC();
-                                    x = c.getX();
-                                    y = c.getY();
-                                    if (modele.getCas(x, y - 1).etat == 1) {
-                                        modele.getCas(x, y - 1).setEtat(0);
-                                        modele.getJ_actuel().action_moins();
-                                        label.setText("Asseche Haut");
-                                    } else {
-                                        label.setText("Impossible !");
-                                    }
-                                    break;
-                                case KeyEvent.VK_DOWN:
-                                    // avoir les coordonnees du joueur qui joue
-                                    c = modele.getJ_actuel().getC();
-                                    x = c.getX();
-                                    y = c.getY();
-                                    if (modele.getCas(x, y + 1).etat == 1) {
-                                        modele.getCas(x, y + 1).setEtat(0);
-                                        modele.getJ_actuel().action_moins();
-                                        label.setText("Asseche Bas");
-                                    } else {
-                                        label.setText("Impossible !");
-                                    }
-                                    break;
-                                case KeyEvent.VK_SPACE:
-                                    // avoir les coordonnees du joueur qui joue
-                                    c = modele.getJ_actuel().getC();
-                                    x = c.getX();
-                                    y = c.getY();
-                                    if (modele.getCas(x, y).etat == 1) {
-                                        modele.getCas(x, y).setEtat(0);
-                                        modele.getJ_actuel().action_moins();
-                                        label.setText("Asseché Actuelle");
-                                    } else {
-                                        label.setText("Impossible !");
-                                    }
-                                    break;
-                            }
+                        	if (modele.getJ_actuel().getNb_act()>0){
+	                            switch (e.getKeyCode()) {
+	
+	                                case KeyEvent.VK_RIGHT:
+	                                    int y = 0;
+	                                    int x = 0;
+	                                    // avoir les coordonnees du joueur qui joue
+	                                    Case c = modele.getJ_actuel().getC();
+	                                    x = c.getX();
+	                                    y = c.getY();
+	                                    if (modele.getCas(x + 1, y).etat == 1) {
+	                                        modele.getCas(x + 1, y).setEtat(0);
+	                                        modele.getJ_actuel().action_moins();
+	                                        label.setText("Asseche Droite");
+	                                    } else {
+	                                        label.setText("Impossible !");
+	                                    }
+	                                    break;
+	                                case KeyEvent.VK_LEFT:
+	                                    // avoir les coordonnees du joueur qui joue
+	                                    c = modele.getJ_actuel().getC();
+	                                    x = c.getX();
+	                                    y = c.getY();
+	                                    if (modele.getCas(x - 1, y).etat == 1) {
+	                                        modele.getCas(x - 1, y).setEtat(0);
+	                                        modele.getJ_actuel().action_moins();
+	                                        label.setText("Asseche Gauche");
+	                                    } else {
+	                                        label.setText("Impossible !");
+	                                    }
+	                                    break;
+	                                case KeyEvent.VK_UP:
+	                                    // avoir les coordonnees du joueur qui joue
+	                                    c = modele.getJ_actuel().getC();
+	                                    x = c.getX();
+	                                    y = c.getY();
+	                                    if (modele.getCas(x, y - 1).etat == 1) {
+	                                        modele.getCas(x, y - 1).setEtat(0);
+	                                        modele.getJ_actuel().action_moins();
+	                                        label.setText("Asseche Haut");
+	                                    } else {
+	                                        label.setText("Impossible !");
+	                                    }
+	                                    break;
+	                                case KeyEvent.VK_DOWN:
+	                                    // avoir les coordonnees du joueur qui joue
+	                                    c = modele.getJ_actuel().getC();
+	                                    x = c.getX();
+	                                    y = c.getY();
+	                                    if (modele.getCas(x, y + 1).etat == 1) {
+	                                        modele.getCas(x, y + 1).setEtat(0);
+	                                        modele.getJ_actuel().action_moins();
+	                                        label.setText("Asseche Bas");
+	                                    } else {
+	                                        label.setText("Impossible !");
+	                                    }
+	                                    break;
+	                                case KeyEvent.VK_SPACE:
+	                                    // avoir les coordonnees du joueur qui joue
+	                                    c = modele.getJ_actuel().getC();
+	                                    x = c.getX();
+	                                    y = c.getY();
+	                                    if (modele.getCas(x, y).etat == 1) {
+	                                        modele.getCas(x, y).setEtat(0);
+	                                        modele.getJ_actuel().action_moins();
+	                                        label.setText("Asseché Actuelle");
+	                                    } else {
+	                                        label.setText("Impossible !");
+	                                    }
+	                                    break;
+	                            }
+                            
+                        	}
                         }
                     }
 
@@ -208,7 +211,7 @@ class VueCommandes extends JPanel {
                                     break;
                                 case 2 :
                                     label.setText("Appuyez sur A E F T pour donner");
-                                    /*EchangeCle.addKeyListener(
+                                    EchangeCle.addKeyListener(
                                             new KeyListener() {
                                                 @Override
                                                 public void keyReleased(KeyEvent e) {
@@ -221,8 +224,8 @@ class VueCommandes extends JPanel {
                                                         //Cle c = new Cle(modele,"Air");
                                                         case KeyEvent.VK_A:
                                                             if (modele.getJ_actuel().getCleAir() != 0) {
-                                                                Cle c = new Cle(modele, "Air");
-                                                                modele.getJ_actuel().supprime_cle_air();
+                                                               
+                                                            	modele.getJ_actuel().supprimer_cle("Air");
                                                                 label.setText("Don de cle Air");
                                                                 ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
                                                                 if(v.get(0) != modele.getJ_actuel()){
@@ -236,8 +239,8 @@ class VueCommandes extends JPanel {
                                                             break;
                                                         case KeyEvent.VK_E:
                                                             if (modele.getJ_actuel().getCleEau() != 0) {
-                                                                Cle c = new Cle(modele, "Eau");
-                                                                modele.getJ_actuel().supprimer_cle(c);
+                                                              
+                                                                modele.getJ_actuel().supprimer_cle("Eau");
                                                                 ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
                                                                     if(v.get(0) != modele.getJ_actuel()){
                                                                         v.get(0).ajoute_cle_eau();
@@ -251,8 +254,8 @@ class VueCommandes extends JPanel {
                                                             break;
                                                         case KeyEvent.VK_T:
                                                             if (modele.getJ_actuel().getCleTerre() != 0) {
-                                                                Cle c = new Cle(modele, "Terre");
-                                                                modele.getJ_actuel().supprimer_cle(c);
+                                                                ;
+                                                                modele.getJ_actuel().supprimer_cle("Terre");
                                                                 ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
                                                                 if(v.get(0) != modele.getJ_actuel()){
                                                                     v.get(0).ajoute_cle_terre();
@@ -266,10 +269,10 @@ class VueCommandes extends JPanel {
                                                             break;
                                                         case KeyEvent.VK_F:
                                                             if (modele.getJ_actuel().getCleFeu() != 0) {
-                                                                Cle c = new Cle(modele, "Feu");
-                                                                System.out.println(modele.getJ_actuel().noms_cles_possession());
-                                                                modele.getJ_actuel().supprimer_cle(c);
-                                                                System.out.println(modele.getJ_actuel().noms_cles_possession());
+                                                            
+                                                                
+                                                                modele.getJ_actuel().supprimer_cle("Feu");
+                                                                
                                                                 ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
                                                                 if(v.get(0) != modele.getJ_actuel()){
                                                                     v.get(0).ajoute_cle_feu();
@@ -289,7 +292,7 @@ class VueCommandes extends JPanel {
 
                                                 }
                                             }
-                                    );*/
+                                    );
                                     break;
                                 case 3 :
                                     label.setText("Vous ne devez etre que deux sur la meme case");

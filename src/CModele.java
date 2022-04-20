@@ -424,11 +424,17 @@ class Joueur {
 	}
 
 	
-	public void supprimer_cle(Cle c) {
-		System.out.println("cle avant"+this.cles);
-		System.out.println(c);
-		cles.remove(c);
-		System.out.println("cle apres"+this.cles);
+	public void supprimer_cle(String  c) {
+		boolean b =false;
+		for (Cle i : cles) {
+			if (i.getNom()==c) {
+				cles.remove(i);
+				b=true;
+				break;
+				
+			}
+			if (b) break;
+		}
 	}
 	
 	public String getNom_joueur() {
@@ -469,6 +475,7 @@ class Joueur {
 		}
 		return s;
 	}
+	
 	
 	public String noms_cles_possession() {
 		String s="";
