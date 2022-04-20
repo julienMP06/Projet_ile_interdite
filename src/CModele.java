@@ -268,7 +268,7 @@ class Case {
 	
 	 public Case getCaseB(){return modele.getCas(x-1,y+1);}
 	
-	 public boolean CaseAdjacenteLibre(int x, int y){
+	 public boolean CaseAdjacenteLibre(){
 		 if (getCaseB().etat == 2 && getCaseH().etat == 2 && getCaseD().etat == 2 && getCaseG().etat == 2 ){
 			 return false;
 		 }
@@ -521,7 +521,7 @@ class Joueur {
 	}
 	
 	public boolean noye() {
-		return (this.getC().GetEtat() >1) &&(this.getC().getCaseD().GetEtat()>1)&&(this.getC().getCaseG().GetEtat()>1)&&(this.getC().getCaseH().GetEtat()>1)&&(this.getC().getCaseB().GetEtat()>1);
+		return (this.getC().GetEtat() >1) &&(!(this.getC().CaseAdjacenteLibre()));
 	}
 	
 }
