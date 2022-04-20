@@ -200,111 +200,117 @@ class VueCommandes extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int x = modele.getJ_actuel().getC().getX();
-                        int y = modele.getJ_actuel().getC().getY();
-                        ArrayList<Joueur> l = modele.getCas(x, y).get_joueurs();
-                        System.out.println(l.size());
-                        if(modele.getCas(x,y).contient_joueur()){
-                            switch (l.size()){
-                                case 1 :
-                                    label.setText("impossible d'echanger avec vous meme");
-                                    break;
-                                case 2 :
-                                    label.setText("Appuyez sur A E F T pour donner");
-                                    EchangeCle.addKeyListener(
-                                            new KeyListener() {
-                                                @Override
-                                                public void keyReleased(KeyEvent e) {
-
-                                                }
-
-                                                @Override
-                                                public void keyPressed(KeyEvent e) {
-                                                    switch (e.getKeyCode()) {
-                                                        //Cle c = new Cle(modele,"Air");
-                                                        case KeyEvent.VK_A:
-                                                            if (modele.getJ_actuel().getCleAir() != 0) {
-                                                               
-                                                            	modele.getJ_actuel().supprimer_cle("Air");
-                                                                label.setText("Don de cle Air");
-                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-                                                                if(v.get(0) != modele.getJ_actuel()){
-                                                                    v.get(0).ajoute_cle_air();
-                                                                }else {
-                                                                    v.get(1).ajoute_cle_air();
-                                                                }
-                                                            }else{
-                                                                label.setText("Pas assez de cle");
-                                                            }
-                                                            break;
-                                                        case KeyEvent.VK_E:
-                                                            if (modele.getJ_actuel().getCleEau() != 0) {
-                                                              
-                                                                modele.getJ_actuel().supprimer_cle("Eau");
-                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-                                                                    if(v.get(0) != modele.getJ_actuel()){
-                                                                        v.get(0).ajoute_cle_eau();
-                                                                    }else {
-                                                                        v.get(1).ajoute_cle_eau();
-                                                                    }
-                                                                label.setText("Don de cle Eau");
-                                                            }else{
-                                                                label.setText("Pas assez de cle");
-                                                            }
-                                                            break;
-                                                        case KeyEvent.VK_T:
-                                                            if (modele.getJ_actuel().getCleTerre() != 0) {
-                                                                ;
-                                                                modele.getJ_actuel().supprimer_cle("Terre");
-                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-                                                                if(v.get(0) != modele.getJ_actuel()){
-                                                                    v.get(0).ajoute_cle_terre();
-                                                                }else {
-                                                                    v.get(1).ajoute_cle_terre();
-                                                                }
-                                                                label.setText("Don de cle Terre");
-                                                            }else{
-                                                                label.setText("Pas assez de cle");
-                                                            }
-                                                            break;
-                                                        case KeyEvent.VK_F:
-                                                            if (modele.getJ_actuel().getCleFeu() != 0) {
-                                                            
-                                                                
-                                                                modele.getJ_actuel().supprimer_cle("Feu");
-                                                                
-                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-                                                                if(v.get(0) != modele.getJ_actuel()){
-                                                                    v.get(0).ajoute_cle_feu();
-                                                                }else {
-                                                                    v.get(1).ajoute_cle_feu();
-                                                                }
-                                                                label.setText("Don de cle Feu");
-                                                            }else{
-                                                                label.setText("Pas assez de cle");
-                                                            }
-                                                            break;
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void keyTyped(KeyEvent e) {
-
-                                                }
-                                            }
-                                    );
-                                    break;
-                                case 3 :
-                                    label.setText("Vous ne devez etre que deux sur la meme case");
-                                    break;
-                                case 4 :
-                                    label.setText("Vous ne devez etre que deux sur la meme case");
-                                    break;
-                            }
-                            //modele.getJ_actuel().suppr_CleE();
-                            //modele.getJoueurs().get(modele.getCas(x,y).getJoueur()).ajoute_Cle();
-                            modele.getJ_actuel().action_moins();
-                        }
+                    	if (modele.partie_perdue()) {
+                            label.setText("Tu ne peux plus jouer Recommence");
+                        } else {
+                        	if (modele.getJ_actuel().getNb_act()>0){
+		                        int x = modele.getJ_actuel().getC().getX();
+		                        int y = modele.getJ_actuel().getC().getY();
+		                        ArrayList<Joueur> l = modele.getCas(x, y).get_joueurs();
+		                        
+		                        if(modele.getCas(x,y).contient_joueur()){
+		                            switch (l.size()){
+		                                case 1 :
+		                                    label.setText("impossible d'echanger avec vous meme");
+		                                    break;
+		                                case 2 :
+		                                    label.setText("Appuyez sur A E F T pour donner");
+		                                    EchangeCle.addKeyListener(
+		                                            new KeyListener() {
+		                                                @Override
+		                                                public void keyReleased(KeyEvent e) {
+		
+		                                                }
+		
+		                                                @Override
+		                                                public void keyPressed(KeyEvent e) {
+		                                                    switch (e.getKeyCode()) {
+		                                                        //Cle c = new Cle(modele,"Air");
+		                                                        case KeyEvent.VK_A:
+		                                                            if (modele.getJ_actuel().getCleAir() != 0) {
+		                                                               
+		                                                            	modele.getJ_actuel().supprimer_cle("Air");
+		                                                                label.setText("Don de cle Air");
+		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
+		                                                                if(v.get(0) != modele.getJ_actuel()){
+		                                                                    v.get(0).ajoute_cle_air();
+		                                                                }else {
+		                                                                    v.get(1).ajoute_cle_air();
+		                                                                }
+		                                                            }else{
+		                                                                label.setText("Pas assez de cle");
+		                                                            }
+		                                                            break;
+		                                                        case KeyEvent.VK_E:
+		                                                            if (modele.getJ_actuel().getCleEau() != 0) {
+		                                                              
+		                                                                modele.getJ_actuel().supprimer_cle("Eau");
+		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
+		                                                                    if(v.get(0) != modele.getJ_actuel()){
+		                                                                        v.get(0).ajoute_cle_eau();
+		                                                                    }else {
+		                                                                        v.get(1).ajoute_cle_eau();
+		                                                                    }
+		                                                                label.setText("Don de cle Eau");
+		                                                            }else{
+		                                                                label.setText("Pas assez de cle");
+		                                                            }
+		                                                            break;
+		                                                        case KeyEvent.VK_T:
+		                                                            if (modele.getJ_actuel().getCleTerre() != 0) {
+		                                                                ;
+		                                                                modele.getJ_actuel().supprimer_cle("Terre");
+		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
+		                                                                if(v.get(0) != modele.getJ_actuel()){
+		                                                                    v.get(0).ajoute_cle_terre();
+		                                                                }else {
+		                                                                    v.get(1).ajoute_cle_terre();
+		                                                                }
+		                                                                label.setText("Don de cle Terre");
+		                                                            }else{
+		                                                                label.setText("Pas assez de cle");
+		                                                            }
+		                                                            break;
+		                                                        case KeyEvent.VK_F:
+		                                                            if (modele.getJ_actuel().getCleFeu() != 0) {
+		                                                            
+		                                                                
+		                                                                modele.getJ_actuel().supprimer_cle("Feu");
+		                                                                
+		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
+		                                                                if(v.get(0) != modele.getJ_actuel()){
+		                                                                    v.get(0).ajoute_cle_feu();
+		                                                                }else {
+		                                                                    v.get(1).ajoute_cle_feu();
+		                                                                }
+		                                                                label.setText("Don de cle Feu");
+		                                                            }else{
+		                                                                label.setText("Pas assez de cle");
+		                                                            }
+		                                                            break;
+		                                                    }
+		                                                }
+		
+		                                                @Override
+		                                                public void keyTyped(KeyEvent e) {
+		
+		                                                }
+		                                            }
+		                                    );
+		                                    break;
+		                                case 3 :
+		                                    label.setText("Vous ne devez etre que deux sur la meme case");
+		                                    break;
+		                                case 4 :
+		                                    label.setText("Vous ne devez etre que deux sur la meme case");
+		                                    break;
+		                            }
+		                            //modele.getJ_actuel().suppr_CleE();
+		                            //modele.getJoueurs().get(modele.getCas(x,y).getJoueur()).ajoute_Cle();
+		                            modele.getJ_actuel().action_moins();
+		                        }
+		                    }
+	                    }
                     }
                 }
         );
