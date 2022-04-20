@@ -19,7 +19,6 @@ public class JListenner extends KeyAdapter {
         if (modele.partie_perdue()) {
             label.setText("Tu ne peux plus jouer Recommence");
         } else {
-            Point p = button.getLocation();
             if (modele.getJ_actuel().getNb_act() > 0) {
                 switch (e.getKeyCode()) {
 

@@ -27,6 +27,7 @@ public class Controleur extends VueJoueurs implements ActionListener {
         else if (modele.partie_perdue()){label.setText("Vous avez perdus, reesayez une autre fois");}
         else {
         	modele.noyer_trois_tuiles();
+        	modele.getJ_actuel().ajoute_Cle();
         }
         modele.MAJ();
     	

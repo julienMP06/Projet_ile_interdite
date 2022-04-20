@@ -260,19 +260,37 @@ class Case {
 	 }
 	
 	 /*Pour avoir les coordonnees de toutes les cases adjacentes*/
-	 public Case getCaseD(){return modele.getCas(x+1,y);}
+	 public Case getCaseD(){
+		 if(x + 1 < CModele.LARGEUR + 1) {return  modele.getCas(x+1,y);}
+		 return null;
+		 
+		 }
 	
-	 public Case getCaseG(){return modele.getCas(x-1,y);}
+	 public Case getCaseG(){
+		 if (x - 1 > 0) {return modele.getCas(x-1,y);}
+		 return null;
+	 }
 	
-	 public Case getCaseH(){return modele.getCas(x,y-1);}
+	 public Case getCaseH(){
+		 if (y - 1 > 0){return modele.getCas(x,y-1);}
+		 return null;
+	 }
 	
-	 public Case getCaseB(){return modele.getCas(x-1,y+1);}
+	 public Case getCaseB(){
+		 if (y + 1 < CModele.HAUTEUR + 1){return modele.getCas(x-1,y+1);}
+		 return null;
+	 }
 	
 	 public boolean CaseAdjacenteLibre(){
-		 if (getCaseB().etat == 2 && getCaseH().etat == 2 && getCaseD().etat == 2 && getCaseG().etat == 2 ){
-			 return false;
-		 }
-		 return true;
+		 //verifier les cases adjacentes si elle sont libres en evitent que les bords soient comptés-
+		 Case H=getCaseH(),G=getCaseG(),D=getCaseD(),B=getCaseB();
+		 ArrayList <Case> l=new  ArrayList<Case>(4);
+		 // en utilisant le proprite de ET paresseux
+		 if (H!=null && H.GetEtat()<=1) {l.add(H);}
+		 if (G!=null && G.GetEtat()<=1) {l.add(G);}
+		 if (B!=null && B.GetEtat()<=1) {l.add(B);}
+		 if (D!=null && D.GetEtat()<=1) {l.add(D);}
+		 return !(l.isEmpty());
 	 }
 
 	 //ajouter joueur a la case
