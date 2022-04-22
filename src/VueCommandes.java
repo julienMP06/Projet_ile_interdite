@@ -14,7 +14,9 @@ import javax.swing.JFrame;
 
 class VueCommandes extends JPanel {
     private CModele modele;
-    GridLayout grid = new GridLayout(4, 0);
+    GridLayout grid = new GridLayout(5, 0);
+
+	JPanel panel2 = new JPanel();
     JLabel label = new JLabel();
     public VueCommandes(CModele modele) {
 
@@ -332,6 +334,21 @@ class VueCommandes extends JPanel {
                     }
                 }
         );*/
+		JButton ActionSpeciale = new JButton("Actions Spe");
+		panelC.add(ActionSpeciale);
+		JButton SacSable= new JButton("Sac de sable");
+		JButton Helico = new JButton("Helico");
+		/*ActionSpeciale.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("fdfdf");
+						panel2.add(SacSable);
+						panel2.add(Helico);
+						panelC.add(panel2);
+					}
+				}
+		);*/
 
         this.add(panelC);
         this.add(label);

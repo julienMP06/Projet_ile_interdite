@@ -618,6 +618,18 @@ abstract class Zone_speciale {
 	
 }
 
+abstract class Zone_cliquable {
+	private Case c;
+
+	public Zone_cliquable(Case c) {
+		this.c = c;
+	}
+
+	public Case getCaseZone() {
+		return this.c;
+	}
+}
+
 class Heleco extends Zone_speciale {
 
 	private Case c;
