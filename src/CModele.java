@@ -369,9 +369,10 @@ class Joueur {
 	private CModele modele;
 	private ArrayList<Artefact> artefacts = new ArrayList<Artefact>(4);
 	private ArrayList<Cle> cles = new ArrayList<Cle>();
+	private ArrayList<Carte_tiree> cartes = new ArrayList <Carte_tiree>();
 	
 	
-	
+
 	public Joueur(CModele modele, Case c, String nom_joueur) {
 		this.c = c;
 		this.c.ajouter_joueur(this);
@@ -549,6 +550,43 @@ class Joueur {
 		return (this.getC().GetEtat() >1) &&(!(this.getC().CaseAdjacenteLibre()));
 	}
 	
+	public ArrayList<Carte_tiree> getCartes() {
+		return cartes;
+	}
+	
+	public boolean contient_carte_speciales() {
+		return !(cartes.isEmpty());
+	}
+	
+	public boolean Sac_a_sable(int x, int y) {
+		// proprite permettant d assecher n importe quelle case non-submergée du plateau
+		// la fonction renvoie vrai si cette action est faite quand c'est possible sinon ça renvoie faux
+		// a noter cette action fait deja nb_act_moins du joueur qu il l utilise
+		Case c=modele.getCas(x, y);
+		if (c.GetEtat()==1) {
+			c.setEtat(c.GetEtat()-1);
+			this.action_moins();
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean heleco(int x, int y) {
+		// proprite permettant de se deplacer à n importe quelle case non-submergée du plateau
+		// la fonction renvoie vrai si cette action est faite quand c'est possible sinon ça renvoie faux
+		// a noter cette action ne fait pas action moins au joueur qu il utilise car on l utilisera pour les autres joueurs dans la meme case 
+		Case c=modele.getCas(x, y);
+		if (c.GetEtat()<=1) {
+			this.getC().supprimer_joueur(this);
+			this.setC(c);
+			c.ajouter_joueur(this);
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
 }
 
 
@@ -644,3 +682,39 @@ class Heleco extends Zone_speciale {
 	}
 	
 }
+
+
+class Carte_tiree{
+	String nom;
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+}
+
+
+
+class Carte_sac_sable extends Carte_tiree{
+
+	public Carte_sac_sable() {
+		super();
+		this.setNom("Sac a sable");
+	}
+	
+}
+
+class Carte_heleco extends Carte_tiree{
+
+	public Carte_heleco() {
+		super();
+		this.setNom("Heleco");
+	}
+	
+}
+
+
