@@ -316,28 +316,29 @@ class VueCommandes extends JPanel {
                     }
                 }
         );
+        
 
         JButton boutonEnvole = new JButton("S'envoler");
         panelC.add(boutonEnvole);
-
-        /*boutonEnvole.addActionListener(
+        boutonEnvole.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int x = modele.getCasHelico().getX();
-                        int y = modele.getCasHelico().getY();
-                        System.out.println(modele.getCas(x,y).get_joueurs().size());
-                        if(modele.getCas(x,y).get_joueurs().size() == 4){
+                        
+                        if(modele.partie_gagnee()){
                             label.setText("Partie Gagnee, Bravo !");
-                        }
+                        } else {
                         label.setText("Tu n'as pas fini de chercher");
+                        }
                     }
                 }
-        );*/
-		JButton ActionSpeciale = new JButton("Actions Spe");
-		panelC.add(ActionSpeciale);
+        );
+		
 		JButton SacSable= new JButton("Sac de sable");
 		JButton Helico = new JButton("Helico");
+		panelC.add(SacSable);
+		panelC.add(Helico);
+		
 		/*ActionSpeciale.addActionListener(
 				new ActionListener() {
 					@Override
