@@ -16,7 +16,8 @@ public class JListenner extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (modele.partie_perdue()) {
+    	if (modele.partie_gagnee()) {}
+    	else if (modele.partie_perdue()) {
             label.setText("Tu ne peux plus jouer Recommence");
         } else {
             if (modele.getJ_actuel().getNb_act() > 0) {

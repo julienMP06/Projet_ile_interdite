@@ -393,8 +393,13 @@ class VueCommandes extends JPanel{
 													panelC.remove(EntrerY);
 													panelC.remove(valider);
 													panelC.repaint();
-													label.setText("Deplacement en " +x+" "+y);
-												}else if(x == 0 && y == 0){
+													Case c =modele.getJ_actuel().getC();
+													ArrayList<Joueur> joueurs=c.get_joueurs();
+													modele.getJ_actuel().heleco(x, y);
+													Joueur j=modele.getJ_actuel();
+													modele.MAJ();
+													j.supprimer_ActionSpe("Heleco");
+													label.setText("Deplacement en " +x+" "+y);																									}else if(x == 0 && y == 0){
 													panelC.revalidate();
 													panelC.remove(EntrerX);
 													panelC.remove(EntrerY);
@@ -409,6 +414,8 @@ class VueCommandes extends JPanel{
 													panelC.repaint();
 													label.setText("Hors Grille");
 												}
+												
+												
 											}
 										}
 								);

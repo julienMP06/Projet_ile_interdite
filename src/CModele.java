@@ -186,7 +186,7 @@ public class CModele extends Observable {
 	}
 	
 	public void ZoneSpeciale() {
-		/*On place al�atoirement l'h�liport*/
+		/*On place aleatoirement l'h�liport*/
 		int x =(int) (Math.random()*(5-2)) + 2;
 		int y =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x, y).etat != 0 || this.getCas(x,y).contient_artefact()) {
@@ -585,10 +585,10 @@ class Joueur {
 		return false;
 	}
 
-	public void supprimer_ActionSpeHelico() {
+	public void supprimer_ActionSpe(String nom) {
 		boolean b =false;
 		for (ActionSpe i : ActionSp) {
-			if (i.getNom() == "Heleco"){
+			if (i.getNom() == nom){
 				ActionSp.remove(i);
 				b = true;
 				break;

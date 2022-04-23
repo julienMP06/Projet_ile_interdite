@@ -17,7 +17,8 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (modele.partie_perdue()) {
+    	if (modele.partie_gagnee()) {}
+    	else if (modele.partie_perdue()) {
             label.setText("Tu ne peux plus jouer Recommence");
         } else if (modele.getJ_actuel().getNb_act()>0) {
             int x = modele.getJ_actuel().getC().getX();
@@ -31,11 +32,13 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
                 	modele.getJ_actuel().action_moins();
 
                               
-            } else {
+                } 
+            }else {
                 label.setText("Il n'y a pas d'artefact ici");
             }
-        }
+        
         modele.MAJ();
+            
     }
 
 }
