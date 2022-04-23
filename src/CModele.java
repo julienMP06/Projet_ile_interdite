@@ -420,14 +420,16 @@ class Joueur {
 				a= new Heleco_act();
 			}
 			
-			if (a!=null)ActionSp.add(a);
+			if (a!=null) {
+				this.ActionSp.add(a);
+			};
 		}
 	}
 
 	public int get_nb_ActionSacSable(){
 		int x = 0;
 		for (ActionSpe i : ActionSp) {
-			if(i.getNom() == "SacSable") {
+			if(i.getNom() == "Sac a sable") {
 				x += 1;
 			}
 		}
@@ -437,7 +439,7 @@ class Joueur {
 	public int get_nb_ActionHelico(){
 		int x = 0;
 		for (ActionSpe i : ActionSp) {
-			if(i.getNom() == "Helico") {
+			if(i.getNom() == "Heleco") {
 				x += 1;
 			}
 		}
@@ -477,7 +479,7 @@ class Joueur {
 	public void supprimer_ActionSpeSable() {
 		boolean b =false;
 		for (ActionSpe i : ActionSp) {
-			if(i.getNom() == "SacSable") {
+			if(i.getNom() == "Sac a sable") {
 				ActionSp.remove(i);
 				b = true;
 				break;
@@ -627,7 +629,7 @@ class Joueur {
 	public void supprimer_ActionSpeHelico() {
 		boolean b =false;
 		for (ActionSpe i : ActionSp) {
-			if (i.getNom() == "Helico"){
+			if (i.getNom() == "Heleco"){
 				ActionSp.remove(i);
 				b = true;
 				break;
