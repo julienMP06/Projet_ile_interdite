@@ -333,7 +333,10 @@ class VueCommandes extends JPanel{
 														panelC.remove(EntrerY);
 														panelC.remove(valider);
 														panelC.repaint();
+														modele.getJ_actuel().Sac_a_sable(x, y);
+														modele.getJ_actuel().supprimer_ActionSpe("Sac a sable");
 														label.setText("Case " + x + " " + y + " asseche");
+														modele.MAJ();
 													}else if(x == 0 && y == 0){
 														panelC.revalidate();
 														panelC.remove(EntrerX);
@@ -349,16 +352,20 @@ class VueCommandes extends JPanel{
 														panelC.remove(valider);
 														panelC.repaint();
 													}
+													modele.MAJ();
 												}
 											}
 									);
 									panelC.revalidate();
 									panelC.repaint();
+									modele.MAJ();
 
 						}else{
 								label.setText("Tu n'as pas d'action Sac de Sable");
 							}
+							modele.MAJ();
 						}
+						
 					}
 				}
 		);
@@ -387,17 +394,48 @@ class VueCommandes extends JPanel{
 												int x = Integer.parseInt(textX);
 												String textY = EntrerY.getText();
 												int y = Integer.parseInt(textY);
+												
 												if(x > 0 && x < 7 && y > 0 && y < 7){
 													panelC.revalidate();
 													panelC.remove(EntrerX);
 													panelC.remove(EntrerY);
 													panelC.remove(valider);
 													panelC.repaint();
+													
+													label.setText("Voulez vous emporter les autres avec vous ?");
+													
+													JButton emporter=new JButton ("oui");
+													panelC.add(emporter);
+													emporter.addActionListener(
+															new ActionListener() {
+																@Override
+																public void actionPerformed(ActionEvent e) {
+																	Case c =modele.getJ_actuel().getC();
+																	ArrayList<Joueur> joueurs=c.get_joueurs();
+																	for(Joueur j :joueurs) {
+																		j.heleco(x, y);
+																	}
+																	
+																}
+															}
+															);
+													JButton non_emporter=new JButton ("non");
+													panelC.add(non_emporter);
+													non_emporter.addActionListener(
+															new ActionListener() {
+																@Override
+																public void actionPerformed(ActionEvent e) {
+																	modele.getJ_actuel().heleco(x, y);
+																}
+															}
+															);
+													/*panelC.revalidate();
+													panelC.remove(emporter);
+													panelC.remove(non_emporter);
+													panelC.repaint();*/
 													label.setText("Deplacement en " +x+" "+y);
-													Case c =modele.getJ_actuel().getC();
-													ArrayList<Joueur> joueurs=c.get_joueurs();
-													modele.getJ_actuel().heleco(x, y);
 													modele.getJ_actuel().supprimer_ActionSpe("Heleco");
+									
 													modele.MAJ();
 												}else if(x == 0 && y == 0){
 													panelC.revalidate();

@@ -412,7 +412,7 @@ class Joueur {
 	public void ajoute_ActionSpe() {
 		float x = (float) Math.random();
 		ActionSpe a=null;
-		if (x <= 0.20) {
+		if (x <= 0.90) {
 			float y = (float) Math.random();
 			if (y <= 0.50) {
 				a=new Sac_sable();
@@ -561,11 +561,9 @@ class Joueur {
 	public boolean Sac_a_sable(int x, int y) {
 		// proprite permettant d assecher n importe quelle case non-submerg�e du plateau
 		// la fonction renvoie vrai si cette action est faite quand c'est possible sinon �a renvoie faux
-		// a noter cette action fait deja nb_act_moins du joueur qu il l utilise
 		Case c=modele.getCas(x, y);
 		if (c.GetEtat()==1) {
 			c.setEtat(c.GetEtat()-1);
-			this.action_moins();
 			return true;
 		}
 		return false;
