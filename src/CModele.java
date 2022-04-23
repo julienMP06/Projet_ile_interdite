@@ -216,7 +216,6 @@ public void noyer_trois_tuiles (){
             }
             getCas(x, y).setEtat(getCas(x, y).GetEtat()+1);
             points.add(p);
-            System.out.println(p.getX()+"  "+p.getY());
 		}
 		
 		

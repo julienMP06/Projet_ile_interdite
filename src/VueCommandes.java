@@ -399,27 +399,26 @@ class VueCommandes extends JPanel{
 												String textY = EntrerY.getText();
 												int y = Integer.parseInt(textY);
 												boolean b = oui.isSelected();
-												Case c = modele.getJ_actuel().getC();
-												ArrayList<Joueur> joueurs = c.get_joueurs();
-												if (x > 0 && x < 7 && y > 0 && y < 7 && b == true) {
-													System.out.println("\n taille : "+joueurs.size());
-													if (joueurs.size() > 1) {
+												
+												if (x > 0 && x < 7 && y > 0 && y < 7) {
+													if  (b) {
+														Case c = modele.getJ_actuel().getC();
+														ArrayList<Joueur> joueurs = c.get_joueurs();
+														//System.out.println(joueurs.size());
+														ArrayList<Joueur> l  =new ArrayList<Joueur>();
 														for (Joueur j : joueurs) {
-															j.heleco(x, y);
-															System.out.println("\n Joueurs : "+j);
+															l.add(j);
+															//j.heleco, y);
+															//System.out.println(j.getC().getX()+"  "+j.getC().getY());
 														}
-													}else{
-														modele.getJ_actuel().heleco(x,y);
-														modele.getJ_actuel().supprimer_ActionSpe("Heleco");
+														for (Joueur j : l) {
+															j.heleco(x, y);
+														}
+														
+													}else {
+														modele.getJ_actuel().heleco(x, y);
 													}
-													panelC.revalidate();
-													panelC.remove(EntrerX);
-													panelC.remove(EntrerY);
-													panelC.remove(valider);
-													panelC.remove(oui);
-													panelC.repaint();
-												} else if (x > 0 && x < 7 && y > 0 && y < 7 && b == false) {
-													modele.getJ_actuel().heleco(x, y);
+													
 													panelC.revalidate();
 													panelC.remove(EntrerX);
 													panelC.remove(EntrerY);
