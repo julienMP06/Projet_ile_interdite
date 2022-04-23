@@ -6,7 +6,6 @@ public class App {
         EventQueue.invokeLater(() -> {
             CModele modele = new CModele();
             CVue vue = new CVue(modele);
-            
         });
     }
 }

@@ -12,6 +12,7 @@ public class Controleur extends VueJoueurs implements ActionListener {
     private int N = 0;
 
     private JLabel label;
+
     public Controleur(CModele modele, JLabel label) {
         super(modele);
         this.modele = modele;
@@ -22,6 +23,7 @@ public class Controleur extends VueJoueurs implements ActionListener {
     	
     	
     	N = N + 1;
+        modele.getJ_actuel().setNb_act(0);
     	modele.j_suivant();
         if (modele.partie_gagnee()) {}
         else if (modele.partie_perdue()){label.setText("Vous avez perdus, reesayez une autre fois");}
@@ -29,6 +31,7 @@ public class Controleur extends VueJoueurs implements ActionListener {
         	modele.noyer_trois_tuiles();
         	modele.getJ_actuel().ajoute_Cle();
             modele.getJ_actuel().ajoute_ActionSpe();
+            label.setText("Au tour de "+modele.getJ_actuel().getNom_joueur());
         }
         modele.MAJ();
     	

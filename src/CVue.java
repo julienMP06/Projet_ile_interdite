@@ -2,23 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Flow;
 
 public class CVue extends JFrame implements ActionListener {
-
     private JFrame frame;
-
     private JFrame frameMenu;
-
     private JFrame frameRegle;
     private VueGrille grille;
     private VueCommandes commandes;
     private VueJoueurs joueurs;
     private VueJoueurs2 joueurs2;
     JButton bouton = new JButton ("Jouer");
-
     JButton boutonRegle = new JButton ("Regles");
     GridLayout grid = new GridLayout(2, 2);
-
     GridLayout gridMenu = new GridLayout(2, 0);
     private CModele modele;
     public CVue(CModele modele) {
@@ -46,11 +42,10 @@ public class CVue extends JFrame implements ActionListener {
                     public void actionPerformed(ActionEvent e) {
                         frameMenu.dispose();
                         frameRegle = new JFrame();
-                        frameRegle.setSize(600,600);
                         frameRegle.setResizable(false);
                         frameRegle.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Regle");
-                        grid.setVgap(30);
-                        frameRegle.setLayout(grid);
+                        FlowLayout flow = new FlowLayout();
+                        frameRegle.setLayout(flow);
 
                         JTextArea explication = new JTextArea("\nVous incarnez ici 4 aventuriers. Sur cette ile vous allez devoir recuperer les 4 artefacts presents sur la carte puis\n " +
                                 "retourner a l'heliport pour pouvoir vous echapper. Mais attention car l'ile sombre dans les profondeurs de l'ocean." +
@@ -105,7 +100,7 @@ public class CVue extends JFrame implements ActionListener {
             grille = new VueGrille(modele);
             frame.add(grille);
 
-            commandes = new VueCommandes(modele);
+            commandes = new VueCommandes(modele,frameMenu,frame);
             frame.add(commandes);
 
             joueurs = new VueJoueurs(modele);

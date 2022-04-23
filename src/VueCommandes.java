@@ -13,18 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 class VueCommandes extends JPanel{
-
     private CModele modele;
-
-	GridLayout grid = new GridLayout(6, 0);
-
+	GridLayout grid = new GridLayout(7, 0);
 	JTextField EntrerX = new JTextField("Entre X");
-
 	JTextField EntrerY = new JTextField("Entre Y");
 
+	JButton valider = new JButton("Valider");
 	JLabel label = new JLabel();
-
-	public VueCommandes(CModele modele) {
+	public VueCommandes(CModele modele, JFrame frameMenu, JFrame frame) {
 
         JPanel panelC = new JPanel();
 
@@ -33,10 +29,24 @@ class VueCommandes extends JPanel{
         grid.setVgap(15);
         this.modele=modele;
 
-        JButton boutonAvance = new JButton("Fin De Tour");
+		JLabel labelSpace = new JLabel("       ");
 
+        JButton boutonAvance = new JButton("Fin De Tour");
+		boutonAvance.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						panelC.remove(EntrerX);
+						panelC.remove(EntrerY);
+						panelC.remove(valider);
+						panelC.revalidate();
+						panelC.repaint();
+					}
+				}
+		);
 
         Controleur ctrl = new Controleur(modele,label);
+
         boutonAvance.addActionListener(ctrl);
 
 
@@ -49,6 +59,11 @@ class VueCommandes extends JPanel{
                 new KeyListener() {
                     @Override
                     public void keyPressed(KeyEvent e) {
+						panelC.remove(EntrerX);
+						panelC.remove(EntrerY);
+						panelC.remove(valider);
+						panelC.revalidate();
+						panelC.repaint();
                         if (modele.partie_perdue()) {
                             label.setText("Tu ne peux plus jouer Recommence");
                         } else {
@@ -117,7 +132,7 @@ class VueCommandes extends JPanel{
 	                                    if (modele.getCas(x, y).etat == 1) {
 	                                        modele.getCas(x, y).setEtat(0);
 	                                        modele.getJ_actuel().action_moins();
-	                                        label.setText("Asseché Actuelle");
+	                                        label.setText("Asseche Actuelle");
 	                                    } else {
 	                                        label.setText("Impossible !");
 	                                    }
@@ -298,9 +313,9 @@ class VueCommandes extends JPanel{
 							label.setText("Tu ne peux plus jouer Recommence");
 						} else {
 							if (modele.getJ_actuel().get_nb_ActionSacSable() > 0){
-								JButton valider = new JButton(">");
 								EntrerX.setText("Entre X");
 								EntrerY.setText("Entre Y");
+								label.setText("Pour annuler mets 0 0 et valide");
 								panelC.add(EntrerX);
 								panelC.add(EntrerY);
 								panelC.add(valider);
@@ -319,8 +334,20 @@ class VueCommandes extends JPanel{
 														panelC.remove(valider);
 														panelC.repaint();
 														label.setText("Case " + x + " " + y + " asseche");
-													} else {
+													}else if(x == 0 && y == 0){
+														panelC.revalidate();
+														panelC.remove(EntrerX);
+														panelC.remove(EntrerY);
+														panelC.remove(valider);
+														panelC.repaint();
+														label.setText("Action annule");
+													}else {
 														label.setText("Hors Grille");
+														panelC.revalidate();
+														panelC.remove(EntrerX);
+														panelC.remove(EntrerY);
+														panelC.remove(valider);
+														panelC.repaint();
 													}
 												}
 											}
@@ -346,9 +373,11 @@ class VueCommandes extends JPanel{
 							label.setText("Tu ne peux plus jouer Recommence");
 						} else {
 							if (modele.getJ_actuel().get_nb_ActionHelico() > 0){
-								JButton valider = new JButton(">");
+								EntrerX.setText("Entre X");
+								EntrerY.setText("Entre Y");
 								panelC.add(EntrerX);
 								panelC.add(EntrerY);
+								label.setText("Pour annuler mets 0 0 et valide");
 								panelC.add(valider);
 								valider.addActionListener(
 										new ActionListener() {
@@ -365,8 +394,19 @@ class VueCommandes extends JPanel{
 													panelC.remove(valider);
 													panelC.repaint();
 													label.setText("Deplacement en " +x+" "+y);
-												}
-												else{
+												}else if(x == 0 && y == 0){
+													panelC.revalidate();
+													panelC.remove(EntrerX);
+													panelC.remove(EntrerY);
+													panelC.remove(valider);
+													panelC.repaint();
+													label.setText("Action annule");
+												}else{
+													panelC.revalidate();
+													panelC.remove(EntrerX);
+													panelC.remove(EntrerY);
+													panelC.remove(valider);
+													panelC.repaint();
 													label.setText("Hors Grille");
 												}
 											}
@@ -383,6 +423,17 @@ class VueCommandes extends JPanel{
 				}
 		);
 
+		JButton retour = new JButton("<- Menu");
+		retour.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						frameMenu.setVisible(true);
+						frame.dispose();
+					}
+				}
+		);
+
 		panelC.add(boutonAvance);
 		panelC.add(button);
 		panelC.add(buttonAsseche);
@@ -391,9 +442,11 @@ class VueCommandes extends JPanel{
 		panelC.add(boutonEnvole);
 		panelC.add(SacSable);
 		panelC.add(Helico);
+		panelC.add(retour);
+		panelC.add(labelSpace);
 		panelC.revalidate();
 		panelC.repaint();
-        this.add(panelC);
+		this.add(panelC);
         this.add(label);
         JListenner jtl = new JListenner(modele,button,ctrl,label);
         button.addKeyListener(jtl);

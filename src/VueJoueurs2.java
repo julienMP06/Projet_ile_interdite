@@ -21,7 +21,7 @@ public class VueJoueurs2 extends JPanel implements Observer{
         grid.setVgap(40);
         modele.addObserver(this);
 
-        Affichage.setText("Actions Spe                  Atefacts");
+        Affichage.setText("Actions Speciales            Atefacts");
         panelJ.add(Affichage);
         panelJ.add(labelJ1);
         panelJ.add(labelJ2);
@@ -46,7 +46,7 @@ public class VueJoueurs2 extends JPanel implements Observer{
     }
 
     private void paint(Joueur j, JLabel label) {
-        label.setText("Sable : "+j.get_nb_ActionSacSable()+"  Helico : "+j.get_nb_ActionHelico()+"                  "+j.noms_artefacts_possession());
+        label.setText("Sable : "+j.get_nb_ActionSacSable()+"  Helico : "+j.get_nb_ActionHelico()+"            "+j.noms_artefacts_possession());
 
         s = modele.getJ_actuel().getNom_joueur();
         if (s == "J1") {

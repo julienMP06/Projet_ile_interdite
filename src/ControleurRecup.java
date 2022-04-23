@@ -30,6 +30,7 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
                             modele.getJ_actuel().ajouter_artefact(l.get(0));
                             modele.getJ_actuel().action_moins();
                             modele.getCas(x, y).supprime_artefact();
+                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Feu");
                         } else {
                             label.setText("Tu n'as pas assez de cle");
                         }
@@ -39,6 +40,7 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
                             modele.getJ_actuel().ajouter_artefact(l.get(0));
                             modele.getJ_actuel().action_moins();
                             modele.getCas(x, y).supprime_artefact();
+                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Eau");
                         } else {
                             label.setText("Tu n'as pas assez de cle");
                         }
@@ -48,6 +50,7 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
                             modele.getJ_actuel().ajouter_artefact(l.get(0));
                             modele.getJ_actuel().action_moins();
                             modele.getCas(x, y).supprime_artefact();
+                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Air");
                         } else {
                             label.setText("Tu n'as pas assez de cle");
                         }
@@ -57,6 +60,7 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
                             modele.getJ_actuel().ajouter_artefact(l.get(0));
                             modele.getJ_actuel().action_moins();
                             modele.getCas(x, y).supprime_artefact();
+                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Terre");
                         } else {
                             label.setText("Tu n'as pas assez de cle");
                         }
