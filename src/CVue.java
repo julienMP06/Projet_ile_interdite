@@ -8,12 +8,12 @@ public class CVue extends JFrame implements ActionListener {
     private JFrame frame;
 
     private JFrame frameMenu;
+
+    private JFrame frameRegle;
     private VueGrille grille;
     private VueCommandes commandes;
     private VueJoueurs joueurs;
-
     private VueJoueurs2 joueurs2;
-
     JButton bouton = new JButton ("Jouer");
 
     JButton boutonRegle = new JButton ("Regles");
@@ -29,16 +29,57 @@ public class CVue extends JFrame implements ActionListener {
         frameMenu.setSize(600,600);
         frameMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        BorderLayout flow1 = new BorderLayout();
+        gridMenu.setVgap(30);
+        CardLayout flow1 = new CardLayout(200,200);
         frameMenu.setLayout(flow1);
 
         JPanel pan1 = new JPanel( );
         pan1.setLayout(gridMenu);
-        pan1.add(bouton);
-        pan1.add(boutonRegle);
-        frameMenu.add(pan1);
 
+        pan1.add(bouton);
         bouton.addActionListener(this);
+
+        pan1.add(boutonRegle);
+        boutonRegle.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frameMenu.dispose();
+                        frameRegle = new JFrame();
+                        frameRegle.setSize(600,600);
+                        frameRegle.setResizable(false);
+                        frameRegle.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Regle");
+                        grid.setVgap(30);
+                        frameRegle.setLayout(grid);
+
+                        JTextArea explication = new JTextArea("Vous incarnez ici 4 aventuriers. Sur cette ile vous allez devoir ");
+                        explication.setEditable(false);
+
+                        JButton buttonRetour = new JButton("<-");
+                        buttonRetour.addActionListener(
+                                new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        frameMenu.setVisible(true);
+                                        frameRegle.dispose();
+                                    }
+                                }
+                        );
+
+
+                        frameRegle.add(explication);
+                        frameRegle.add(buttonRetour);
+                        frameRegle.pack();
+                        frameRegle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frameRegle.setVisible(true);
+                        frameRegle.setLocationRelativeTo(null);
+                    }
+                }
+        );
+
+        frameMenu.add(pan1,BorderLayout.CENTER);
+
+
         frameMenu.setVisible(true);
         frameMenu.setLocationRelativeTo(null);
     }
