@@ -12,7 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-class VueCommandes extends JPanel {
+class VueCommandes extends JPanel implements Observer{
     private CModele modele;
     GridLayout grid = new GridLayout(5, 0);
 
@@ -1052,4 +1052,9 @@ class VueCommandes extends JPanel {
         JListenner jtl = new JListenner(modele,button,ctrl,label);
         button.addKeyListener(jtl);
     }
+
+	@Override
+	public void update() {
+		repaint();
+	}
 }
