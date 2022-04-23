@@ -316,6 +316,7 @@ class VueCommandes extends JPanel{
 													panelC.remove(EntrerY);
 													panelC.remove(valider);
 													panelC.repaint();
+													label.setText("Case " +x+" "+y+" asseche");
 												}
 												else{
 													label.setText("Hors Grille");
@@ -362,6 +363,7 @@ class VueCommandes extends JPanel{
 													panelC.remove(EntrerY);
 													panelC.remove(valider);
 													panelC.repaint();
+													label.setText("Deplacement en " +x+" "+y);
 												}
 												else{
 													label.setText("Hors Grille");
