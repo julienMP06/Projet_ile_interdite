@@ -30,14 +30,14 @@ class VueCommandes extends JPanel {
         this.modele=modele;
 
         JButton boutonAvance = new JButton("Fin De Tour");
-        panelC.add(boutonAvance);
+
 
         Controleur ctrl = new Controleur(modele,label);
         boutonAvance.addActionListener(ctrl);
 
 
         JButton button = new JButton("Deplacement");
-        panelC.add(button);
+
 
         JButton buttonAsseche = new JButton("Assecher");
 
@@ -137,17 +137,14 @@ class VueCommandes extends JPanel {
                 }
         );
 
-        panelC.add(buttonAsseche);
-
         JButton buttonRecup = new JButton("Recuperer");
-		panelC.add(buttonRecup);
-
         ControleurRecup ctrlRec = new ControleurRecup(modele,label);
 		buttonRecup.addActionListener(ctrlRec);
 
 
+
         JButton EchangeCle = new JButton("Donner cle");
-        panelC.add(EchangeCle);
+
         EchangeCle.addActionListener(
                 new ActionListener() {
                     @Override
@@ -269,7 +266,7 @@ class VueCommandes extends JPanel {
         
 
         JButton boutonEnvole = new JButton("S'envoler");
-        panelC.add(boutonEnvole);
+
         boutonEnvole.addActionListener(
                 new ActionListener() {
                     @Override
@@ -288,7 +285,7 @@ class VueCommandes extends JPanel {
         );
 		
 		JButton SacSable= new JButton("Sac de sable");
-		panelC.add(SacSable);
+
 		SacSable.addActionListener(
 				new ActionListener() {
 					@Override
@@ -309,7 +306,7 @@ class VueCommandes extends JPanel {
 		);
 
 		JButton Helico = new JButton("Helico");
-		panelC.add(Helico);
+
 		/*Helico.addActionListener(
 				new ActionListener() {
 					@Override
@@ -1040,6 +1037,16 @@ class VueCommandes extends JPanel {
 					}
 				}
 		);*/
+
+
+		panelC.add(boutonAvance);
+		panelC.add(button);
+		panelC.add(buttonAsseche);
+		panelC.add(buttonRecup);
+		panelC.add(EchangeCle);
+		panelC.add(boutonEnvole);
+		panelC.add(SacSable);
+		panelC.add(Helico);
         this.add(panelC);
         this.add(label);
         JListenner jtl = new JListenner(modele,button,ctrl,label);
