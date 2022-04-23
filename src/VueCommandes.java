@@ -299,33 +299,34 @@ class VueCommandes extends JPanel{
 						} else {
 							if (modele.getJ_actuel().get_nb_ActionSacSable() > 0){
 								JButton valider = new JButton(">");
+								EntrerX.setText("Entre X");
+								EntrerY.setText("Entre Y");
 								panelC.add(EntrerX);
 								panelC.add(EntrerY);
 								panelC.add(valider);
-								valider.addActionListener(
-										new ActionListener() {
-											@Override
-											public void actionPerformed(ActionEvent e) {
-												String textX = EntrerX.getText();
-												int x = Integer.parseInt(textX);
-												String textY = EntrerY.getText();
-												int y = Integer.parseInt(textY);
-												if(x > 0 && x < 7 && y > 0 && y < 7){
-													panelC.revalidate();
-													panelC.remove(EntrerX);
-													panelC.remove(EntrerY);
-													panelC.remove(valider);
-													panelC.repaint();
-													label.setText("Case " +x+" "+y+" asseche");
-												}
-												else{
-													label.setText("Hors Grille");
+									valider.addActionListener(
+											new ActionListener() {
+												@Override
+												public void actionPerformed(ActionEvent e) {
+													String textX = EntrerX.getText();
+													int x = Integer.parseInt(textX);
+													String textY = EntrerY.getText();
+													int y = Integer.parseInt(textY);
+													if (x > 0 && x < 7 && y > 0 && y < 7) {
+														panelC.revalidate();
+														panelC.remove(EntrerX);
+														panelC.remove(EntrerY);
+														panelC.remove(valider);
+														panelC.repaint();
+														label.setText("Case " + x + " " + y + " asseche");
+													} else {
+														label.setText("Hors Grille");
+													}
 												}
 											}
-										}
-								);
-								panelC.revalidate();
-								panelC.repaint();
+									);
+									panelC.revalidate();
+									panelC.repaint();
 
 						}else{
 								label.setText("Tu n'as pas d'action Sac de Sable");

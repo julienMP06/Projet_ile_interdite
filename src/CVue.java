@@ -15,6 +15,8 @@ public class CVue extends JFrame implements ActionListener {
     private VueJoueurs2 joueurs2;
 
     JButton bouton = new JButton ("Jouer");
+
+    JButton boutonRegle = new JButton ("Regles");
     GridLayout grid = new GridLayout(2, 2);
 
     GridLayout gridMenu = new GridLayout(2, 0);
@@ -33,7 +35,8 @@ public class CVue extends JFrame implements ActionListener {
         JPanel pan1 = new JPanel( );
         pan1.setLayout(gridMenu);
         pan1.add(bouton);
-        frameMenu.add(pan1,BorderLayout.CENTER);
+        pan1.add(boutonRegle);
+        frameMenu.add(pan1);
 
         bouton.addActionListener(this);
         frameMenu.setVisible(true);
@@ -57,6 +60,9 @@ public class CVue extends JFrame implements ActionListener {
 
             joueurs = new VueJoueurs(modele);
             frame.add(joueurs);
+
+            joueurs2 = new VueJoueurs2(modele);
+            frame.add(joueurs2);
 
             frame.pack();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
