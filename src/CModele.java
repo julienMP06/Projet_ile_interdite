@@ -422,7 +422,7 @@ class Joueur {
 			
 			if (a!=null) {
 				this.ActionSp.add(a);
-			};
+			}
 		}
 	}
 
