@@ -17,8 +17,9 @@ class VueCommandes extends JPanel{
 	GridLayout grid = new GridLayout(7, 0);
 	JTextField EntrerX = new JTextField("Entre X");
 	JTextField EntrerY = new JTextField("Entre Y");
-
 	JButton valider = new JButton("Valider");
+
+	JCheckBox oui = new JCheckBox("Emporter",false);
 	JLabel label = new JLabel();
 	public VueCommandes(CModele modele, JFrame frameMenu, JFrame frame) {
 
@@ -39,6 +40,7 @@ class VueCommandes extends JPanel{
 						panelC.remove(EntrerX);
 						panelC.remove(EntrerY);
 						panelC.remove(valider);
+						panelC.remove(oui);
 						panelC.revalidate();
 						panelC.repaint();
 					}
@@ -384,8 +386,10 @@ class VueCommandes extends JPanel{
 								EntrerY.setText("Entre Y");
 								panelC.add(EntrerX);
 								panelC.add(EntrerY);
-								label.setText("Pour annuler mets 0 0 et valide");
 								panelC.add(valider);
+								label.setText("Voulez vous emporter les autres avec vous ?");
+								panelC.add(oui);
+								label.setText("Pour annuler mets 0 0 et valide");
 								valider.addActionListener(
 										new ActionListener() {
 											@Override
@@ -394,66 +398,54 @@ class VueCommandes extends JPanel{
 												int x = Integer.parseInt(textX);
 												String textY = EntrerY.getText();
 												int y = Integer.parseInt(textY);
-												
-												if(x > 0 && x < 7 && y > 0 && y < 7){
+												boolean b = oui.isSelected();
+												Case c = modele.getJ_actuel().getC();
+												ArrayList<Joueur> joueurs = c.get_joueurs();
+												if (x > 0 && x < 7 && y > 0 && y < 7 && b == true) {
+													System.out.println("\n taille : "+joueurs.size());
+													if (joueurs.size() > 1) {
+														for (Joueur j : joueurs) {
+															j.heleco(x, y);
+															System.out.println("\n Joueurs : "+j);
+														}
+													}else{
+														modele.getJ_actuel().heleco(x,y);
+														modele.getJ_actuel().supprimer_ActionSpe("Heleco");
+													}
 													panelC.revalidate();
 													panelC.remove(EntrerX);
 													panelC.remove(EntrerY);
 													panelC.remove(valider);
+													panelC.remove(oui);
 													panelC.repaint();
-													
-													label.setText("Voulez vous emporter les autres avec vous ?");
-													
-													JButton emporter=new JButton ("oui");
-													panelC.add(emporter);
-													emporter.addActionListener(
-															new ActionListener() {
-																@Override
-																public void actionPerformed(ActionEvent e) {
-																	Case c =modele.getJ_actuel().getC();
-																	ArrayList<Joueur> joueurs=c.get_joueurs();
-																	for(Joueur j :joueurs) {
-																		j.heleco(x, y);
-																	}
-																	
-																}
-															}
-															);
-													JButton non_emporter=new JButton ("non");
-													panelC.add(non_emporter);
-													non_emporter.addActionListener(
-															new ActionListener() {
-																@Override
-																public void actionPerformed(ActionEvent e) {
-																	modele.getJ_actuel().heleco(x, y);
-																}
-															}
-															);
-													/*panelC.revalidate();
-													panelC.remove(emporter);
-													panelC.remove(non_emporter);
-													panelC.repaint();*/
-													label.setText("Deplacement en " +x+" "+y);
-													modele.getJ_actuel().supprimer_ActionSpe("Heleco");
-									
-													modele.MAJ();
-												}else if(x == 0 && y == 0){
+												} else if (x > 0 && x < 7 && y > 0 && y < 7 && b == false) {
+													modele.getJ_actuel().heleco(x, y);
 													panelC.revalidate();
 													panelC.remove(EntrerX);
 													panelC.remove(EntrerY);
 													panelC.remove(valider);
+													panelC.remove(oui);
+													panelC.repaint();
+													label.setText("Deplacement en " + x + " " + y);
+													modele.getJ_actuel().supprimer_ActionSpe("Heleco");
+													modele.MAJ();
+												} else if (x == 0 && y == 0) {
+													panelC.revalidate();
+													panelC.remove(EntrerX);
+													panelC.remove(EntrerY);
+													panelC.remove(valider);
+													panelC.remove(oui);
 													panelC.repaint();
 													label.setText("Action annule");
-												}else{
+												} else {
 													panelC.revalidate();
 													panelC.remove(EntrerX);
 													panelC.remove(EntrerY);
 													panelC.remove(valider);
+													panelC.remove(oui);
 													panelC.repaint();
 													label.setText("Hors Grille");
 												}
-												modele.MAJ();
-												
 											}
 										}
 								);
