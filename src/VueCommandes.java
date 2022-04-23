@@ -296,7 +296,7 @@ class VueCommandes extends JPanel {
 						if (modele.partie_perdue()) {
 							label.setText("Tu ne peux plus jouer Recommence");
 						} else {
-							if (modele.getJ_actuel().getActionSacSable() > 0){
+							if (modele.getJ_actuel().get_nb_ActionSacSable() > 0){
 								label.setText("X : ");
 								label.add(EntrerX);
 								modele.MAJ();

@@ -147,44 +147,41 @@ public class CModele extends Observable {
 		//creer des artefacts et les mettre sur les cases
 		int x1 =(int) (Math.random()*(5-2)) + 2;
 		int y1 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x1, y1).etat != 0 || this.getCas(x1,y1).contient_artefact() || this.getCas(x1,y1).contient_heleco()) {
-			while (this.getCas(x1, y1).etat != 0 || this.getCas(x1, y1).contient_artefact() || this.getCas(x1,y1).contient_heleco()) {
-				x1 = (int) (Math.random() * (5 - 2)) + 2;
-				y1 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		while (this.getCas(x1, y1).GetEtat() != 0 || this.getCas(x1, y1).contient_artefact() || this.getCas(x1,y1).contient_heleco()) {
+			x1 = (int) (Math.random() * (5 - 2)) + 2;
+			y1 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Terre = new Artefact(this, "T",getCas(x1,y1));
+		Terre = new Artefact( "T",getCas(x1,y1));
 		this.getCas(x1, y1).ajoute_artefact(Terre);
+		
+		
 		int x2 =(int) (Math.random()*(5-2)) + 2;
 		int y2 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x2, y2).etat != 0 || this.getCas(x2,y2).contient_artefact() || this.getCas(x2,y2).contient_heleco()) {
-			while (this.getCas(x2, y2).etat != 0 || this.getCas(x2, y2).contient_artefact() || this.getCas(x2,y2).contient_heleco()) {
-				x2 = (int) (Math.random() * (5 - 2)) + 2;
-				y2 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		while (this.getCas(x2, y2).GetEtat() != 0 || this.getCas(x2, y2).contient_artefact() || this.getCas(x2,y2).contient_heleco()) {
+			x2 = (int) (Math.random() * (5 - 2)) + 2;
+			y2 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Air = new Artefact(this, "A",this.getCas(x2,y2));
+		Air = new Artefact( "A",this.getCas(x2,y2));
 		this.getCas(x2, y2).ajoute_artefact(Air);
+		
+		
 		int x3 =(int) (Math.random()*(5-2)) + 2;
 		int y3 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x3, y3).etat != 0 || this.getCas(x3,y3).contient_artefact() || this.getCas(x3,y3).contient_heleco()) {
-			while (this.getCas(x3, y3).etat != 0 || this.getCas(x3, y3).contient_artefact() || this.getCas(x3,y3).contient_heleco()) {
-				x3 = (int) (Math.random() * (5 - 2)) + 2;
-				y3 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		while (this.getCas(x3, y3).GetEtat() != 0 || this.getCas(x3, y3).contient_artefact() || this.getCas(x3,y3).contient_heleco()) {
+			x3 = (int) (Math.random() * (5 - 2)) + 2;
+			y3 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Eau = new Artefact(this, "E",this.getCas(x3,y3));
+		Eau = new Artefact( "E",this.getCas(x3,y3));
 		this.getCas(x3, y3).ajoute_artefact(Eau);
 
+		
 		int x4 =(int) (Math.random()*(5-2)) + 2;
 		int y4 =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x4, y4).etat != 0 || this.getCas(x4,y4).contient_artefact() || this.getCas(x4,y4).contient_heleco()) {
-			while (this.getCas(x4, y4).etat != 0 || this.getCas(x4, y4).contient_artefact() || this.getCas(x4,y4).contient_heleco()) {
-				x4 = (int) (Math.random() * (5 - 2)) + 2;
-				y4 = (int) (Math.random() * (5 - 2)) + 2;
-			}
+		while (this.getCas(x4, y4).GetEtat() != 0 || this.getCas(x4, y4).contient_artefact() || this.getCas(x4,y4).contient_heleco()) {
+			x4 = (int) (Math.random() * (5 - 2)) + 2;
+			y4 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Feu = new Artefact(this, "F",this.getCas(x4,y4));
+		Feu = new Artefact( "F",this.getCas(x4,y4));
 		this.getCas(x4, y4).ajoute_artefact(Feu);
 	}
 	
@@ -201,18 +198,28 @@ public class CModele extends Observable {
 		Heleco H = new Heleco(this.getCas(x,y));
 		this.getCas(x,y).ajoute_heleco(H);
 	}
-	
-	public void noyer_trois_tuiles (){
+
+
+
+public void noyer_trois_tuiles (){
+		// cette liste sera utilisée pour evité de monter l'eau deux fois dans un seul fin de tour
+		ArrayList<Point> points = new ArrayList<Point>();
 		for (int i = 0; i < 3; i++) {
             int x = (int) (Math.random() * (CModele.LARGEUR)) + 1;
             int y = (int) (Math.random() * (CModele.HAUTEUR)) + 1;
-            while (getCas(x, y).GetEtat() == 2 && this.nb_tuiles_non_noyee()>=3) {
+            Point p= new Point(x,y);
+            
+            while (getCas(x, y).GetEtat() >= 2 && this.nb_tuiles_non_noyee()>=1 || p.In(points)) {
                 x = (int) (Math.random() * (CModele.LARGEUR)) + 1;
                 y = (int) (Math.random() * (CModele.HAUTEUR)) + 1;
+                p= new Point(x,y);
             }
             getCas(x, y).setEtat(getCas(x, y).GetEtat()+1);
+            points.add(p);
+            System.out.println(p.getX()+"  "+p.getY());
 		}
-
+		
+		
 	}
 	
 	public int nb_tuiles_non_noyee() {
@@ -397,27 +404,27 @@ class Joueur {
 			} else if (y > 0.75 && y <= 1.00) {
 				nom_cle="Terre";
 			}
-			Cle c =new Cle(modele, nom_cle);
+			Cle c =new Cle( nom_cle);
 			cles.add(c);
 		}
 	}
 
 	public void ajoute_ActionSpe() {
 		float x = (float) Math.random();
+		ActionSpe a=null;
 		if (x >= 0.15) {
-			String nom_ActionSpe="";
 			float y = (float) Math.random();
 			if (y <= 0.50) {
-				nom_ActionSpe="SacSable";
+				a=new Sac_sable();
 			}else if (y > 0.50) {
-				nom_ActionSpe="Helico";
+				a= new Heleco_act();
 			}
-			ActionSpe c = new ActionSpe(modele, nom_ActionSpe);
-			ActionSp.add(c);
+			
+			if (a!=null)ActionSp.add(a);
 		}
 	}
 
-	public int getActionSacSable(){
+	public int get_nb_ActionSacSable(){
 		int x = 0;
 		for (ActionSpe i : ActionSp) {
 			if(i.getNom() == "SacSable") {
@@ -427,7 +434,7 @@ class Joueur {
 		return x;
 	}
 
-	public int getActionHelico(){
+	public int get_nb_ActionHelico(){
 		int x = 0;
 		for (ActionSpe i : ActionSp) {
 			if(i.getNom() == "Helico") {
@@ -438,20 +445,20 @@ class Joueur {
 	}
 
 	public void ajoute_cle_terre(){
-		Cle c = new Cle(modele,"Terre");
+		Cle c = new Cle("Terre");
 		cles.add(c);
 	}
 
 	public void ajoute_cle_feu(){
-		Cle c = new Cle(modele,"Feu");
+		Cle c = new Cle("Feu");
 		cles.add(c);
 	}
 	public void ajoute_cle_eau(){
-		Cle c = new Cle(modele,"Eau");
+		Cle c = new Cle("Eau");
 		cles.add(c);
 	}
 	public void ajoute_cle_air(){
-		Cle c = new Cle(modele,"Air");
+		Cle c = new Cle("Air");
 		cles.add(c);
 	}
 	public void supprimer_cle(String  c) {
@@ -473,8 +480,9 @@ class Joueur {
 			if(i.getNom() == "SacSable") {
 				ActionSp.remove(i);
 				b = true;
+				break;
 			}
-			break;
+			if (b) break;
 		}
 	}
 	
@@ -585,7 +593,7 @@ class Joueur {
 		return (this.getC().GetEtat() >1) &&(!(this.getC().CaseAdjacenteLibre()));
 	}
 	
-	public boolean contient_carte_speciales() {
+	public boolean contient_action_speciales() {
 		return !(ActionSp.isEmpty());
 	}
 	
@@ -622,8 +630,9 @@ class Joueur {
 			if (i.getNom() == "Helico"){
 				ActionSp.remove(i);
 				b = true;
+				break;
 			}
-			break;
+			if (b) break;
 		}
 	}
 }
@@ -631,7 +640,6 @@ class Joueur {
 
 
 abstract class items {
-	private CModele modele;
 	private String nom;
 	
 	public String getNom() {
@@ -642,9 +650,8 @@ abstract class items {
 		this.nom = nom;
 	}
 
-	public items(CModele modele, String nom) {
+	public items( String nom) {
 		super();
-		this.modele = modele;
 		this.nom = nom;
 	}
 	
@@ -654,8 +661,8 @@ class Artefact extends items {
 
 	private Case c;
 
-	public Artefact(CModele modele, String nom, Case c) {
-		super(modele, nom);
+	public Artefact(String nom, Case c) {
+		super(nom);
 		this.c = c;
 	}
 
@@ -672,8 +679,8 @@ class Artefact extends items {
 
 class Cle extends items {
 
-	public Cle(CModele modele, String nom) {
-		super(modele, nom);
+	public Cle(String nom) {
+		super( nom);
 	}
 }
 
@@ -710,10 +717,70 @@ class Heleco extends Zone_speciale {
 	
 }
 
-class ActionSpe extends items {
-	public ActionSpe(CModele modele, String nom) {
-		super(modele, nom);
+class ActionSpe{
+	String nom;
+
+	public String getNom() {
+		return nom;
 	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+}
+
+
+
+class Sac_sable extends ActionSpe{
+
+	public Sac_sable() {
+		super();
+		this.setNom("Sac a sable");
+	}
+	
+}
+
+class Heleco_act extends ActionSpe{
+
+	public Heleco_act() {
+		super();
+		this.setNom("Heleco");
+	}
+	
+}
+
+class Point { 
+	int x;
+	int y;
+	
+	public Point(int x, int y) {
+		this.x=x;
+		this.y=y;
+	}
+	
+	public boolean equals (Point p) {
+		return (x==p.getX() && y==p.getY());
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+	
+	public boolean In (ArrayList<Point> points) {
+		for(Point p : points) {
+			if (p.equals(this)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 }
 
 
