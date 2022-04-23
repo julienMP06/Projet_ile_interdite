@@ -46,7 +46,7 @@ public class VueJoueurs extends JPanel implements Observer{
 
     private void paint(Joueur j, JLabel label) {
         label.setText(j.getNom_joueur()+"               "+j.getNb_act()+"                "+
-                j.getCleFeu()+"  "+j.getCleAir()+"  "+j.getCleTerre()+"  "+j.getCleEau());
+                j.get_nb_cle("Feu")+"  "+j.get_nb_cle("Air")+"  "+j.get_nb_cle("Terre")+"  "+j.get_nb_cle("Eau"));
 
         s = modele.getJ_actuel().getNom_joueur();
         if (s == "J1") {

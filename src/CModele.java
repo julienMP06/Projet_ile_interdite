@@ -48,7 +48,7 @@ public class CModele extends Observable {
 		
 	}
 	public boolean artefact_heleco_noye() {
-		// dire si l helco ou l un des artefacts est noyé
+		// dire si l helco ou l un des artefacts est noyï¿½
 		for (int i = 1; i <= LARGEUR; i++) {
             for (int j = 1; j <= HAUTEUR; j++) {
             	Case c= getCas(i,j);
@@ -151,7 +151,7 @@ public class CModele extends Observable {
 			x1 = (int) (Math.random() * (5 - 2)) + 2;
 			y1 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Terre = new Artefact( "T",getCas(x1,y1));
+		Terre = new Artefact( "Terre",getCas(x1,y1));
 		this.getCas(x1, y1).ajoute_artefact(Terre);
 		
 		
@@ -161,7 +161,7 @@ public class CModele extends Observable {
 			x2 = (int) (Math.random() * (5 - 2)) + 2;
 			y2 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Air = new Artefact( "A",this.getCas(x2,y2));
+		Air = new Artefact( "Air",this.getCas(x2,y2));
 		this.getCas(x2, y2).ajoute_artefact(Air);
 		
 		
@@ -171,7 +171,7 @@ public class CModele extends Observable {
 			x3 = (int) (Math.random() * (5 - 2)) + 2;
 			y3 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Eau = new Artefact( "E",this.getCas(x3,y3));
+		Eau = new Artefact( "Eau",this.getCas(x3,y3));
 		this.getCas(x3, y3).ajoute_artefact(Eau);
 
 		
@@ -181,12 +181,12 @@ public class CModele extends Observable {
 			x4 = (int) (Math.random() * (5 - 2)) + 2;
 			y4 = (int) (Math.random() * (5 - 2)) + 2;
 		}
-		Feu = new Artefact( "F",this.getCas(x4,y4));
+		Feu = new Artefact( "Feu",this.getCas(x4,y4));
 		this.getCas(x4, y4).ajoute_artefact(Feu);
 	}
 	
 	public void ZoneSpeciale() {
-		/*On place aléatoirement l'héliport*/
+		/*On place alï¿½atoirement l'hï¿½liport*/
 		int x =(int) (Math.random()*(5-2)) + 2;
 		int y =(int) (Math.random()*(5-2)) + 2;
 		if (this.getCas(x, y).etat != 0 || this.getCas(x,y).contient_artefact()) {
@@ -202,7 +202,7 @@ public class CModele extends Observable {
 
 
 public void noyer_trois_tuiles (){
-		// cette liste sera utilisée pour evité de monter l'eau deux fois dans un seul fin de tour
+		// cette liste sera utilisï¿½e pour evitï¿½ de monter l'eau deux fois dans un seul fin de tour
 		ArrayList<Point> points = new ArrayList<Point>();
 		for (int i = 0; i < 3; i++) {
             int x = (int) (Math.random() * (CModele.LARGEUR)) + 1;
@@ -241,7 +241,7 @@ class Case {
 	
 	
 	 private CModele modele;
-	 protected int etat; // 0: Normale  1: Innondée  2: Submergée 
+	 protected int etat; // 0: Normale  1: Innondï¿½e  2: Submergï¿½e 
 	 private final int x, y;
 	 private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4); //max 4
 	 private ArrayList<Artefact> artefact = new ArrayList<Artefact>(1);
@@ -289,7 +289,7 @@ class Case {
 	 }
 	
 	 public boolean CaseAdjacenteLibre(){
-		 //verifier les cases adjacentes si elle sont libres en evitent que les bords soient comptés-
+		 //verifier les cases adjacentes si elle sont libres en evitent que les bords soient comptï¿½s-
 		 Case H=getCaseH(),G=getCaseG(),D=getCaseD(),B=getCaseB();
 		 ArrayList <Case> l=new  ArrayList<Case>(4);
 		 // en utilisant le proprite de ET paresseux
@@ -446,23 +446,11 @@ class Joueur {
 		return x;
 	}
 
-	public void ajoute_cle_terre(){
-		Cle c = new Cle("Terre");
+	public void ajoute_cle(String nom){
+		Cle c = new Cle(nom);
 		cles.add(c);
 	}
-
-	public void ajoute_cle_feu(){
-		Cle c = new Cle("Feu");
-		cles.add(c);
-	}
-	public void ajoute_cle_eau(){
-		Cle c = new Cle("Eau");
-		cles.add(c);
-	}
-	public void ajoute_cle_air(){
-		Cle c = new Cle("Air");
-		cles.add(c);
-	}
+	
 	public void supprimer_cle(String  c) {
 		boolean b =false;
 		for (Cle i : cles) {
@@ -531,45 +519,16 @@ class Joueur {
 		return s;
 	}
 
-	public int getCleFeu(){
+	public int get_nb_cle(String nom){
 		int x = 0;
 		for (Cle i : cles) {
-			if(i.getNom() == "Feu") {
+			if(i.getNom() == nom) {
 				x += 1;
 			}
 		}
 		return x;
 	}
 
-	public int getCleAir(){
-		int x = 0;
-		for (Cle i : cles) {
-			if(i.getNom() == "Air") {
-				x += 1;
-			}
-		}
-		return x;
-	}
-
-	public int getCleTerre(){
-		int x = 0;
-		for (Cle i : cles) {
-			if(i.getNom() == "Terre") {
-				x += 1;
-			}
-		}
-		return x;
-	}
-
-	public int getCleEau(){
-		int x = 0;
-		for (Cle i : cles) {
-			if(i.getNom() == "Eau") {
-				x += 1;
-			}
-		}
-		return x;
-	}
 
 	public Case getC() {
 		return c;
@@ -600,8 +559,8 @@ class Joueur {
 	}
 	
 	public boolean Sac_a_sable(int x, int y) {
-		// proprite permettant d assecher n importe quelle case non-submergée du plateau
-		// la fonction renvoie vrai si cette action est faite quand c'est possible sinon ça renvoie faux
+		// proprite permettant d assecher n importe quelle case non-submergï¿½e du plateau
+		// la fonction renvoie vrai si cette action est faite quand c'est possible sinon ï¿½a renvoie faux
 		// a noter cette action fait deja nb_act_moins du joueur qu il l utilise
 		Case c=modele.getCas(x, y);
 		if (c.GetEtat()==1) {
@@ -613,8 +572,8 @@ class Joueur {
 	}
 	
 	public boolean heleco(int x, int y) {
-		// proprite permettant de se deplacer à n importe quelle case non-submergée du plateau
-		// la fonction renvoie vrai si cette action est faite quand c'est possible sinon ça renvoie faux
+		// proprite permettant de se deplacer ï¿½ n importe quelle case non-submergï¿½e du plateau
+		// la fonction renvoie vrai si cette action est faite quand c'est possible sinon ï¿½a renvoie faux
 		// a noter cette action ne fait pas action moins au joueur qu il utilise car on l utilisera pour les autres joueurs dans la meme case 
 		Case c=modele.getCas(x, y);
 		if (c.GetEtat()<=1) {

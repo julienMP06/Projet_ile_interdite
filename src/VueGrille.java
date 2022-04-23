@@ -245,21 +245,21 @@ class VueGrille extends JPanel implements Observer {
             g.setFont(g.getFont().deriveFont(25f));
             g.drawString("H",x+16,y+35);
         }
-        if (c.contient_artefact() && c.get_artefact_nom()=="A") {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Air") {
             g.setFont(g.getFont().deriveFont(20f));
             g.setColor(Color.WHITE);
             g.fillOval(x, y, TAILLE, TAILLE);
             g.setColor(Color.PINK);
             g.drawString("Air",x+9,y+33);
         }
-        if (c.contient_artefact() && c.get_artefact_nom()=="F") {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Feu") {
             g.setFont(g.getFont().deriveFont(20f));
             g.setColor(Color.RED);
             g.fillOval(x, y, TAILLE, TAILLE);
             g.setColor(Color.ORANGE);
             g.drawString("Feu",x+7,y+33);
         }
-        if (c.contient_artefact() && c.get_artefact_nom()=="T") {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Terre") {
             g.setFont(g.getFont().deriveFont(18f));
             g.setColor(Color.ORANGE);
             g.fillOval(x, y, TAILLE, TAILLE);
@@ -267,7 +267,7 @@ class VueGrille extends JPanel implements Observer {
             g.drawString("Terre",x,y+32);
 
         }
-        if (c.contient_artefact() && c.get_artefact_nom()=="E") {
+        if (c.contient_artefact() && c.get_artefact_nom()=="Eau") {
             g.setFont(g.getFont().deriveFont(20f));
             g.setColor(Color.CYAN);
             g.fillOval(x, y, TAILLE, TAILLE);

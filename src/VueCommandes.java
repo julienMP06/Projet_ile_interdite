@@ -195,29 +195,29 @@ class VueCommandes extends JPanel{
 		                                                    switch (e.getKeyCode()) {
 		                                                        //Cle c = new Cle(modele,"Air");
 		                                                        case KeyEvent.VK_A:
-		                                                            if (modele.getJ_actuel().getCleAir() != 0) {
+		                                                            if (modele.getJ_actuel().get_nb_cle("Air")!= 0) {
 		                                                               
 		                                                            	modele.getJ_actuel().supprimer_cle("Air");
 		                                                                label.setText("Don de cle Air");
 		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
 		                                                                if(v.get(0) != modele.getJ_actuel()){
-		                                                                    v.get(0).ajoute_cle_air();
+		                                                                    v.get(0).ajoute_cle("Air");
 		                                                                }else {
-		                                                                    v.get(1).ajoute_cle_air();
+		                                                                    v.get(1).ajoute_cle("Air");
 		                                                                }
 		                                                            }else{
 		                                                                label.setText("Pas assez de cle");
 		                                                            }
 		                                                            break;
 		                                                        case KeyEvent.VK_E:
-		                                                            if (modele.getJ_actuel().getCleEau() != 0) {
+		                                                            if (modele.getJ_actuel().get_nb_cle("Eau") != 0) {
 		                                                              
 		                                                                modele.getJ_actuel().supprimer_cle("Eau");
 		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
 		                                                                    if(v.get(0) != modele.getJ_actuel()){
-		                                                                        v.get(0).ajoute_cle_eau();
+		                                                                        v.get(0).ajoute_cle("Eau");
 		                                                                    }else {
-		                                                                        v.get(1).ajoute_cle_eau();
+		                                                                        v.get(1).ajoute_cle("Eau");
 		                                                                    }
 		                                                                label.setText("Don de cle Eau");
 		                                                            }else{
@@ -225,14 +225,14 @@ class VueCommandes extends JPanel{
 		                                                            }
 		                                                            break;
 		                                                        case KeyEvent.VK_T:
-		                                                            if (modele.getJ_actuel().getCleTerre() != 0) {
+		                                                            if (modele.getJ_actuel().get_nb_cle("Terre") != 0) {
 		                                                                ;
 		                                                                modele.getJ_actuel().supprimer_cle("Terre");
 		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
 		                                                                if(v.get(0) != modele.getJ_actuel()){
-		                                                                    v.get(0).ajoute_cle_terre();
+		                                                                    v.get(0).ajoute_cle("Terre");
 		                                                                }else {
-		                                                                    v.get(1).ajoute_cle_terre();
+		                                                                    v.get(1).ajoute_cle("Terre");
 		                                                                }
 		                                                                label.setText("Don de cle Terre");
 		                                                            }else{
@@ -240,16 +240,16 @@ class VueCommandes extends JPanel{
 		                                                            }
 		                                                            break;
 		                                                        case KeyEvent.VK_F:
-		                                                            if (modele.getJ_actuel().getCleFeu() != 0) {
+		                                                            if (modele.getJ_actuel().get_nb_cle("Feu") != 0) {
 		                                                            
 		                                                                
 		                                                                modele.getJ_actuel().supprimer_cle("Feu");
 		                                                                
 		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
 		                                                                if(v.get(0) != modele.getJ_actuel()){
-		                                                                    v.get(0).ajoute_cle_feu();
+		                                                                    v.get(0).ajoute_cle("Feu");
 		                                                                }else {
-		                                                                    v.get(1).ajoute_cle_feu();
+		                                                                    v.get(1).ajoute_cle("Feu");
 		                                                                }
 		                                                                label.setText("Don de cle Feu");
 		                                                            }else{

@@ -23,50 +23,14 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
             int x = modele.getJ_actuel().getC().getX();
             int y = modele.getJ_actuel().getC().getY();
             if (modele.getCas(x, y).contient_artefact()) {
-                ArrayList<Artefact> l = modele.getCas(x, y).get_Artefacts();
-                switch (l.get(0).getNom()) {
-                    case "F":
-                        if (modele.getJ_actuel().getCleFeu() >= 1) {
-                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                            modele.getJ_actuel().action_moins();
-                            modele.getCas(x, y).supprime_artefact();
-                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Feu");
-                        } else {
-                            label.setText("Tu n'as pas assez de cle");
-                        }
-                        break;
-                    case "E":
-                        if (modele.getJ_actuel().getCleEau() >= 1) {
-                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                            modele.getJ_actuel().action_moins();
-                            modele.getCas(x, y).supprime_artefact();
-                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Eau");
-                        } else {
-                            label.setText("Tu n'as pas assez de cle");
-                        }
-                        break;
-                    case "A":
-                        if (modele.getJ_actuel().getCleAir() >= 1) {
-                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                            modele.getJ_actuel().action_moins();
-                            modele.getCas(x, y).supprime_artefact();
-                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Air");
-                        } else {
-                            label.setText("Tu n'as pas assez de cle");
-                        }
-                        break;
-                    case "T":
-                        if (modele.getJ_actuel().getCleTerre() >= 1) {
-                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                            modele.getJ_actuel().action_moins();
-                            modele.getCas(x, y).supprime_artefact();
-                            label.setText(modele.getJ_actuel().getNom_joueur()+ " recupere l'artefact Terre");
-                        } else {
-                            label.setText("Tu n'as pas assez de cle");
-                        }
-                        break;
-                }
+                Artefact A = modele.getCas(x, y).get_Artefacts().get(0);
+                if (modele.getJ_actuel().get_nb_cle(A.getNom())>=1) {
+                	modele.getCas(x, y).supprime_artefact();
+                	modele.getJ_actuel().ajouter_artefact(A);
+                	modele.getJ_actuel().supprimer_cle(A.getNom());
+                	modele.getJ_actuel().action_moins();
 
+                              
             } else {
                 label.setText("Il n'y a pas d'artefact ici");
             }
@@ -74,4 +38,5 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
         modele.MAJ();
     }
 
+}
 }
