@@ -52,9 +52,18 @@ public class CVue extends JFrame implements ActionListener {
                         grid.setVgap(30);
                         frameRegle.setLayout(grid);
 
-                        JTextArea explication = new JTextArea("Vous incarnez ici 4 aventuriers. Sur cette ile vous allez devoir ");
+                        JTextArea explication = new JTextArea("\nVous incarnez ici 4 aventuriers. Sur cette ile vous allez devoir recuperer les 4 artefacts presents sur la carte puis\n " +
+                                "retourner a l'heliport pour pouvoir vous echapper. Mais attention car l'ile sombre dans les profondeurs de l'ocean." +
+                                "\n\nPour vous deplacer utilisez seulement les fleches du clavier" +
+                                "\n\nPour parvenir a votre objectif vous avez a votre disposition plusieurs atouts : " +
+                                "\n             - Vous pourrez utiliser le bouton 'Asseche', pour assecher une case adjacente a votre personnage et sa\n case actuelle. Pour ca utillisez " +
+                                "les fleches de votres claviers et la touches espaces." +
+                                "\n             - Le bouton 'Recuperer' vous permettra simplement  de recuperer l'artefact qui se situe sur votre case,\n si vous avec les cles necessaires." +
+                                "\n             - Le bouton 'Echange Cle' permet justement d'echanger des cle avec le joueurs qui est sur votre case." +
+                                "\n             - A la fin de votre partie vous pouvez utilliser 'S'envoler' pour terminer et valider votre partie" +
+                                "\n             - Vous disposez d'actions speciales que vous pouvez obtenir tout au long de la partie");
                         explication.setEditable(false);
-
+                        explication.setFont(new Font("sansserif", Font.BOLD, 16));
                         JButton buttonRetour = new JButton("<-");
                         buttonRetour.addActionListener(
                                 new ActionListener() {
