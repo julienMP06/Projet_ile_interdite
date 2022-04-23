@@ -16,7 +16,9 @@ class VueCommandes extends JPanel {
     private CModele modele;
     GridLayout grid = new GridLayout(5, 0);
 
-	JPanel panel2 = new JPanel();
+	JTextField EntrerX = new JTextField();
+
+	JTextField EntrerY = new JTextField();
     JLabel label = new JLabel();
     public VueCommandes(CModele modele) {
 
@@ -48,7 +50,7 @@ class VueCommandes extends JPanel {
                         } else {
                         	if (modele.getJ_actuel().getNb_act()>0){
 	                            switch (e.getKeyCode()) {
-	
+
 	                                case KeyEvent.VK_RIGHT:
 	                                    int y = 0;
 	                                    int x = 0;
@@ -117,9 +119,10 @@ class VueCommandes extends JPanel {
 	                                    }
 	                                    break;
 	                            }
-                            
+
                         	}
                         }
+						modele.MAJ();
                     }
 
                     @Override
@@ -137,64 +140,11 @@ class VueCommandes extends JPanel {
         panelC.add(buttonAsseche);
 
         JButton buttonRecup = new JButton("Recuperer");
-        buttonRecup.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (modele.partie_perdue()) {
-                            label.setText("Tu ne peux plus jouer Recommence");
-                        } else {
-                            int x = modele.getJ_actuel().getC().getX();
-                            int y = modele.getJ_actuel().getC().getY();
-                            if (modele.getCas(x, y).contient_artefact()) {
-                                ArrayList<Artefact> l = modele.getCas(x, y).get_Artefacts();
-                                switch (l.get(0).getNom()) {
-                                    case "F":
-                                        if (modele.getJ_actuel().getCleFeu() >= 1) {
-                                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                                            modele.getJ_actuel().action_moins();
-                                            modele.getCas(x, y).supprime_artefact();
-                                        } else {
-                                            label.setText("Tu n'as pas assez de cle");
-                                        }
-                                        break;
-                                    case "E":
-                                        if (modele.getJ_actuel().getCleEau() >= 1) {
-                                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                                            modele.getJ_actuel().action_moins();
-                                            modele.getCas(x, y).supprime_artefact();
-                                        } else {
-                                            label.setText("Tu n'as pas assez de cle");
-                                        }
-                                        break;
-                                    case "A":
-                                        if (modele.getJ_actuel().getCleAir() >= 1) {
-                                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                                            modele.getJ_actuel().action_moins();
-                                            modele.getCas(x, y).supprime_artefact();
-                                        } else {
-                                            label.setText("Tu n'as pas assez de cle");
-                                        }
-                                        break;
-                                    case "T":
-                                        if (modele.getJ_actuel().getCleTerre() >= 1) {
-                                            modele.getJ_actuel().ajouter_artefact(l.get(0));
-                                            modele.getJ_actuel().action_moins();
-                                            modele.getCas(x, y).supprime_artefact();
-                                        } else {
-                                            label.setText("Tu n'as pas assez de cle");
-                                        }
-                                        break;
-                                }
+		panelC.add(buttonRecup);
 
-                            } else {
-                                label.setText("Il n'y a pas d'artefact ici");
-                            }
-                        }
-                    }
-                }
-        );
-        panelC.add(buttonRecup);
+        ControleurRecup ctrlRec = new ControleurRecup(modele,label);
+		buttonRecup.addActionListener(ctrlRec);
+
 
         JButton EchangeCle = new JButton("Donner cle");
         panelC.add(EchangeCle);
@@ -324,38 +274,775 @@ class VueCommandes extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        
-                        if(modele.partie_gagnee()){
-                            label.setText("Partie Gagnee, Bravo !");
-                        } else {
-                        label.setText("Tu n'as pas fini de chercher");
-                        }
+						if (modele.partie_perdue()) {
+							label.setText("Tu ne peux plus jouer Recommence");
+						} else {
+							if (modele.partie_gagnee()) {
+								label.setText("Partie Gagnee, Bravo !");
+							} else {
+								label.setText("Tu n'as pas fini de chercher");
+							}
+						}
                     }
                 }
         );
 		
 		JButton SacSable= new JButton("Sac de sable");
-		JButton Helico = new JButton("Helico");
 		panelC.add(SacSable);
-		panelC.add(Helico);
-		
-		/*ActionSpeciale.addActionListener(
+		SacSable.addActionListener(
 				new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println("fdfdf");
-						panel2.add(SacSable);
-						panel2.add(Helico);
-						panelC.add(panel2);
+						if (modele.partie_perdue()) {
+							label.setText("Tu ne peux plus jouer Recommence");
+						} else {
+							if (modele.getJ_actuel().getActionSacSable() > 0){
+								label.setText("X : ");
+								label.add(EntrerX);
+								modele.MAJ();
+						}else{
+								label.setText("Tu n'as pas d'action Sac de Sable");
+							}
+						}
+					}
+				}
+		);
+
+		JButton Helico = new JButton("Helico");
+		panelC.add(Helico);
+		/*Helico.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (modele.partie_perdue()) {
+							label.setText("Tu ne peux plus jouer Recommence");
+						} else {
+							if (modele.getJ_actuel().getActionHelico() > 0) {
+								label.setText("Donne le X de la case pour utiliser");
+								Helico.addKeyListener(
+										new KeyListener() {
+											int x = 0;
+											@Override
+											public void keyTyped(KeyEvent e) {
+
+											}
+
+											@Override
+											public void keyPressed(KeyEvent e) {
+												switch (e.getKeyCode()) {
+													case KeyEvent.VK_NUMPAD1:
+														x = 1;
+														label.setText("Donne le Y de la case pour utiliser");
+														Helico.addKeyListener(
+
+																new KeyListener() {
+																	int y = 0;
+
+																	@Override
+																	public void keyTyped(KeyEvent e) {
+
+																	}
+
+																	@Override
+																	public void keyPressed(KeyEvent e) {
+																		switch (e.getKeyCode()) {
+																			case KeyEvent.VK_NUMPAD1:
+																				y = 1;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD2:
+																				y = 2;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD3:
+																				y = 3;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD4:
+																				y = 4;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD5:
+																				y = 5;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD6:
+																				y = 6;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																		}
+																	}
+
+																	@Override
+																	public void keyReleased(KeyEvent e) {
+
+																	}
+																}
+														);
+														break;
+													case KeyEvent.VK_NUMPAD2:
+														x = 2;
+														label.setText("Donne le Y de la case pour utiliser");
+														Helico.addKeyListener(
+
+																new KeyListener() {
+																	int y = 0;
+
+																	@Override
+																	public void keyTyped(KeyEvent e) {
+
+																	}
+
+																	@Override
+																	public void keyPressed(KeyEvent e) {
+																		switch (e.getKeyCode()) {
+																			case KeyEvent.VK_NUMPAD1:
+																				y = 1;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD2:
+																				y = 2;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD3:
+																				y = 3;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD4:
+																				y = 4;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD5:
+																				y = 5;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD6:
+																				y = 6;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																		}
+																	}
+
+																	@Override
+																	public void keyReleased(KeyEvent e) {
+
+																	}
+																}
+														);
+														break;
+													case KeyEvent.VK_NUMPAD3:
+														x = 3;
+														label.setText("Donne le Y de la case pour utiliser");
+														Helico.addKeyListener(
+
+																new KeyListener() {
+																	int y = 0;
+
+																	@Override
+																	public void keyTyped(KeyEvent e) {
+
+																	}
+
+																	@Override
+																	public void keyPressed(KeyEvent e) {
+																		switch (e.getKeyCode()) {
+																			case KeyEvent.VK_NUMPAD1:
+																				y = 1;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD2:
+																				y = 2;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD3:
+																				y = 3;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD4:
+																				y = 4;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD5:
+																				y = 5;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD6:
+																				y = 6;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																		}
+																	}
+
+																	@Override
+																	public void keyReleased(KeyEvent e) {
+
+																	}
+																}
+														);
+														break;
+													case KeyEvent.VK_NUMPAD4:
+														x = 4;
+														label.setText("Donne le Y de la case pour utiliser");
+														Helico.addKeyListener(
+
+																new KeyListener() {
+																	int y = 0;
+
+																	@Override
+																	public void keyTyped(KeyEvent e) {
+
+																	}
+
+																	@Override
+																	public void keyPressed(KeyEvent e) {
+																		switch (e.getKeyCode()) {
+																			case KeyEvent.VK_NUMPAD1:
+																				y = 1;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD2:
+																				y = 2;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD3:
+																				y = 3;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD4:
+																				y = 4;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD5:
+																				y = 5;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD6:
+																				y = 6;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																		}
+																	}
+
+																	@Override
+																	public void keyReleased(KeyEvent e) {
+
+																	}
+																}
+														);
+														break;
+													case KeyEvent.VK_NUMPAD5:
+														x = 5;
+														label.setText("Donne le Y de la case pour utiliser");
+														Helico.addKeyListener(
+
+																new KeyListener() {
+																	int y = 0;
+
+																	@Override
+																	public void keyTyped(KeyEvent e) {
+
+																	}
+
+																	@Override
+																	public void keyPressed(KeyEvent e) {
+																		switch (e.getKeyCode()) {
+																			case KeyEvent.VK_NUMPAD1:
+																				y = 1;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD2:
+																				y = 2;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD3:
+																				y = 3;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD4:
+																				y = 4;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD5:
+																				y = 5;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD6:
+																				y = 6;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																		}
+																	}
+
+																	@Override
+																	public void keyReleased(KeyEvent e) {
+
+																	}
+																}
+														);
+														break;
+													case KeyEvent.VK_NUMPAD6:
+														x = 6;
+														label.setText("Donne le Y de la case pour utiliser");
+														Helico.addKeyListener(
+
+																new KeyListener() {
+																	int y = 0;
+
+																	@Override
+																	public void keyTyped(KeyEvent e) {
+
+																	}
+
+																	@Override
+																	public void keyPressed(KeyEvent e) {
+																		switch (e.getKeyCode()) {
+																			case KeyEvent.VK_NUMPAD1:
+																				y = 1;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD2:
+																				y = 2;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD3:
+																				y = 3;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD4:
+																				y = 4;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD5:
+																				y = 5;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																			case KeyEvent.VK_NUMPAD6:
+																				y = 6;
+																				if (modele.getCas(x, y).etat <= 1) {
+																					int o = modele.getJ_actuel().getC().getX();
+																					int p = modele.getJ_actuel().getC().getY();
+																					modele.getCas(o, p).supprimer_joueur(modele.getJ_actuel());
+																					modele.getCas(x, y).ajouter_joueur(modele.getJ_actuel());
+																					modele.getJ_actuel().supprimer_ActionSpeHelico();
+																					label.setText("Case " + x + " " + y );
+																				} else {
+																					label.setText("Impossible !");
+																					x = 0;
+																					y = 0;
+																				}
+																				break;
+																		}
+																	}
+
+																	@Override
+																	public void keyReleased(KeyEvent e) {
+
+																	}
+																}
+														);
+														break;
+												}
+											}
+
+											@Override
+											public void keyReleased(KeyEvent e) {
+
+											}
+										}
+								);
+							}
+						}
 					}
 				}
 		);*/
-
         this.add(panelC);
         this.add(label);
         JListenner jtl = new JListenner(modele,button,ctrl,label);
         button.addKeyListener(jtl);
     }
-
-
 }

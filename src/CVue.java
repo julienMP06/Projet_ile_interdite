@@ -10,6 +10,8 @@ public class CVue extends JFrame implements ActionListener {
     private VueCommandes commandes;
     private VueJoueurs joueurs;
 
+    private VueJoueurs2 joueurs2;
+
     JButton bouton = new JButton ("Jouer");
     GridLayout grid = new GridLayout(2, 2);
     private CModele modele;
@@ -28,6 +30,9 @@ public class CVue extends JFrame implements ActionListener {
 
         joueurs = new VueJoueurs(modele);
         frame.add(joueurs);
+
+        joueurs2 = new VueJoueurs2(modele);
+        frame.add(joueurs2);
 
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

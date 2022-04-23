@@ -1,32 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
-public class VueJoueurs extends JPanel implements Observer{
+public class VueJoueurs2 extends JPanel implements Observer{
     private CModele modele;
-    /* On definit le nombre de ligne de notre panel*/
+
     GridLayout grid = new GridLayout(5, 0);
+
     private JLabel Affichage = new JLabel();
     private JLabel labelJ1 = new JLabel();
     private JLabel labelJ2 = new JLabel();
     private JLabel labelJ3 = new JLabel();
     private JLabel labelJ4 = new JLabel();
     private JPanel panelJ = new JPanel();
+
+
     private String s;
-    public VueJoueurs (CModele modele){
+    public VueJoueurs2 (CModele modele){
 
         panelJ.setLayout(grid);
         this.modele=modele;
         grid.setVgap(40);
         modele.addObserver(this);
 
-        /*On affiche le texte du haut, puis on ajoute au panel les différents textes pour les joueurs*/
-        Affichage.setText("Joueur    Actions    Cle (F,A,T,E)");
+        Affichage.setText("Actions Spe (Sable, Helico)    Atefacts");
         panelJ.add(Affichage);
         panelJ.add(labelJ1);
         panelJ.add(labelJ2);
         panelJ.add(labelJ3);
         panelJ.add(labelJ4);
 
-        /*On ajoute le panel pour pouvoir l'affucher*/
         this.add(panelJ);
         this.update();
     }
@@ -45,8 +46,7 @@ public class VueJoueurs extends JPanel implements Observer{
     }
 
     private void paint(Joueur j, JLabel label) {
-        label.setText(j.getNom_joueur()+"               "+j.getNb_act()+"                "+
-                j.getCleFeu()+"  "+j.getCleAir()+"  "+j.getCleTerre()+"  "+j.getCleEau());
+        label.setText("   SS : "+j.getActionSacSable()+"  H : "+j.getActionHelico()+"                     "+j.noms_artefacts_possession());
 
         s = modele.getJ_actuel().getNom_joueur();
         if (s == "J1") {

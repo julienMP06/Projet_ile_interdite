@@ -28,6 +28,7 @@ public class Controleur extends VueJoueurs implements ActionListener {
         else {
         	modele.noyer_trois_tuiles();
         	modele.getJ_actuel().ajoute_Cle();
+            modele.getJ_actuel().ajoute_ActionSpe();
         }
         modele.MAJ();
     	

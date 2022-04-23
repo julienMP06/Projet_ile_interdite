@@ -212,7 +212,7 @@ public class CModele extends Observable {
             }
             getCas(x, y).setEtat(getCas(x, y).GetEtat()+1);
 		}
-		
+
 	}
 	
 	public int nb_tuiles_non_noyee() {
@@ -369,7 +369,8 @@ class Joueur {
 	private CModele modele;
 	private ArrayList<Artefact> artefacts = new ArrayList<Artefact>(4);
 	private ArrayList<Cle> cles = new ArrayList<Cle>();
-	private ArrayList<Carte_tiree> cartes = new ArrayList <Carte_tiree>();
+
+	private ArrayList<ActionSpe> ActionSp = new ArrayList <ActionSpe>();
 	
 	
 
@@ -401,6 +402,41 @@ class Joueur {
 		}
 	}
 
+	public void ajoute_ActionSpe() {
+		float x = (float) Math.random();
+		if (x >= 0.15) {
+			String nom_ActionSpe="";
+			float y = (float) Math.random();
+			if (y <= 0.50) {
+				nom_ActionSpe="SacSable";
+			}else if (y > 0.50) {
+				nom_ActionSpe="Helico";
+			}
+			ActionSpe c = new ActionSpe(modele, nom_ActionSpe);
+			ActionSp.add(c);
+		}
+	}
+
+	public int getActionSacSable(){
+		int x = 0;
+		for (ActionSpe i : ActionSp) {
+			if(i.getNom() == "SacSable") {
+				x += 1;
+			}
+		}
+		return x;
+	}
+
+	public int getActionHelico(){
+		int x = 0;
+		for (ActionSpe i : ActionSp) {
+			if(i.getNom() == "Helico") {
+				x += 1;
+			}
+		}
+		return x;
+	}
+
 	public void ajoute_cle_terre(){
 		Cle c = new Cle(modele,"Terre");
 		cles.add(c);
@@ -418,13 +454,6 @@ class Joueur {
 		Cle c = new Cle(modele,"Air");
 		cles.add(c);
 	}
-
-	public void supprime_cle_air(){
-		Cle c = new Cle(modele,"Air");
-		cles.remove(c);
-	}
-
-	
 	public void supprimer_cle(String  c) {
 		boolean b =false;
 		for (Cle i : cles) {
@@ -435,6 +464,17 @@ class Joueur {
 				
 			}
 			if (b) break;
+		}
+	}
+
+	public void supprimer_ActionSpeSable() {
+		boolean b =false;
+		for (ActionSpe i : ActionSp) {
+			if(i.getNom() == "SacSable") {
+				ActionSp.remove(i);
+				b = true;
+			}
+			break;
 		}
 	}
 	
@@ -464,11 +504,6 @@ class Joueur {
 	public void ajouter_artefact(Artefact a) {
 		artefacts.add(a);
 	}
-	
-	public void supprimer_artefact(Artefact a) {
-		artefacts.remove(a);
-	}
-	
 	public String noms_artefacts_possession() {
 		String s="";
 		for (Artefact i : artefacts) {
@@ -550,12 +585,8 @@ class Joueur {
 		return (this.getC().GetEtat() >1) &&(!(this.getC().CaseAdjacenteLibre()));
 	}
 	
-	public ArrayList<Carte_tiree> getCartes() {
-		return cartes;
-	}
-	
 	public boolean contient_carte_speciales() {
-		return !(cartes.isEmpty());
+		return !(ActionSp.isEmpty());
 	}
 	
 	public boolean Sac_a_sable(int x, int y) {
@@ -584,9 +615,17 @@ class Joueur {
 		}
 		return false;
 	}
-	
-	
-	
+
+	public void supprimer_ActionSpeHelico() {
+		boolean b =false;
+		for (ActionSpe i : ActionSp) {
+			if (i.getNom() == "Helico"){
+				ActionSp.remove(i);
+				b = true;
+			}
+			break;
+		}
+	}
 }
 
 
@@ -656,18 +695,6 @@ abstract class Zone_speciale {
 	
 }
 
-abstract class Zone_cliquable {
-	private Case c;
-
-	public Zone_cliquable(Case c) {
-		this.c = c;
-	}
-
-	public Case getCaseZone() {
-		return this.c;
-	}
-}
-
 class Heleco extends Zone_speciale {
 
 	private Case c;
@@ -683,38 +710,10 @@ class Heleco extends Zone_speciale {
 	
 }
 
-
-class Carte_tiree{
-	String nom;
-
-	public String getNom() {
-		return nom;
+class ActionSpe extends items {
+	public ActionSpe(CModele modele, String nom) {
+		super(modele, nom);
 	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	
-}
-
-
-
-class Carte_sac_sable extends Carte_tiree{
-
-	public Carte_sac_sable() {
-		super();
-		this.setNom("Sac a sable");
-	}
-	
-}
-
-class Carte_heleco extends Carte_tiree{
-
-	public Carte_heleco() {
-		super();
-		this.setNom("Heleco");
-	}
-	
 }
 
 
