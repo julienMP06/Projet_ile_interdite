@@ -19,7 +19,7 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (modele.partie_perdue()) {
             label.setText("Tu ne peux plus jouer Recommence");
-        } else {
+        } else if (modele.getJ_actuel().getNb_act()>0) {
             int x = modele.getJ_actuel().getC().getX();
             int y = modele.getJ_actuel().getC().getY();
             if (modele.getCas(x, y).contient_artefact()) {
