@@ -113,6 +113,7 @@ public class Joueur {
             }
             Cle c = new Cle(nom_cle);
             cles.add(c);
+            
         }
     }
 
@@ -123,7 +124,7 @@ public class Joueur {
     	
         float x = (float) Math.random();
         ActionSpe a = null;
-        if (x <= 0.90) {
+        if (x <= 0.20) {
             float y = (float) Math.random();
             if (y <= 0.50) {
                 a = new Sac_sable();
