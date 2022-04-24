@@ -40,29 +40,42 @@ public class CVue extends JFrame implements ActionListener {
                         frameMenu.dispose();
                         frameRegle = new JFrame();
                         frameRegle.setResizable(false);
+                        frameMenu.setLayout(null);
+                        frameRegle.setSize(800,1200);
+                        frameRegle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frameRegle.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Regle");
-                        GridLayout gridRegle = new GridLayout(4,0);
-                        JPanel pan = new JPanel();
 
                         JTextArea Titre = new JTextArea(" Regles : ");
-                        Titre.setFont(new Font("sansserif", Font.BOLD, 16));
-                        JTextArea explication = new JTextArea("\n Vous incarnez ici 4 aventuriers. Sur cette ile vous allez devoir recuperer les 4 artefacts presents sur la carte puis\n " +
-                                "retourner a l'heliport pour pouvoir vous echapper. Mais attention car l'ile sombre dans les profondeurs de l'ocean." +
+                        Titre.setFont(new Font("sansserif", Font.BOLD, 20));
+                        Titre.setForeground(Color.WHITE);
+                        Titre.setOpaque(true);
+                        Titre.setBackground(new Color(100,100,100,150));
+                        JTextArea explication = new JTextArea("\n Vous incarnez ici 4 aventuriers. Sur cette ile vous allez \ndevoir recuperer les 4 artefacts presents sur la carte puis " +
+                                "retourner a l'heliport pour pouvoir vous echapper. \nMais attention car l'ile sombre dans les profondeurs de l'ocean." +
                                 "\n\n Pour parvenir a votre objectif vous avez a votre disposition plusieurs atouts : " +
-                                "\n             - Vous pourrez utiliser le bouton 'Asseche', pour assecher une case adjacente a votre personnage et sa\n case actuelle." +
-                                "\n             - Le bouton 'Recuperer' vous permettra simplement  de recuperer l'artefact qui se situe sur votre case,\n si vous avec les cles necessaires." +
-                                "\n             - Le bouton 'Echange Cle' permet justement d'echanger des cle avec le joueurs qui est sur votre case." +
-                                "\n             - A la fin de votre partie vous pouvez utilliser 'S'envoler' pour terminer et valider votre partie" +
+                                "\n             - Vous pourrez utiliser le bouton 'Asseche', pour assecher une case \nadjacente a votre personnage et sa case actuelle." +
+                                "\n             - Le bouton 'Recuperer' vous permettra simplement  de recuperer l'artefact \nqui se situe sur votre case, si vous avec les cles necessaires." +
+                                "\n             - Le bouton 'Echange Cle' permet justement d'echanger des cle \navec le joueurs qui est sur votre case." +
+                                "\n             - A la fin de votre partie vous pouvez utilliser 'S'envoler' \npour terminer et valider votre partie" +
                                 "\n             - Vous disposez d'actions speciales que vous pouvez obtenir tout au long de la partie\n");
-                        explication.setFont(new Font("sansserif", Font.BOLD, 12));
+                        explication.setFont(new Font("sansserif", Font.BOLD, 17));
+                        explication.setForeground(Color.WHITE);
+                        explication.setOpaque(true);
+                        explication.setBackground(new Color(100,100,100,150));
                         JTextArea Touches = new JTextArea(" Les Touches :");
-                        Touches.setFont(new Font("sansserif", Font.BOLD, 16));
-                        JTextArea TouchesExpl = new JTextArea("     - Deplacement : Fleches du clavier\n     - Asseche : Fleches du clavier pour les directions et espace pour case actuel" +
+                        Touches.setFont(new Font("sansserif", Font.BOLD, 20));
+                        Touches.setForeground(Color.WHITE);
+                        Touches.setOpaque(true);
+                        Touches.setBackground(new Color(100,100,100,150));
+                        JTextArea TouchesExpl = new JTextArea("     - Deplacement : Fleches du clavier\n     - Asseche : Fleches du clavier pour les directions \net espace pour case actuel" +
                                 "\n     - Donner cle : Entrer le nom de la cle et appuyer sur valider\n     - Sac de Sable : Entrer les coordonnees de la case et valider" +
                                 "\n     - Helico : - Seul : Entrer les coordonnees de la case et valider\n          " +
-                                "          - A plusieurs : Entrer les coordonnees de la case cocher 'Emporter' pour" +
-                                "emporter les \n autres joueurs de la case et valider");
-                        TouchesExpl.setFont(new Font("sansserif", Font.BOLD, 12));
+                                "           - A plusieurs : Entrer les coordonnees de la case cocher \n'Emporter' pour" +
+                                "emporter les autres joueurs de la case et valider");
+                        TouchesExpl.setFont(new Font("sansserif", Font.BOLD, 18));
+                        TouchesExpl.setForeground(Color.WHITE);
+                        TouchesExpl.setOpaque(true);
+                        TouchesExpl.setBackground(new Color(100,100,100,150));
 
                         Titre.setEditable(false);
                         explication.setEditable(false);
@@ -79,16 +92,35 @@ public class CVue extends JFrame implements ActionListener {
                                     }
                                 }
                         );
-                        pan.add(Titre);
-                        pan.add(explication);
-                        pan.add(Touches);
-                        pan.add(TouchesExpl);
-                        frameRegle.add(pan,BorderLayout.CENTER);
-                        frameRegle.add(buttonRetour,BorderLayout.EAST);
-                        frameRegle.pack();
-                        frameRegle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        frameRegle.setVisible(true);
+
+                        frameRegle.setContentPane(new JPanel() {
+                            BufferedImage icon;
+
+                            {
+                                try {
+                                    icon = ImageIO.read(new File("L_ile_interdite_face_HD.jpg"));
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            public void paintComponent(Graphics g) {
+                                super.paintComponent(g);
+                                g.drawImage(icon, -20, -20, 900, 1200, this);
+                                Titre.setBounds(360,360,100,30);
+                                explication.setBounds(0,390,800,340);
+                                Touches.setBounds(340,740,150,30);
+                                TouchesExpl.setBounds(0,770,800,300);
+
+                                buttonRetour.setBounds(10,10,50,30);
+                                frameRegle.add(Titre);
+                                frameRegle.add(explication);
+                                frameRegle.add(Touches);
+                                frameRegle.add(TouchesExpl);
+                                frameRegle.add(buttonRetour,BorderLayout.NORTH);
+                            }
+                        });
                         frameRegle.setLocationRelativeTo(null);
+                        frameRegle.setVisible(true);
                     }
                 }
         );
