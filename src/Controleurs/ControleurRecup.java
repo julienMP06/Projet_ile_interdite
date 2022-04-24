@@ -66,6 +66,7 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
                 	modele.getJ_actuel().ajouter_artefact(A);
                 	modele.getJ_actuel().supprimer_cle(A.getNom());
                 	modele.getJ_actuel().action_moins();
+                	label.setText(A.getNom()+" recupere !");
 
                               
                 } else{
