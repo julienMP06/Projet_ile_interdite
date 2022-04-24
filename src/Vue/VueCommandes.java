@@ -70,7 +70,7 @@ class VueCommandes extends JPanel implements Observer{
 		SacSable.addActionListener(ctrlSable);
 
 		JButton Helico = new JButton("Helico");
-		ControleurHelico ctrlHelico = new ControleurHelico(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
+		ControleurHelico ctrlHelico = new ControleurHelico(modele, label,panelC,valider,oui,validerEchange,CleEchange);
 		Helico.addActionListener(ctrlHelico);
 
 		JButton retour = new JButton("<- Menu");

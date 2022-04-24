@@ -19,9 +19,9 @@ public class ControleurHelico extends VueJoueurs implements ActionListener {
 
     private JPanel panelC;
 
-    private JTextField EntrerX;
+    private JTextField EntrerX = new JTextField("Entre X");
 
-    private JTextField EntrerY;
+    private JTextField EntrerY = new JTextField("Entre Y");;
 
     private JButton valider;
 
@@ -31,13 +31,11 @@ public class ControleurHelico extends VueJoueurs implements ActionListener {
 
     private JTextField CleEchange;
 
-    public ControleurHelico(CModele modele, JLabel labelC, JPanel panelC, JTextField EntrerX, JTextField EntrerY, JButton valider, JCheckBox oui, JButton validerEchange, JTextField CleEchange) {
+    public ControleurHelico(CModele modele, JLabel labelC, JPanel panelC, JButton valider, JCheckBox oui, JButton validerEchange, JTextField CleEchange) {
         super(modele);
         this.modele = modele;
         this.label = labelC;
         this.panelC = panelC;
-        this.EntrerX = EntrerX;
-        this.EntrerY = EntrerY;
         this.valider = valider;
         this.oui = oui;
         this.validerEchange = validerEchange;

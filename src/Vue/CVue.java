@@ -57,7 +57,7 @@ public class CVue extends JFrame implements ActionListener {
                                 "\n             - Le bouton 'Recuperer' vous permettra simplement  de recuperer l'artefact \nqui se situe sur votre case, si vous avec les cles necessaires." +
                                 "\n             - Le bouton 'Echange Cle' permet justement d'echanger des cle \navec le joueurs qui est sur votre case." +
                                 "\n             - A la fin de votre partie vous pouvez utilliser 'S'envoler' \npour terminer et valider votre partie" +
-                                "\n             - Vous disposez d'actions speciales que vous pouvez obtenir tout au long de la partie\n");
+                                "\n             - Vous disposez d'actions speciales que vous pouvez obtenir tout au long de la partie");
                         explication.setFont(new Font("sansserif", Font.BOLD, 17));
                         explication.setForeground(Color.WHITE);
                         explication.setOpaque(true);
@@ -107,9 +107,9 @@ public class CVue extends JFrame implements ActionListener {
                                 super.paintComponent(g);
                                 g.drawImage(icon, -20, -20, 900, 1200, this);
                                 Titre.setBounds(360,360,100,30);
-                                explication.setBounds(0,390,800,340);
-                                Touches.setBounds(340,740,150,30);
-                                TouchesExpl.setBounds(0,770,800,300);
+                                explication.setBounds(0,390,800,360);
+                                Touches.setBounds(340,760,150,30);
+                                TouchesExpl.setBounds(0,790,800,200);
 
                                 buttonRetour.setBounds(10,10,50,30);
                                 frameRegle.add(Titre);
