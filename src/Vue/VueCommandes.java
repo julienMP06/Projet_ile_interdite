@@ -32,7 +32,7 @@ class VueCommandes extends JPanel implements Observer{
 	public VueCommandes(CModele modele, JFrame frameMenu, JFrame frame) {
 
         JPanel panelC = new JPanel();
-		label.setForeground(Color.BLACK);
+		label.setForeground(Color.WHITE);
 		label.setFont(new Font("sansserif", Font.BOLD, 15));
         panelC.setLayout(grid);
         grid.setHgap(10);

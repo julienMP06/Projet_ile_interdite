@@ -62,7 +62,7 @@ public class Controleur extends VueJoueurs implements ActionListener {
     	N = N + 1;
         modele.getJ_actuel().setNb_act(0);
         if (modele.partie_gagnee()) {label.setText("Vous avez gagne, Bravo !");}
-        else if (modele.partie_perdue()){label.setText("Vous avez perdus, reesayez une autre fois");}
+        else if (modele.partie_perdue()){label.setText("Vous avez perdus, reessayez");}
         else{
         	modele.noyer_trois_tuiles();
         	modele.getJ_actuel().ajoute_Cle();
