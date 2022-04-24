@@ -2,16 +2,16 @@ package Modele;
 
 import java.util.ArrayList;
 
-//tuile
+//represente tuile
 public class Case {
 
 
     private CModele modele;
-    public int etat; // 0: Normale  1: Innond�e  2: Submerg�e
+    public int etat; // 0: Normale  1: Innondee  2: Submergee
     private final int x, y;
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4); //max 4
-    private ArrayList<Artefact> artefact = new ArrayList<Artefact>(1);
-    private ArrayList<Heleco> heleco = new ArrayList<Heleco>(1);
+    private ArrayList<Artefact> artefact = new ArrayList<Artefact>(1);// contient 0 ou 1
+    private ArrayList<Heleco> heleco = new ArrayList<Heleco>(1);//contient 0 ou 1
 
 
     public Case(CModele modele, int x, int y) {
@@ -104,33 +104,39 @@ public class Case {
         j.setC(null);
     }
 
+    //dire si la case contient un artefact
     public boolean contient_Artefacts() {
         return !(artefact.isEmpty());
     }
 
+    // renvoie l artefacr de la case
     public ArrayList<Artefact> get_Artefacts() {
         return artefact;
     }
 
+    // renvoie la liste des joueurs qui sont dans la case
     public ArrayList<Joueur> get_joueurs() {
         return joueurs;
     }
 
+    //ajoute artefact a la case
     public void ajoute_artefact(Artefact a) {
         this.artefact.add(a);
         a.setC(this);
     }
 
+    //supprime l artefact de la case
     public void supprime_artefact() {
         artefact.get(0).setC(null);
         this.artefact.remove(0);
     }
 
-
+    //ajoute un heliport a la case
     public void ajoute_heleco(Heleco h) {
         this.heleco.add(h);
     }
 
+    // supprime l heliport de la case
     public void supprime_heleco() {
         this.heleco.remove(0);
     }
@@ -139,10 +145,12 @@ public class Case {
         return artefact.get(0).getNom();
     }
 
+    // dire si la case contient un artefact
     public boolean contient_artefact() {
         return !(artefact.isEmpty());
     }
 
+    //dire si la case contient un heliport
     public boolean contient_heleco() {
         return !(heleco.isEmpty());
     }

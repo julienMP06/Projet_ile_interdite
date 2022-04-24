@@ -11,7 +11,6 @@ public class Joueur {
     private CModele modele;
     private ArrayList<Artefact> artefacts = new ArrayList<Artefact>(4);
     private ArrayList<Cle> cles = new ArrayList<Cle>();
-
     private ArrayList<ActionSpe> ActionSp = new ArrayList<ActionSpe>();
 
 
@@ -21,95 +20,7 @@ public class Joueur {
         this.nom_joueur = nom_joueur;
         this.modele = modele;
     }
-
-    //? utiliser pour fin de tour pour qu'il y est 50% de chance que le joueur re?oit la cle d'un artefact
-
-    public void ajoute_Cle() {
-        float x = (float) Math.random();
-        if (x >= 0.5) {
-            String nom_cle = "";
-            float y = (float) Math.random();
-            if (y <= 0.25) {
-                nom_cle = "Eau";
-            } else if (y > 0.25 && y <= 0.50) {
-                nom_cle = "Air";
-            } else if (y > 0.50 && y <= 0.75) {
-                nom_cle = "Feu";
-            } else if (y > 0.75 && y <= 1.00) {
-                nom_cle = "Terre";
-            }
-            Cle c = new Cle(nom_cle);
-            cles.add(c);
-        }
-    }
-
-    public void ajoute_ActionSpe() {
-        float x = (float) Math.random();
-        ActionSpe a = null;
-        if (x <= 1.00) {
-            float y = (float) Math.random();
-            //if (y <= 0.50) {
-                a = new Sac_sable();
-            //} else if (y > 0.50) {
-                a = new Heleco_act();
-            //}
-
-            if (a != null) {
-                this.ActionSp.add(a);
-            }
-        }
-    }
-
-    public int get_nb_ActionSacSable() {
-        int x = 0;
-        for (ActionSpe i : ActionSp) {
-            if (i.getNom() == "Sac a sable") {
-                x += 1;
-            }
-        }
-        return x;
-    }
-
-    public int get_nb_ActionHelico() {
-        int x = 0;
-        for (ActionSpe i : ActionSp) {
-            if (i.getNom() == "Modele.Heleco") {
-                x += 1;
-            }
-        }
-        return x;
-    }
-
-    public void ajoute_cle(String nom) {
-        Cle c = new Cle(nom);
-        cles.add(c);
-    }
-
-    public void supprimer_cle(String c) {
-        boolean b = false;
-        for (Cle i : cles) {
-            if (i.getNom() == c) {
-                cles.remove(i);
-                b = true;
-                break;
-
-            }
-            if (b) break;
-        }
-    }
-
-    public void supprimer_ActionSpeSable() {
-        boolean b = false;
-        for (ActionSpe i : ActionSp) {
-            if (i.getNom() == "Sac a sable") {
-                ActionSp.remove(i);
-                b = true;
-                break;
-            }
-            if (b) break;
-        }
-    }
-
+    
     public String getNom_joueur() {
         return nom_joueur;
     }
@@ -124,6 +35,34 @@ public class Joueur {
 
     public void setTour(boolean tour) {
         this.tour = tour;
+    }
+    
+    public Case getC() {
+        return c;
+    }
+
+    public void setC(Case c) {
+        this.c = c;
+    }
+
+    public int getNb_act() {
+        return nb_act;
+    }
+
+    public void setNb_act(int nb_act) {
+        this.nb_act = nb_act;
+    }
+
+    public ArrayList<Artefact> getArtefacts() {
+        return artefacts;
+    }
+
+    public boolean noye() {
+        return (this.getC().GetEtat() > 1) && (!(this.getC().CaseAdjacenteLibre()));
+    }
+
+    public boolean contient_action_speciales() {
+        return !(ActionSp.isEmpty());
     }
 
     public void maj_action() {
@@ -155,7 +94,107 @@ public class Joueur {
         return s;
     }
 
+    //? utiliser pour fin de tour pour qu'il y est 50% de chance que le joueur re?oit la cle d'un artefact
+
+    public void ajoute_Cle() {
+    	//la chance d'avoir une cle d'un type est equiprobable avec les chances des autres types
+        float x = (float) Math.random();
+        if (x >= 0.5) {
+            String nom_cle = "";
+            float y = (float) Math.random();
+            if (y <= 0.25) {
+                nom_cle = "Eau";
+            } else if (y > 0.25 && y <= 0.50) {
+                nom_cle = "Air";
+            } else if (y > 0.50 && y <= 0.75) {
+                nom_cle = "Feu";
+            } else if (y > 0.75 && y <= 1.00) {
+                nom_cle = "Terre";
+            }
+            Cle c = new Cle(nom_cle);
+            cles.add(c);
+        }
+    }
+
+    public void ajoute_ActionSpe() {
+    	// on ajoute une action speciale a chaque fin de tour
+    	//20% de chance d avoir une action special
+    	//les chances d avoir heleco ou sac sable sont equiprobables
+    	
+        float x = (float) Math.random();
+        ActionSpe a = null;
+        if (x <= 0.90) {
+            float y = (float) Math.random();
+            if (y <= 0.50) {
+                a = new Sac_sable();
+            } else if (y > 0.50) {
+                a = new Heleco_act();
+            }
+
+            if (a != null) {
+                this.ActionSp.add(a);
+            }
+        }
+    }
+
+    public int get_nb_ActionSacSable() {
+    	//retourne le nb d action speciale sac sable
+        int x = 0;
+        for (ActionSpe i : ActionSp) {
+            if (i.getNom() == "Sac a sable") {
+                x += 1;
+            }
+        }
+        return x;
+    }
+
+    public int get_nb_ActionHelico() {
+    	//retourne le nombre d action speciale heleco
+        int x = 0;
+        for (ActionSpe i : ActionSp) {
+            if (i.getNom() == "Heleco") {
+                x += 1;
+            }
+        }
+        return x;
+    }
+
+    public void ajoute_cle(String nom) {
+    	// ajouter une cle de type nom
+        Cle c = new Cle(nom);
+        cles.add(c);
+    }
+
+    public void supprimer_cle(String c) {
+    	// supprimer une occurence de la cle de type c
+        boolean b = false;
+        for (Cle i : cles) {
+            if (i.getNom() == c) {
+                cles.remove(i);
+                b = true;
+                break;
+
+            }
+            if (b) break;
+        }
+    }
+
+    public void supprimer_ActionSpeSable() {
+    	// supprimer une occurence de l act speciale sac sable
+        boolean b = false;
+        for (ActionSpe i : ActionSp) {
+            if (i.getNom() == "Sac a sable") {
+                ActionSp.remove(i);
+                b = true;
+                break;
+            }
+            if (b) break;
+        }
+    }
+
+
     public int get_nb_cle(String nom) {
+    	// retourne le nb de cles de type nom
         int x = 0;
         for (Cle i : cles) {
             if (i.getNom() == nom) {
@@ -165,40 +204,13 @@ public class Joueur {
         return x;
     }
 
-
-    public Case getC() {
-        return c;
-    }
-
-    public void setC(Case c) {
-        this.c = c;
-    }
-
-    public int getNb_act() {
-        return nb_act;
-    }
-
-    public void setNb_act(int nb_act) {
-        this.nb_act = nb_act;
-    }
-
-    public ArrayList<Artefact> getArtefacts() {
-        return artefacts;
-    }
-
-    public boolean noye() {
-        return (this.getC().GetEtat() > 1) && (!(this.getC().CaseAdjacenteLibre()));
-    }
-
-    public boolean contient_action_speciales() {
-        return !(ActionSp.isEmpty());
-    }
+    
 
     public boolean Sac_a_sable(int x, int y) {
         // proprite permettant d assecher n importe quelle case non-submerg�e du plateau
         // la fonction renvoie vrai si cette action est faite quand c'est possible sinon �a renvoie faux
         Case c = modele.getCas(x, y);
-        if (c.GetEtat() == 1) {
+        if (c.GetEtat() == 1 && this.get_nb_ActionSacSable()>0) {
             c.setEtat(c.GetEtat() - 1);
             return true;
         }
@@ -210,7 +222,7 @@ public class Joueur {
         // la fonction renvoie vrai si cette action est faite quand c'est possible sinon �a renvoie faux
         // a noter cette action ne fait pas action moins au joueur qu il utilise car on l utilisera pour les autres joueurs dans la meme case
         Case c = modele.getCas(x, y);
-        if (c.GetEtat() <= 1) {
+        if (c.GetEtat() <= 1 && this.get_nb_ActionHelico()>0) {
             this.getC().supprimer_joueur(this);
             this.setC(c);
             c.ajouter_joueur(this);
@@ -220,6 +232,7 @@ public class Joueur {
     }
 
     public void supprimer_ActionSpe(String nom) {
+    	// supprimer une occurence d une action speciale de type nom
         boolean b = false;
         for (ActionSpe i : ActionSp) {
             if (i.getNom() == nom) {

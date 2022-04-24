@@ -1,5 +1,6 @@
 package Modele;
 
+
 public class Artefact extends items {
 
     private Case c;
