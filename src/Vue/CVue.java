@@ -160,9 +160,7 @@ public class CVue extends JFrame implements ActionListener {
         frame.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Jeu");
 
         frame.setContentPane(new JPanel() {
-            BufferedImage icon;
-
-            {
+            BufferedImage icon;            {
                 try {
                     icon = ImageIO.read(new File("L_ile_interdite_face_HD.jpg"));
                 } catch (IOException e) {
@@ -179,10 +177,7 @@ public class CVue extends JFrame implements ActionListener {
                 joueurs.setBounds(0,300,300,600);
                 joueurs2.setBackground(new Color(100,100,100,150));
                 joueurs2.setBounds(300,300,600,600);
-                frame.add(grille);
-                frame.add(commandes);
-                frame.add(joueurs);
-                frame.add(joueurs2);
+
             }
         });
 
@@ -193,6 +188,11 @@ public class CVue extends JFrame implements ActionListener {
         joueurs = new VueJoueurs(modele);
 
         joueurs2 = new VueJoueurs2(modele);
+
+        frame.add(grille);
+        frame.add(commandes);
+        frame.add(joueurs);
+        frame.add(joueurs2);
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

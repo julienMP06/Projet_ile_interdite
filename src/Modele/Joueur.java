@@ -124,13 +124,13 @@ public class Joueur {
     	
         float x = (float) Math.random();
         ActionSpe a = null;
-        if (x <= 0.20) {
+        if (x <= 1.20) {
             float y = (float) Math.random();
-            if (y <= 0.50) {
-                a = new Sac_sable();
-            } else if (y > 0.50) {
+            //if (y <= 0.50) {
+            //    a = new Sac_sable();
+            //} else if (y > 0.50) {
                 a = new Heleco_act();
-            }
+            //}
 
             if (a != null) {
                 this.ActionSp.add(a);
