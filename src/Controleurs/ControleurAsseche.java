@@ -59,7 +59,7 @@ public class ControleurAsseche extends VueJoueurs implements KeyListener {
                         Case c = modele.getJ_actuel().getC();
                         x = c.getX();
                         y = c.getY();
-                        if (modele.getCas(x + 1, y).etat == 1) {
+                        if (modele.getCas(x + 1, y).GetEtat() == 1) {
                             modele.getCas(x + 1, y).setEtat(0);
                             modele.getJ_actuel().action_moins();
                             label.setText("Asseche Droite");
@@ -72,7 +72,7 @@ public class ControleurAsseche extends VueJoueurs implements KeyListener {
                         c = modele.getJ_actuel().getC();
                         x = c.getX();
                         y = c.getY();
-                        if (modele.getCas(x - 1, y).etat == 1) {
+                        if (modele.getCas(x - 1, y).GetEtat()== 1) {
                             modele.getCas(x - 1, y).setEtat(0);
                             modele.getJ_actuel().action_moins();
                             label.setText("Asseche Gauche");
@@ -85,7 +85,7 @@ public class ControleurAsseche extends VueJoueurs implements KeyListener {
                         c = modele.getJ_actuel().getC();
                         x = c.getX();
                         y = c.getY();
-                        if (modele.getCas(x, y - 1).etat == 1) {
+                        if (modele.getCas(x, y - 1).GetEtat() == 1) {
                             modele.getCas(x, y - 1).setEtat(0);
                             modele.getJ_actuel().action_moins();
                             label.setText("Asseche Haut");
@@ -98,7 +98,7 @@ public class ControleurAsseche extends VueJoueurs implements KeyListener {
                         c = modele.getJ_actuel().getC();
                         x = c.getX();
                         y = c.getY();
-                        if (modele.getCas(x, y + 1).etat == 1) {
+                        if (modele.getCas(x, y + 1).GetEtat() == 1) {
                             modele.getCas(x, y + 1).setEtat(0);
                             modele.getJ_actuel().action_moins();
                             label.setText("Asseche Bas");
@@ -111,7 +111,7 @@ public class ControleurAsseche extends VueJoueurs implements KeyListener {
                         c = modele.getJ_actuel().getC();
                         x = c.getX();
                         y = c.getY();
-                        if (modele.getCas(x, y).etat == 1) {
+                        if (modele.getCas(x, y).GetEtat() == 1) {
                             modele.getCas(x, y).setEtat(0);
                             modele.getJ_actuel().action_moins();
                             label.setText("Asseche Actuelle");

@@ -7,7 +7,7 @@ public class Case {
 
 
     private CModele modele;
-    public int etat; // 0: Normale  1: Innondee  2: Submergee
+    private int etat; // 0: Normale  1: Innondee  2: Submergee
     private final int x, y;
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>(4); //max 4
     private ArrayList<Artefact> artefact = new ArrayList<Artefact>(1);// contient 0 ou 1

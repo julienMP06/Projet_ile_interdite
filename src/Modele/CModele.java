@@ -26,7 +26,7 @@ public class CModele extends Observable {
 	public void init() {
 		for (int i = 1; i <= LARGEUR; i++) {
 			for (int j = 1; j <= HAUTEUR; j++) {
-				plateau[i][j].etat = 0;
+				plateau[i][j].setEtat(0);
 			}
 		}
 		ZoneSpeciale();
@@ -125,21 +125,21 @@ public class CModele extends Observable {
 	
 	public void TourIles() {
 		/*On innonde les bords de la grille pour avoir la bonne forme de l'ile*/
-		this.getCas(1, 1).etat = 2;
-		this.getCas(2, 1).etat = 2;
-		this.getCas(1, 2).etat = 2;
+		this.getCas(1, 1).setEtat(2);
+		this.getCas(2, 1).setEtat(2);
+		this.getCas(1, 2).setEtat(2);
 
-		this.getCas(6, 1).etat = 2;
-		this.getCas(5, 1).etat = 2;
-		this.getCas(6, 2).etat = 2;
+		this.getCas(6, 1).setEtat(2);
+		this.getCas(5, 1).setEtat(2);
+		this.getCas(6, 2).setEtat(2);
 
-		this.getCas(1, 6).etat = 2;
-		this.getCas(1, 5).etat = 2;
-		this.getCas(2, 6).etat = 2;
+		this.getCas(1, 6).setEtat(2);
+		this.getCas(1, 5).setEtat(2);
+		this.getCas(2, 6).setEtat(2);
 
-		this.getCas(6, 6).etat = 2;
-		this.getCas(5, 6).etat = 2;
-		this.getCas(6, 5).etat = 2;
+		this.getCas(6, 6).setEtat(2);
+		this.getCas(5, 6).setEtat(2);
+		this.getCas(6, 5).setEtat(2);
 	}
 
 	public void set_artefacts() {
@@ -194,12 +194,12 @@ public class CModele extends Observable {
 		/*On place aleatoirement l'h�liport*/
 		int x =(int) (Math.random()*(5-2)) + 2;
 		int y =(int) (Math.random()*(5-2)) + 2;
-		if (this.getCas(x, y).etat != 0 || this.getCas(x,y).contient_artefact()) {
-			while (this.getCas(x, y).etat != 0 || this.getCas(x,y).contient_artefact()) {
-				x = (int) (Math.random() * (5 - 2)) + 2;
-				y = (int) (Math.random() * (5 - 2)) + 2;
-			}
+
+		while (this.getCas(x, y).GetEtat() != 0 || this.getCas(x,y).contient_artefact()) {
+			x = (int) (Math.random() * (5 - 2)) + 2;
+			y = (int) (Math.random() * (5 - 2)) + 2;
 		}
+	
 		Heleco H = new Heleco(this.getCas(x,y));
 		this.getCas(x,y).ajoute_heleco(H);
 	}

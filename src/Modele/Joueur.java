@@ -130,11 +130,11 @@ public class Joueur {
                 a = new Sac_sable();
             } else if (y > 0.50) {
                 a = new Heleco_act();
-            }
+           }
 
             if (a != null) {
                 this.ActionSp.add(a);
-            }
+           }
         }
     }
 

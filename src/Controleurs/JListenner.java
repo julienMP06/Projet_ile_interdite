@@ -38,7 +38,7 @@ public class JListenner extends KeyAdapter {
 
                         // pour eviter les effet de bord
                         if (x + 1 < CModele.LARGEUR + 1) {
-                            if (modele.getCas(x + 1, y).etat != 2) {
+                            if (modele.getCas(x + 1, y).GetEtat() != 2) {
                                 // on supp le joueur actuel de la case courante
                                 modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                                 // on ajoute le joueur actuel a la case de droite
@@ -58,7 +58,7 @@ public class JListenner extends KeyAdapter {
                         x = c.getX();
                         y = c.getY();
                         if (x - 1 > 0) {
-                            if (modele.getCas(x - 1, y).etat != 2) {
+                            if (modele.getCas(x - 1, y).GetEtat() != 2) {
                                 modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                                 modele.getCas(x - 1, y).ajouter_joueur(modele.getJ_actuel());
                                 modele.getJ_actuel().action_moins();
@@ -76,7 +76,7 @@ public class JListenner extends KeyAdapter {
                         x = c.getX();
                         y = c.getY();
                         if (y - 1 > 0) {
-                            if (modele.getCas(x, y - 1).etat != 2) {
+                            if (modele.getCas(x, y - 1).GetEtat() != 2) {
                                 modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                                 modele.getCas(x, y - 1).ajouter_joueur(modele.getJ_actuel());
                                 modele.getJ_actuel().action_moins();
@@ -95,7 +95,7 @@ public class JListenner extends KeyAdapter {
                         x = c.getX();
                         y = c.getY();
                         if (y + 1 <= 6) {
-                            if (modele.getCas(x, y + 1).etat != 2) {
+                            if (modele.getCas(x, y + 1).GetEtat() != 2) {
                                 modele.getCas(x, y).supprimer_joueur(modele.getJ_actuel());
                                 modele.getCas(x, y + 1).ajouter_joueur(modele.getJ_actuel());
                                 modele.getJ_actuel().action_moins();
