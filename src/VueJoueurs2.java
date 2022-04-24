@@ -3,6 +3,10 @@ import java.awt.*;
 public class VueJoueurs2 extends JPanel implements Observer{
     private CModele modele;
 
+    /**
+     * La même class que VueJoueurs mais pour afficher les Actions Spéciales et les Artefacts
+     * On affiche ça dans la 4eme partie de notre fenetre qui est en bas à droite (GridLayout(2,0))
+     */
     GridLayout grid = new GridLayout(5, 0);
 
     private JLabel Affichage = new JLabel();

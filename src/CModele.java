@@ -411,13 +411,13 @@ class Joueur {
 	public void ajoute_ActionSpe() {
 		float x = (float) Math.random();
 		ActionSpe a=null;
-		if (x <= 0.90) {
+		if (x <= 0.20) {
 			float y = (float) Math.random();
-			//if (y <= 0.50) {
+			if (y <= 0.50) {
 				a=new Sac_sable();
-			//}else if (y > 0.50) {
+			}else if (y > 0.50) {
 				a= new Heleco_act();
-			//}
+			}
 			
 			if (a!=null) {
 				this.ActionSp.add(a);

@@ -6,17 +6,50 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 
 public class ControleurRecup extends VueJoueurs implements ActionListener {
+
+    /**
+     * Le controleur du bouton Recuperer qui permet de vérifier le nombre de clé du joueur ainsi que le contenu
+     * de la case du joueur et de récupérer l'artefact si il y en a un et que le joueur a assez de cle.
+     */
     CModele modele;
 
     private JLabel label;
 
-    public ControleurRecup(CModele modele, JLabel label) {
+    private JPanel panelC;
+
+    private JTextField EntrerX;
+
+    private JTextField EntrerY;
+
+    private JButton valider;
+
+    private JCheckBox oui;
+
+    private JButton validerEchange;
+
+    private JTextField CleEchange;
+    public ControleurRecup(CModele modele, JLabel labelC, JPanel panelC, JTextField EntrerX, JTextField EntrerY, JButton valider, JCheckBox oui, JButton validerEchange, JTextField CleEchange) {
         super(modele);
         this.modele = modele;
-        this.label = label;
+        this.label = labelC;
+        this.panelC = panelC;
+        this.EntrerX = EntrerX;
+        this.EntrerY = EntrerY;
+        this.valider = valider;
+        this.oui = oui;
+        this.validerEchange = validerEchange;
+        this.CleEchange = CleEchange;
     }
 
     public void actionPerformed(ActionEvent e) {
+        panelC.remove(EntrerX);
+        panelC.remove(EntrerY);
+        panelC.remove(valider);
+        panelC.remove(oui);
+        panelC.remove(CleEchange);
+        panelC.remove(validerEchange);
+        panelC.revalidate();
+        panelC.repaint();
     	if (modele.partie_gagnee()) {}
     	else if (modele.partie_perdue()) {
             label.setText("Tu ne peux plus jouer Recommence");
@@ -32,7 +65,9 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
                 	modele.getJ_actuel().action_moins();
 
                               
-                } 
+                } else{
+                    label.setText("Tu n'as pas assez de cle");
+                }
             }else {
                 label.setText("Il n'y a pas d'artefact ici");
             }

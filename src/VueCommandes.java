@@ -13,6 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 class VueCommandes extends JPanel{
+
+	/**
+	 * Cette class gère tous les boutons de la création au placement dans la seconde partie de notre fenetre
+	 * en haut a droite.
+	 */
     private CModele modele;
 	GridLayout grid = new GridLayout(7, 0);
 	JTextField EntrerX = new JTextField("Entre X");
@@ -20,6 +25,10 @@ class VueCommandes extends JPanel{
 	JButton valider = new JButton("Valider");
 
 	JCheckBox oui = new JCheckBox("Emporter",false);
+
+	JButton validerEchange = new JButton("Valider");
+
+	JTextField CleEchange = new JTextField("Cle A E T F");
 	JLabel label = new JLabel();
 	public VueCommandes(CModele modele, JFrame frameMenu, JFrame frame) {
 
@@ -33,22 +42,7 @@ class VueCommandes extends JPanel{
 		JLabel labelSpace = new JLabel("       ");
 
         JButton boutonAvance = new JButton("Fin De Tour");
-		boutonAvance.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						panelC.remove(EntrerX);
-						panelC.remove(EntrerY);
-						panelC.remove(valider);
-						panelC.remove(oui);
-						panelC.revalidate();
-						panelC.repaint();
-					}
-				}
-		);
-
-        Controleur ctrl = new Controleur(modele,label);
-
+        Controleur ctrl = new Controleur(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
         boutonAvance.addActionListener(ctrl);
 
 
@@ -56,406 +50,28 @@ class VueCommandes extends JPanel{
 
 
         JButton buttonAsseche = new JButton("Assecher");
-
-        buttonAsseche.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-						panelC.remove(EntrerX);
-						panelC.remove(EntrerY);
-						panelC.remove(valider);
-						panelC.revalidate();
-						panelC.repaint();
-                        if (modele.partie_perdue()) {
-                            label.setText("Tu ne peux plus jouer Recommence");
-                        } else {
-                        	if (modele.getJ_actuel().getNb_act()>0){
-	                            switch (e.getKeyCode()) {
-
-	                                case KeyEvent.VK_RIGHT:
-	                                    int y = 0;
-	                                    int x = 0;
-	                                    // avoir les coordonnees du joueur qui joue
-	                                    Case c = modele.getJ_actuel().getC();
-	                                    x = c.getX();
-	                                    y = c.getY();
-	                                    if (modele.getCas(x + 1, y).etat == 1) {
-	                                        modele.getCas(x + 1, y).setEtat(0);
-	                                        modele.getJ_actuel().action_moins();
-	                                        label.setText("Asseche Droite");
-	                                    } else {
-	                                        label.setText("Impossible !");
-	                                    }
-	                                    break;
-	                                case KeyEvent.VK_LEFT:
-	                                    // avoir les coordonnees du joueur qui joue
-	                                    c = modele.getJ_actuel().getC();
-	                                    x = c.getX();
-	                                    y = c.getY();
-	                                    if (modele.getCas(x - 1, y).etat == 1) {
-	                                        modele.getCas(x - 1, y).setEtat(0);
-	                                        modele.getJ_actuel().action_moins();
-	                                        label.setText("Asseche Gauche");
-	                                    } else {
-	                                        label.setText("Impossible !");
-	                                    }
-	                                    break;
-	                                case KeyEvent.VK_UP:
-	                                    // avoir les coordonnees du joueur qui joue
-	                                    c = modele.getJ_actuel().getC();
-	                                    x = c.getX();
-	                                    y = c.getY();
-	                                    if (modele.getCas(x, y - 1).etat == 1) {
-	                                        modele.getCas(x, y - 1).setEtat(0);
-	                                        modele.getJ_actuel().action_moins();
-	                                        label.setText("Asseche Haut");
-	                                    } else {
-	                                        label.setText("Impossible !");
-	                                    }
-	                                    break;
-	                                case KeyEvent.VK_DOWN:
-	                                    // avoir les coordonnees du joueur qui joue
-	                                    c = modele.getJ_actuel().getC();
-	                                    x = c.getX();
-	                                    y = c.getY();
-	                                    if (modele.getCas(x, y + 1).etat == 1) {
-	                                        modele.getCas(x, y + 1).setEtat(0);
-	                                        modele.getJ_actuel().action_moins();
-	                                        label.setText("Asseche Bas");
-	                                    } else {
-	                                        label.setText("Impossible !");
-	                                    }
-	                                    break;
-	                                case KeyEvent.VK_SPACE:
-	                                    // avoir les coordonnees du joueur qui joue
-	                                    c = modele.getJ_actuel().getC();
-	                                    x = c.getX();
-	                                    y = c.getY();
-	                                    if (modele.getCas(x, y).etat == 1) {
-	                                        modele.getCas(x, y).setEtat(0);
-	                                        modele.getJ_actuel().action_moins();
-	                                        label.setText("Asseche Actuelle");
-	                                    } else {
-	                                        label.setText("Impossible !");
-	                                    }
-	                                    break;
-	                            }
-
-                        	}
-                        }
-						modele.MAJ();
-                    }
-
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                }
-        );
+		ControleurAsseche ctrlAss = new ControleurAsseche(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
+		buttonAsseche.addKeyListener(ctrlAss);
 
         JButton buttonRecup = new JButton("Recuperer");
-        ControleurRecup ctrlRec = new ControleurRecup(modele,label);
+        ControleurRecup ctrlRec = new ControleurRecup(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
 		buttonRecup.addActionListener(ctrlRec);
 
-
-
         JButton EchangeCle = new JButton("Donner cle");
-
-        EchangeCle.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                    	if (modele.partie_perdue()) {
-                            label.setText("Tu ne peux plus jouer Recommence");
-                        } else {
-                        	if (modele.getJ_actuel().getNb_act()>0){
-		                        int x = modele.getJ_actuel().getC().getX();
-		                        int y = modele.getJ_actuel().getC().getY();
-		                        ArrayList<Joueur> l = modele.getCas(x, y).get_joueurs();
-		                        
-		                        if(modele.getCas(x,y).contient_joueur()){
-		                            switch (l.size()){
-		                                case 1 :
-		                                    label.setText("impossible d'echanger avec vous meme");
-		                                    break;
-		                                case 2 :
-		                                    label.setText("Appuyez sur A E F T pour donner");
-		                                    EchangeCle.addKeyListener(
-		                                            new KeyListener() {
-		                                                @Override
-		                                                public void keyReleased(KeyEvent e) {
-		
-		                                                }
-		
-		                                                @Override
-		                                                public void keyPressed(KeyEvent e) {
-		                                                    switch (e.getKeyCode()) {
-		                                                        //Cle c = new Cle(modele,"Air");
-		                                                        case KeyEvent.VK_A:
-		                                                            if (modele.getJ_actuel().get_nb_cle("Air")!= 0) {
-		                                                               
-		                                                            	modele.getJ_actuel().supprimer_cle("Air");
-		                                                                label.setText("Don de cle Air");
-		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-		                                                                if(v.get(0) != modele.getJ_actuel()){
-		                                                                    v.get(0).ajoute_cle("Air");
-		                                                                }else {
-		                                                                    v.get(1).ajoute_cle("Air");
-		                                                                }
-		                                                            }else{
-		                                                                label.setText("Pas assez de cle");
-		                                                            }
-		                                                            break;
-		                                                        case KeyEvent.VK_E:
-		                                                            if (modele.getJ_actuel().get_nb_cle("Eau") != 0) {
-		                                                              
-		                                                                modele.getJ_actuel().supprimer_cle("Eau");
-		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-		                                                                    if(v.get(0) != modele.getJ_actuel()){
-		                                                                        v.get(0).ajoute_cle("Eau");
-		                                                                    }else {
-		                                                                        v.get(1).ajoute_cle("Eau");
-		                                                                    }
-		                                                                label.setText("Don de cle Eau");
-		                                                            }else{
-		                                                                label.setText("Pas assez de cle");
-		                                                            }
-		                                                            break;
-		                                                        case KeyEvent.VK_T:
-		                                                            if (modele.getJ_actuel().get_nb_cle("Terre") != 0) {
-		                                                                ;
-		                                                                modele.getJ_actuel().supprimer_cle("Terre");
-		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-		                                                                if(v.get(0) != modele.getJ_actuel()){
-		                                                                    v.get(0).ajoute_cle("Terre");
-		                                                                }else {
-		                                                                    v.get(1).ajoute_cle("Terre");
-		                                                                }
-		                                                                label.setText("Don de cle Terre");
-		                                                            }else{
-		                                                                label.setText("Pas assez de cle");
-		                                                            }
-		                                                            break;
-		                                                        case KeyEvent.VK_F:
-		                                                            if (modele.getJ_actuel().get_nb_cle("Feu") != 0) {
-		                                                            
-		                                                                
-		                                                                modele.getJ_actuel().supprimer_cle("Feu");
-		                                                                
-		                                                                ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
-		                                                                if(v.get(0) != modele.getJ_actuel()){
-		                                                                    v.get(0).ajoute_cle("Feu");
-		                                                                }else {
-		                                                                    v.get(1).ajoute_cle("Feu");
-		                                                                }
-		                                                                label.setText("Don de cle Feu");
-		                                                            }else{
-		                                                                label.setText("Pas assez de cle");
-		                                                            }
-		                                                            break;
-		                                                    }
-		                                                }
-		
-		                                                @Override
-		                                                public void keyTyped(KeyEvent e) {
-		
-		                                                }
-		                                            }
-		                                    );
-		                                    break;
-		                                case 3 :
-		                                    label.setText("Vous ne devez etre que deux sur la meme case");
-		                                    break;
-		                                case 4 :
-		                                    label.setText("Vous ne devez etre que deux sur la meme case");
-		                                    break;
-		                            }
-		                            //modele.getJ_actuel().suppr_CleE();
-		                            //modele.getJoueurs().get(modele.getCas(x,y).getJoueur()).ajoute_Cle();
-		                            modele.getJ_actuel().action_moins();
-		                        }
-		                    }
-	                    }
-                    }
-                }
-        );
-        
+		ControleurEchange ctrlEch = new ControleurEchange(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
+		EchangeCle.addActionListener(ctrlEch);
 
         JButton boutonEnvole = new JButton("S'envoler");
-
-        boutonEnvole.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-						if (modele.partie_perdue()) {
-							label.setText("Tu ne peux plus jouer Recommence");
-						} else {
-							if (modele.partie_gagnee()) {
-								label.setText("Partie Gagnee, Bravo !");
-							} else {
-								label.setText("Tu n'as pas fini de chercher");
-							}
-						}
-                    }
-                }
-        );
+		ControleurEnvole ctrlEnv = new ControleurEnvole(modele, label);
+		boutonEnvole.addActionListener(ctrlEnv);
 		
 		JButton SacSable= new JButton("Sac de sable");
-
-		SacSable.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if (modele.partie_perdue()) {
-							label.setText("Tu ne peux plus jouer Recommence");
-						} else {
-							if (modele.getJ_actuel().get_nb_ActionSacSable() > 0){
-								EntrerX.setText("Entre X");
-								EntrerY.setText("Entre Y");
-								label.setText("Pour annuler mets 0 0 et valide");
-								panelC.add(EntrerX);
-								panelC.add(EntrerY);
-								panelC.add(valider);
-									valider.addActionListener(
-											new ActionListener() {
-												@Override
-												public void actionPerformed(ActionEvent e) {
-													String textX = EntrerX.getText();
-													int x = Integer.parseInt(textX);
-													String textY = EntrerY.getText();
-													int y = Integer.parseInt(textY);
-													if (x > 0 && x < 7 && y > 0 && y < 7) {
-														panelC.revalidate();
-														panelC.remove(EntrerX);
-														panelC.remove(EntrerY);
-														panelC.remove(valider);
-														panelC.repaint();
-														modele.getJ_actuel().Sac_a_sable(x, y);
-														modele.getJ_actuel().supprimer_ActionSpe("Sac a sable");
-														label.setText("Case " + x + " " + y + " asseche");
-														modele.MAJ();
-													}else if(x == 0 && y == 0){
-														panelC.revalidate();
-														panelC.remove(EntrerX);
-														panelC.remove(EntrerY);
-														panelC.remove(valider);
-														panelC.repaint();
-														label.setText("Action annule");
-													}else {
-														label.setText("Hors Grille");
-														panelC.revalidate();
-														panelC.remove(EntrerX);
-														panelC.remove(EntrerY);
-														panelC.remove(valider);
-														panelC.repaint();
-													}
-													modele.MAJ();
-												}
-											}
-									);
-									panelC.revalidate();
-									panelC.repaint();
-									modele.MAJ();
-
-						}else{
-								label.setText("Tu n'as pas d'action Sac de Sable");
-							}
-							modele.MAJ();
-						}
-						
-					}
-				}
-		);
+		ControleurSable ctrlSable = new ControleurSable(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
+		SacSable.addActionListener(ctrlSable);
 
 		JButton Helico = new JButton("Helico");
-
-		Helico.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if (modele.partie_perdue()) {
-							label.setText("Tu ne peux plus jouer Recommence");
-						} else {
-							if (modele.getJ_actuel().get_nb_ActionHelico() > 0){
-								EntrerX.setText("Entre X");
-								EntrerY.setText("Entre Y");
-								panelC.add(EntrerX);
-								panelC.add(EntrerY);
-								panelC.add(valider);
-								label.setText("Voulez vous emporter les autres avec vous ?");
-								panelC.add(oui);
-								label.setText("Pour annuler mets 0 0 et valide");
-								valider.addActionListener(
-										new ActionListener() {
-											@Override
-											public void actionPerformed(ActionEvent e) {
-												String textX = EntrerX.getText();
-												int x = Integer.parseInt(textX);
-												String textY = EntrerY.getText();
-												int y = Integer.parseInt(textY);
-												boolean b = oui.isSelected();
-												
-												if (x > 0 && x < 7 && y > 0 && y < 7) {
-													if  (b) {
-														Case c = modele.getJ_actuel().getC();
-														ArrayList<Joueur> joueurs = c.get_joueurs();
-														//System.out.println(joueurs.size());
-														ArrayList<Joueur> l  =new ArrayList<Joueur>();
-														for (Joueur j : joueurs) {
-															l.add(j);
-															//j.heleco, y);
-															//System.out.println(j.getC().getX()+"  "+j.getC().getY());
-														}
-														for (Joueur j : l) {
-															j.heleco(x, y);
-														}
-														
-													}else {
-														modele.getJ_actuel().heleco(x, y);
-													}
-													
-													panelC.revalidate();
-													panelC.remove(EntrerX);
-													panelC.remove(EntrerY);
-													panelC.remove(valider);
-													panelC.remove(oui);
-													panelC.repaint();
-													label.setText("Deplacement en " + x + " " + y);
-													modele.getJ_actuel().supprimer_ActionSpe("Heleco");
-													modele.MAJ();
-												} else if (x == 0 && y == 0) {
-													panelC.revalidate();
-													panelC.remove(EntrerX);
-													panelC.remove(EntrerY);
-													panelC.remove(valider);
-													panelC.remove(oui);
-													panelC.repaint();
-													label.setText("Action annule");
-												} else {
-													panelC.revalidate();
-													panelC.remove(EntrerX);
-													panelC.remove(EntrerY);
-													panelC.remove(valider);
-													panelC.remove(oui);
-													panelC.repaint();
-													label.setText("Hors Grille");
-												}
-											}
-										}
-								);
-
-							}else{
-								label.setText("Tu n'as pas d'action Helico");
-							}
-						}modele.MAJ();
-					}
-				}
-		);
+		ControleurHelico ctrlHelico = new ControleurHelico(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
+		Helico.addActionListener(ctrlHelico);
 
 		JButton retour = new JButton("<- Menu");
 		retour.addActionListener(
