@@ -51,7 +51,7 @@ public class Joueur {
             //if (y <= 0.50) {
                 a = new Sac_sable();
             //} else if (y > 0.50) {
-            //    a = new Heleco_act();
+                a = new Heleco_act();
             //}
 
             if (a != null) {

@@ -1,10 +1,15 @@
 package Vue;
 import Modele.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class CVue extends JFrame implements ActionListener {
     private JFrame frame;
@@ -23,21 +28,11 @@ public class CVue extends JFrame implements ActionListener {
         this.modele = modele;
         frameMenu = new JFrame();
         frameMenu.setResizable(false);
+        frameMenu.setLayout(null);
         frameMenu.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Menu");
-        frameMenu.setSize(600,600);
+        frameMenu.setSize(800,1200);
         frameMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        gridMenu.setVgap(30);
-        CardLayout flow1 = new CardLayout(200,200);
-        frameMenu.setLayout(flow1);
-
-        JPanel pan1 = new JPanel( );
-        pan1.setLayout(gridMenu);
-
-        pan1.add(bouton);
         bouton.addActionListener(this);
-
-        pan1.add(boutonRegle);
         boutonRegle.addActionListener(
                 new ActionListener() {
                     @Override
@@ -48,9 +43,6 @@ public class CVue extends JFrame implements ActionListener {
                         frameRegle.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Regle");
                         GridLayout gridRegle = new GridLayout(4,0);
                         JPanel pan = new JPanel();
-                        //pan.setLayout(gridRegle);
-                        BorderLayout bord = new BorderLayout();
-                        frameRegle.setLayout(bord);
 
                         JTextArea Titre = new JTextArea(" Regles : ");
                         Titre.setFont(new Font("sansserif", Font.BOLD, 16));
@@ -101,11 +93,31 @@ public class CVue extends JFrame implements ActionListener {
                 }
         );
 
-        frameMenu.add(pan1,BorderLayout.CENTER);
+        frameMenu.setContentPane(new JPanel() {
+            BufferedImage icon;
+
+            {
+                try {
+                    icon = ImageIO.read(new File("L_ile_interdite_face_HD.jpg"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(icon, -20, -20, 900, 1200, this);
+                bouton.setBounds(100,650,150,50);
+                boutonRegle.setBounds(100,750,150,50);
+                frameMenu.add(bouton);
+                frameMenu.add(boutonRegle);
+            }
+        });
 
 
-        frameMenu.setVisible(true);
+
         frameMenu.setLocationRelativeTo(null);
+        frameMenu.setVisible(true);
+
     }
 
     @Override
