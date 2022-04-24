@@ -61,7 +61,7 @@ public class ControleurRecup extends VueJoueurs implements ActionListener {
             int y = modele.getJ_actuel().getC().getY();
             if (modele.getCas(x, y).contient_artefact()) {
                 Artefact A = modele.getCas(x, y).get_Artefacts().get(0);
-                if (modele.getJ_actuel().get_nb_cle(A.getNom())>=1) {
+                if (modele.getJ_actuel().get_nb_cle(A.getNom())>=4) {
                 	modele.getCas(x, y).supprime_artefact();
                 	modele.getJ_actuel().ajouter_artefact(A);
                 	modele.getJ_actuel().supprimer_cle(A.getNom());
