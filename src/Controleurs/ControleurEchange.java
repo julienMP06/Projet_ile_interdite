@@ -76,6 +76,7 @@ public class ControleurEchange extends VueJoueurs implements ActionListener {
                                             String C = CleEchange.getText();
                                             if (C.equals("A")) {
                                                 if (modele.getJ_actuel().get_nb_cle("Air") != 0) {
+                                                     modele.getJ_actuel().action_moins();
                                                     label.setText("Don de cle Air");
                                                     ArrayList<Joueur> v = modele.getJ_actuel().getC().get_joueurs();
                                                     if (v.get(0) != modele.getJ_actuel()) {
@@ -103,6 +104,7 @@ public class ControleurEchange extends VueJoueurs implements ActionListener {
                                                         v.get(1).ajoute_cle("Eau");
                                                         v.get(0).supprimer_cle("Eau");
                                                     }
+                                                     modele.getJ_actuel().action_moins();
                                                     label.setText("Don de cle Eau");
                                                 } else {
                                                     label.setText("Pas assez de cle");
@@ -122,6 +124,7 @@ public class ControleurEchange extends VueJoueurs implements ActionListener {
                                                         v.get(1).ajoute_cle("Terre");
                                                         v.get(0).supprimer_cle("Terre");
                                                     }
+                                                     modele.getJ_actuel().action_moins();
                                                     label.setText("Don de cle Terre");
                                                 } else {
                                                     label.setText("Pas assez de cle");
@@ -141,6 +144,7 @@ public class ControleurEchange extends VueJoueurs implements ActionListener {
                                                         v.get(1).ajoute_cle("Feu");
                                                         v.get(0).supprimer_cle("Feu");
                                                     }
+                                                     modele.getJ_actuel().action_moins();
                                                     label.setText("Don de cle Feu");
                                                 } else {
                                                     label.setText("Pas assez de cle");
@@ -169,7 +173,7 @@ public class ControleurEchange extends VueJoueurs implements ActionListener {
                             label.setText("Vous etes trop sur la meme case");
                             break;
                     }
-                    modele.getJ_actuel().action_moins();
+                   
                 }
             }
         }
