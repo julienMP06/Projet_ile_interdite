@@ -80,7 +80,7 @@ public class Joueur {
     public String noms_artefacts_possession() {
         String s = "";
         for (Artefact i : artefacts) {
-            s = s + i.getNom();
+            s = s + i.getNom().charAt(0)+" ";
         }
         return s;
     }
