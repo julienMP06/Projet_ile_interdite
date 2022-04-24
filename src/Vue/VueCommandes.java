@@ -20,7 +20,7 @@ class VueCommandes extends JPanel implements Observer{
 	 * en haut a droite.
 	 */
     private CModele modele;
-	GridLayout grid = new GridLayout(7, 0);
+	GridLayout grid = new GridLayout(7, 2);
 	JTextField EntrerX = new JTextField("Entre X");
 	JTextField EntrerY = new JTextField("Entre Y");
 	JButton valider = new JButton("Valider");
@@ -32,7 +32,8 @@ class VueCommandes extends JPanel implements Observer{
 	public VueCommandes(CModele modele, JFrame frameMenu, JFrame frame) {
 
         JPanel panelC = new JPanel();
-
+		label.setForeground(Color.BLACK);
+		label.setFont(new Font("sansserif", Font.BOLD, 15));
         panelC.setLayout(grid);
         grid.setHgap(10);
         grid.setVgap(15);
@@ -93,10 +94,11 @@ class VueCommandes extends JPanel implements Observer{
 		panelC.add(Helico);
 		panelC.add(retour);
 		panelC.add(labelSpace);
+		panelC.add(label);
 		panelC.revalidate();
 		panelC.repaint();
 		this.add(panelC);
-        this.add(label);
+		//this.add(label);
         JListenner jtl = new JListenner(modele,button,ctrl,label);
         button.addKeyListener(jtl);
     }
