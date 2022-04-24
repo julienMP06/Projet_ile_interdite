@@ -3,11 +3,15 @@ import Modele.*;
 
 import Controleurs.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 class VueCommandes extends JPanel implements Observer{
 
@@ -20,9 +24,7 @@ class VueCommandes extends JPanel implements Observer{
 	JTextField EntrerX = new JTextField("Entre X");
 	JTextField EntrerY = new JTextField("Entre Y");
 	JButton valider = new JButton("Valider");
-
 	JCheckBox oui = new JCheckBox("Emporter",false);
-
 	JButton validerEchange = new JButton("Valider");
 
 	JTextField CleEchange = new JTextField("Cle A E T F");

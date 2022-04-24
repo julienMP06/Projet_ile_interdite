@@ -21,8 +21,8 @@ public class CVue extends JFrame implements ActionListener {
     private VueJoueurs2 joueurs2;
     JButton bouton = new JButton ("Jouer");
     JButton boutonRegle = new JButton ("Regles");
+
     GridLayout grid = new GridLayout(2, 2);
-    GridLayout gridMenu = new GridLayout(2, 0);
     private CModele modele;
     public CVue(CModele modele) {
         this.modele = modele;
@@ -144,9 +144,6 @@ public class CVue extends JFrame implements ActionListener {
                 frameMenu.add(boutonRegle);
             }
         });
-
-
-
         frameMenu.setLocationRelativeTo(null);
         frameMenu.setVisible(true);
 
@@ -154,28 +151,48 @@ public class CVue extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-            frameMenu.dispose();
-            frame = new JFrame();
-            frame.setResizable(false);
-            frame.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Jeu");
-            grid.setVgap(30);
-            frame.setLayout(grid);
+        frameMenu.dispose();
+        frame = new JFrame();
+        frame.setResizable(false);
+        frame.setLayout(null);
+        frame.setSize(600,600);
+        //grid.setVgap(30);
+        frame.setTitle("Ile Interdite MAILLE-PAEZ KEMICHE Jeu");
 
-            grille = new VueGrille(modele);
-            frame.add(grille);
+        frame.setContentPane(new JPanel() {
+            BufferedImage icon;
 
-            commandes = new VueCommandes(modele,frameMenu,frame);
-            frame.add(commandes);
+            {
+                try {
+                    icon = ImageIO.read(new File("L_ile_interdite_face_HD.jpg"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(icon, -200, -600, 800, 1200, this);
+                frame.add(grille);
+                frame.add(commandes);
+                frame.add(joueurs);
+                frame.add(joueurs2);
+            }
+        });
 
-            joueurs = new VueJoueurs(modele);
-            frame.add(joueurs);
+        grille = new VueGrille(modele);
+        frame.add(grille);
 
-            joueurs2 = new VueJoueurs2(modele);
-            frame.add(joueurs2);
+        commandes = new VueCommandes(modele,frameMenu,frame);
+        frame.add(commandes);
 
-            frame.pack();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-            frame.setLocationRelativeTo(null);
+        joueurs = new VueJoueurs(modele);
+        frame.add(joueurs);
+
+        joueurs2 = new VueJoueurs2(modele);
+        frame.add(joueurs2);
+
+        //frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
