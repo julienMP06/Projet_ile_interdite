@@ -172,6 +172,13 @@ public class CVue extends JFrame implements ActionListener {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(icon, -200, -600, 800, 1200, this);
+                grille.setBounds(0,0,300,300);
+                commandes.setBackground(new Color(100,100,100,150));
+                commandes.setBounds(300,0,600,300);
+                joueurs.setBackground(new Color(100,100,100,150));
+                joueurs.setBounds(0,300,300,600);
+                joueurs2.setBackground(new Color(100,100,100,150));
+                joueurs2.setBounds(300,300,600,600);
                 frame.add(grille);
                 frame.add(commandes);
                 frame.add(joueurs);

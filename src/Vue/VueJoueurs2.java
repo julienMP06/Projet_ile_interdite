@@ -28,13 +28,23 @@ public class VueJoueurs2 extends JPanel implements Observer{
         grid.setVgap(40);
         modele.addObserver(this);
 
+        Affichage.setFont(new Font("sansserif", Font.BOLD, 15));
+        Affichage.setForeground(Color.BLACK);
         Affichage.setText("Actions Speciales            Atefacts");
         panelJ.add(Affichage);
+        labelJ1.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ1.setForeground(Color.BLACK);
+        labelJ2.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ2.setForeground(Color.BLACK);
+        labelJ3.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ3.setForeground(Color.BLACK);
+        labelJ4.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ4.setForeground(Color.BLACK);
         panelJ.add(labelJ1);
         panelJ.add(labelJ2);
         panelJ.add(labelJ3);
         panelJ.add(labelJ4);
-
+        panelJ.setBackground(new Color(0,0,0,0));
         this.add(panelJ);
         this.update();
     }
@@ -53,6 +63,7 @@ public class VueJoueurs2 extends JPanel implements Observer{
     }
 
     private void paint(Joueur j, JLabel label) {
+        label.setFont(new Font("sansserif", Font.BOLD, 15));
         label.setText("Sable : "+j.get_nb_ActionSacSable()+"  Helico : "+j.get_nb_ActionHelico()+"            "+j.noms_artefacts_possession());
 
         s = modele.getJ_actuel().getNom_joueur();

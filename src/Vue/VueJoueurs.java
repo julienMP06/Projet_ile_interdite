@@ -29,13 +29,23 @@ public class VueJoueurs extends JPanel implements Observer{
         /**
          * On affiche le texte du haut, puis on ajoute au panel les différents textes pour les joueurs
          */
+        Affichage.setFont(new Font("sansserif", Font.BOLD, 15));
+        Affichage.setForeground(Color.BLACK);
         Affichage.setText("Joueur    Actions    Cle (F,A,T,E)");
+        labelJ1.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ1.setForeground(Color.BLACK);
+        labelJ2.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ2.setForeground(Color.BLACK);
+        labelJ3.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ3.setForeground(Color.BLACK);
+        labelJ4.setFont(new Font("sansserif", Font.BOLD, 15));
+        labelJ4.setForeground(Color.BLACK);
         panelJ.add(Affichage);
         panelJ.add(labelJ1);
         panelJ.add(labelJ2);
         panelJ.add(labelJ3);
         panelJ.add(labelJ4);
-
+        panelJ.setBackground(new Color(0,0,0,0));
         /**
          * On ajoute le panel pour pouvoir l'afficher
          */
@@ -64,6 +74,7 @@ public class VueJoueurs extends JPanel implements Observer{
          * On Fait le texte du label pour tous les joueurs sous la même forme,
          * On a plus qu'a appeler la méthode pour les différents joueurs
          */
+        label.setFont(new Font("sansserif", Font.BOLD, 15));
         label.setText(j.getNom_joueur()+"               "+j.getNb_act()+"                "+
                 j.get_nb_cle("Feu")+"  "+j.get_nb_cle("Air")+"  "+j.get_nb_cle("Terre")+"  "+j.get_nb_cle("Eau"));
 

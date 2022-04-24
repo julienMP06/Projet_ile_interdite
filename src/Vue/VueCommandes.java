@@ -82,7 +82,7 @@ class VueCommandes extends JPanel implements Observer{
 					}
 				}
 		);
-
+		panelC.setBackground(new Color(0,0,0,0));
 		panelC.add(boutonAvance);
 		panelC.add(button);
 		panelC.add(buttonAsseche);
