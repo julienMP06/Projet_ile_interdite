@@ -94,11 +94,17 @@ class VueCommandes extends JPanel implements Observer{
 		panelC.add(Helico);
 		panelC.add(retour);
 		panelC.add(labelSpace);
-		panelC.add(label);
 		panelC.revalidate();
 		panelC.repaint();
-		this.add(panelC);
-		//this.add(label);
+
+		JPanel PanelEnglobe = new JPanel();
+		PanelEnglobe.setLayout(new BorderLayout());
+
+		PanelEnglobe.setBackground(new Color(0,0,0,0));
+		PanelEnglobe.add(panelC,BorderLayout.CENTER);
+		PanelEnglobe.add(label,BorderLayout.SOUTH);
+
+		this.add(PanelEnglobe);
         JListenner jtl = new JListenner(modele,button,ctrl,label);
         button.addKeyListener(jtl);
     }
