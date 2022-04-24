@@ -46,7 +46,7 @@ public class JListenner extends KeyAdapter {
                                 modele.getJ_actuel().action_moins();
                                 label.setText("Droite");
                             } else {
-                                label.setText("Modele.Case Inondée !");
+                                label.setText("Case Inondée !");
                             }
                         } else {
                             label.setText("Impossible !");
@@ -64,7 +64,7 @@ public class JListenner extends KeyAdapter {
                                 modele.getJ_actuel().action_moins();
                                 label.setText("Gauche");
                             } else {
-                                label.setText("Modele.Case Inondée !");
+                                label.setText("Case Inondée !");
                             }
                         } else {
                             label.setText("Impossible !");
@@ -82,7 +82,7 @@ public class JListenner extends KeyAdapter {
                                 modele.getJ_actuel().action_moins();
                                 label.setText("Haut");
                             } else {
-                                label.setText("Modele.Case Inondée !");
+                                label.setText("Case Inondée !");
                             }
                         } else {
                             label.setText("Impossible !");
@@ -101,7 +101,7 @@ public class JListenner extends KeyAdapter {
                                 modele.getJ_actuel().action_moins();
                                 label.setText(" Bas");
                             } else {
-                                label.setText("Modele.Case Inondée !");
+                                label.setText("Case Inondée !");
                             }
                         } else {
                             label.setText("Impossible !");

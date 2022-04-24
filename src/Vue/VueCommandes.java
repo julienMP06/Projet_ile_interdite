@@ -45,9 +45,9 @@ class VueCommandes extends JPanel implements Observer{
         Controleur ctrl = new Controleur(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
         boutonAvance.addActionListener(ctrl);
 
-
         JButton button = new JButton("Deplacement");
-
+		JListenner jtl = new JListenner(modele,button,ctrl,label);
+		button.addKeyListener(jtl);
 
         JButton buttonAsseche = new JButton("Assecher");
 		ControleurAsseche ctrlAss = new ControleurAsseche(modele, label,panelC,EntrerX,EntrerY,valider,oui,validerEchange,CleEchange);
@@ -105,8 +105,6 @@ class VueCommandes extends JPanel implements Observer{
 		PanelEnglobe.add(label,BorderLayout.SOUTH);
 
 		this.add(PanelEnglobe);
-        JListenner jtl = new JListenner(modele,button,ctrl,label);
-        button.addKeyListener(jtl);
     }
 
 	@Override

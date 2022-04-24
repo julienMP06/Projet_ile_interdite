@@ -171,7 +171,7 @@ public class CVue extends JFrame implements ActionListener {
             }
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(icon, -200, -600, 800, 1200, this);
+                g.drawImage(icon, -180, -620, 820, 1240, this);
                 grille.setBounds(0,0,300,300);
                 commandes.setBackground(new Color(100,100,100,150));
                 commandes.setBounds(300,0,580,300);
@@ -187,18 +187,13 @@ public class CVue extends JFrame implements ActionListener {
         });
 
         grille = new VueGrille(modele);
-        //frame.add(grille);
 
         commandes = new VueCommandes(modele,frameMenu,frame);
-        //frame.add(commandes);
 
         joueurs = new VueJoueurs(modele);
-        //frame.add(joueurs);
 
         joueurs2 = new VueJoueurs2(modele);
-        //frame.add(joueurs2);
 
-        //frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
