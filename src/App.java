@@ -1,3 +1,6 @@
+import Modele.CModele;
+import Vue.CVue;
+
 import java.awt.*;
 
 //IleInterdite
